@@ -1,0 +1,128 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model User{
+  id          String @id @default(uuid())
+  username    String @unique 
+  fullname    String
+  email       String 
+  password    String
+
+  posts       Post[]
+  comments    Comment[]
+  likes       Like[]
+
+  bookmarks   Bookmark[]
+}
+
+model Post{
+  id          String  @id @default(uuid())
+  title       String
+  description String
+  post_img    String
+  keywords    String[]
+
+  author      User  @relation(fields: [authorId],references: [id])
+  authorId    String
+
+  comments    Comment[]
+  likes       Like[]
+
+  pages       Page[]
+
+  bookmark    Bookmark @relation(fields: [bookmark_id],references: [id])
+  bookmark_id String
+
+  created_at  DateTime @default(now())
+  updated_at  DateTime
+
+}
+
+model Page{
+  id          Int @id @default(autoincrement()) 
+  post        Post  @relation(fields: [post_id],references: [id])
+  post_id     String
+  page_cnt    Int @default(0)
+  markdowns   Markdown[]
+ 
+}
+
+model Markdown{
+  id          Int @id 
+  markdown    Page  @relation(fields: [page_id],references: [id])
+  page_id     Int
+}
+
+model Comment{
+  id          String @id @default(uuid())
+  title       String
+  post        Post  @relation(fields: [post_id],references: [id])
+  post_id     String
+
+  user        User @relation(fields: [user_id],references: [id])
+  user_id     String
+}
+
+model Like{
+  id          String @id @default(uuid())
+  post        Post  @relation(fields: [post_id],references: [id])
+  post_id     String
+
+  user        User   @relation(fields: [user_id],references: [id])
+  user_id     String
+}
+
+model Bookmark{
+  id          String  @id @default(uuid())
+  user        User  @relation(fields: [user_id],references: [id])
+  user_id     String
+
+  post        Post[]
+}
+
+//Blog model
+// model User{
+//   id  Int   @id   @default(autoincrement())
+//   name  String
+//   email String  @unique
+//   password  String?
+
+
+//   post  Post[]
+//   comment Comment[]//one user can do multiple comment
+
+//   created_at  DateTime @default(now())
+// }
+
+// model Post{
+//   id  Int @id @default(autoincrement())
+//   user  User   @relation(fields: [user_id],references: [id], onDelete: Cascade)
+//   user_id Int
+//   title String
+//   description String
+//   comments_cnt  BigInt  @default(0)
+
+//   comments  Comment[]
+
+
+//   created_at  DateTime @default(now())
+// }
+
+// model Comment{
+//   id String @id @default(uuid())
+//   post  Post  @relation(fields: [post_id],references: [id], onDelete: Cascade)
+//   post_id Int
+//   user  User  @relation(fields: [user_id],references: [id], onDelete: Cascade)
+//   user_id Int
+//   comment String
+
+//   created_at  DateTime @default(now())
+// }
+
