@@ -2,6 +2,8 @@ import { Hono } from "hono";
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import bcryptjs from 'bcryptjs';
+import { sign } from "hono/jwt";
+import { setSignedCookie } from "hono/cookie";
 
 //for importing env variable
 export const userRouter = new Hono<{
@@ -85,7 +87,74 @@ userRouter.post("/signup",async(c)=>{
 })
 
 //2. LOGIN ROUTE
+userRouter.post("/login",async(c)=>{
+    const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
 
-userRouter.get("/signin",async(c)=>{
-    return c.text("Hello from signin routes");
+    const body=await c.req.json();
+    //TOOD
+    //1. Add zod validaton
+    try{
+        //2. check wether the user exists in db or not
+        const user_exist=await prisma.user.findUnique({
+            where:{
+                username:body.username
+            }
+        })
+
+        if(!user_exist){
+            c.status(404)
+            return c.json({
+                success:false,
+                message:"User does'n exist | Please Signup First",
+            })
+        }
+
+        //3. verify the user password
+        const verify_password=await bcryptjs.compare(body.password,user_exist.password);
+        if(verify_password){
+            //4. create a payload 
+            const payload={
+                id:user_exist.id,
+                username:user_exist.username,
+                email:user_exist.email,
+                fullname:user_exist.fullname,
+            }
+
+            //5. create token
+            const token=await sign(payload,c.env.JWT_SECRET);
+
+            // Signed cookies
+            await setSignedCookie(c,"token",token,c.env.JWT_SECRET,{
+                secure: true,
+                httpOnly: true,
+                maxAge: 1000,
+                expires: new Date(Date.now()+3*24*60*50*1000),
+                sameSite: 'Strict',
+            })
+            
+            //6. return the success response.
+            return c.json({
+                status:200,
+                success:true,
+                message:"User Logged in",
+                data:user_exist,
+                token:token
+            })
+        }else{
+            //7. return the response if password not matched
+            return c.json({
+                status:401,
+                message:"Wrong Password"
+            })
+        }
+    }catch(error){
+        c.status(500);
+        console.log(error)
+        return c.json({
+            success:false,
+            message:"Internal Server Error in Login"
+        })
+    }
 })
