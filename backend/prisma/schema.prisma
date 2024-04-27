@@ -37,8 +37,8 @@ model Post{
 
   pages       Page[]
 
-  bookmark    Bookmark @relation(fields: [bookmark_id],references: [id])
-  bookmark_id String
+  bookmark    Bookmark? @relation(fields: [bookmark_id],references: [id])
+  bookmark_id String?
 
   created_at  DateTime @default(now())
   updated_at  DateTime
