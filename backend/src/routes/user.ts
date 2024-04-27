@@ -4,13 +4,17 @@ import { withAccelerate } from '@prisma/extension-accelerate'
 import bcryptjs from 'bcryptjs';
 import { sign } from "hono/jwt";
 import { setSignedCookie } from "hono/cookie";
+import { auth } from "../middlewares/middleware";
 
 //for importing env variable
 export const userRouter = new Hono<{
 	Bindings: {
 		DATABASE_URL: string,
 		JWT_SECRET: string,
-	}
+	},
+    Variables:{
+        userId:string
+    }
 }>();
 
 //1. SIGNUP ROUTE
@@ -155,6 +159,65 @@ userRouter.post("/login",async(c)=>{
         return c.json({
             success:false,
             message:"Internal Server Error in Login"
+        })
+    }
+})
+
+//middleware
+userRouter.use("/*",auth)
+
+//3. GET USER INFO INCLUDING POSTS, BOOKMARKS
+userRouter.get("/info",async(c)=>{
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env?.DATABASE_URL
+    }).$extends(withAccelerate());
+
+    const userId=c.get("userId");
+    try{
+        //1. fetch the user info including posts as well as bookmarks post
+        const user = await prisma.user.findFirst({
+            include: {
+              posts: {
+                where: {
+                  authorId:userId,
+                },
+              },
+              bookmarks:{
+                where:{
+                    user_id:userId
+                }
+              }
+            }
+          })
+
+        if(!user){
+            c.status(204);
+            c.json({
+                success:false,
+                message:"Erro in finding User details"
+            })
+        }
+        
+        //creating data which has to be send
+        const data={
+            id:user?.id,
+            username:user?.username,
+            fullname:user?.fullname,
+            email:user?.email,
+            posts:user?.posts,
+            bookmarks:user?.bookmarks
+        }
+        return c.json({
+            success:200,
+            message:"User Details Found",
+            data:data
+        })
+    }catch(error){
+        console.log(error)
+        return c.json({
+            status:400,
+            success:false,
+            message:"Internal server error in finding the user info"
         })
     }
 })
