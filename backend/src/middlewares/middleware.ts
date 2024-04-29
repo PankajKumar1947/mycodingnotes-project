@@ -1,7 +1,9 @@
+import { getCookie } from "hono/cookie";
 import { verify } from "hono/jwt";
 
 export const auth=async(c:any,next:any)=>{
-    const authHeader=c.req.header("authorization") || "";
+    const authHeader=c.req.header("authorization") || getCookie(c).token || "";
+    
     try{
         const user=await verify(authHeader,c.env.JWT_SECRET);
 

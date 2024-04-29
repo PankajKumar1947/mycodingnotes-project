@@ -154,7 +154,7 @@ postRouter.post("/getPost",async(c)=>{
         })
     }catch(error){
         c.status(500);
-        c.json({
+        return c.json({
             success:false,
             message:"Internal Server error"
         })

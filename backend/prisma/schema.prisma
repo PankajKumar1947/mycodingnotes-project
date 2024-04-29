@@ -50,6 +50,7 @@ model Page{
   post        Post  @relation(fields: [post_id],references: [id])
   post_id     String
   page_cnt    Int @default(0)
+  page_title  String
   markdowns   Markdown[]
  
 }
