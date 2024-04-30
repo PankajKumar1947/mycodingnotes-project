@@ -175,7 +175,10 @@ userRouter.get("/info",async(c)=>{
     const userId=c.get("userId");
     try{
         //1. fetch the user info including posts as well as bookmarks post
-        const user = await prisma.user.findFirst({
+        const user = await prisma.user.findUnique({
+            where:{
+                id:userId
+            },
             include: {
               posts: {
                 where: {
