@@ -382,3 +382,18 @@ postRouter.post("/comment/:post_id",async(c)=>{
     }
 })
 
+//bookmark post route
+postRouter.post("/bookmark/:post_id",async(c)=>{
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env?.DATABASE_URL
+    }).$extends(withAccelerate());
+
+    const post_id=c.req.param("post_id");
+    const user_id=c.get("userId");
+
+    try{
+        
+    }catch(error){
+
+    }
+})

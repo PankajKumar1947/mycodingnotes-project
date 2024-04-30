@@ -56,9 +56,10 @@ model Page{
 }
 
 model Markdown{
-  id          Int @id 
+  id          Int @id @default(autoincrement())
   markdown    Page  @relation(fields: [page_id],references: [id], onDelete: Cascade)
   page_id     Int
+  content     String
 }
 
 model Comment{
