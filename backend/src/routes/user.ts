@@ -221,3 +221,5 @@ userRouter.get("/info",async(c)=>{
         })
     }
 })
+
+//delete the user
