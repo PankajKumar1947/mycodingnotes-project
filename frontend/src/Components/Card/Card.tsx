@@ -1,4 +1,5 @@
 import { MdOutlineArrowCircleRight } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 
 export const Card = () => {
   return (
@@ -7,11 +8,20 @@ export const Card = () => {
         <div>
             <h1 className="text-xl font-semibold">First blog</h1>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur, mollitia dignissimos? Maxime laudantium assumend.</p>
+            {/* keywords section */}
+            <div className="flex gap-2 mt-2">
+              <button className="border-[1px] px-3 rounded-full">C</button>
+              <button className="border-[1px] px-3 rounded-full">CPP</button>
+              <button className="border-[1px] px-3 rounded-full">DSA</button>
+              
+            </div>
             <div className="absolute bottom-4 right-6 group cursor-pointer">
-                <div className="flex items-center border-[1px] rounded-lg px-4 py-2 bg-black gap-2">
+                <NavLink
+                to={"/viewpost"}
+                className="flex items-center border-[1px] rounded-lg px-4 py-2 bg-black gap-2">
                     <button className="">Explore</button>
                     <MdOutlineArrowCircleRight className="text-xl group-hover:rotate-45 duration-200 group-hover:text-2xl "/>
-                </div>
+                </NavLink>
                 
             </div>
         </div>
