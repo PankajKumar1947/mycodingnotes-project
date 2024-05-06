@@ -6,7 +6,7 @@ export const Login=()=>{
         <div className="flex justify-center items-center h-[100vh]">
             <div className="w-[80vw] h-[80vh] bg-black overflow-hidden border-[1px] rounded-lg grid grid-cols-2 items-center">
                 <div className="flex flex-col justify-center items-center gap-4 p-6">
-                    <h1 className="text-2xl font-bold">Welcome back Mr.</h1>
+                    <h1 className="text-2xl font-bold">MyCodingNotes</h1>
                     <img src={login} alt="mycodingnotes signup image" />
                 </div>
 

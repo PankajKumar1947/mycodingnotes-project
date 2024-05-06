@@ -6,6 +6,10 @@ import { Signup } from './Components/Auth/Signup.tsx'
 import { Login } from './Components/Auth/Login.tsx'
 import Layout from './Components/Layout.tsx'
 import { Home } from './Pages/Home.tsx'
+import { CreatePost} from './Pages/CreatePost.tsx'
+import ViewPost from './Pages/ViewPost.tsx'
+import Profile from './Pages/Profile.tsx'
+import { CreateMarkdown } from './Pages/CreateMarkdown.tsx'
 
 const router = createBrowserRouter([
   {
@@ -14,7 +18,7 @@ const router = createBrowserRouter([
     children:[
       {
         path:"",
-        element:<Home/>
+        element:<Home/>,
       },
       {
         path:"signup",
@@ -23,6 +27,22 @@ const router = createBrowserRouter([
       {
         path:"login",
         element:<Login/>
+      },
+      {
+        path:"createpost",
+        element:<CreatePost/>,
+      },
+      {
+        path:"createbookmark",
+        element:<CreateMarkdown/>
+      },
+      {
+        path:"viewpost",
+        element:<ViewPost/>
+      },
+      {
+        path:"profile",
+        element:<Profile/>
       }
     ]
   },

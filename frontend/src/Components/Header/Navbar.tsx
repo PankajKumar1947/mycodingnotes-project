@@ -13,7 +13,8 @@ export const Navbar = () => {
                 </div>
             </form>
 
-            <div>
+            <div className="flex gap-2 items-center">
+                <p className="">Profile</p>
                 <NavLink to={"/login"} className="p-2 border-[1px] px-5 rounded-full bg-green-600 hover:bg-green-700 border-none">Login</NavLink>
             </div>
         </div>
