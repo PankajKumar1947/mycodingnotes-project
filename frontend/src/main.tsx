@@ -10,6 +10,7 @@ import { CreatePost} from './Pages/CreatePost.tsx'
 import ViewPost from './Pages/ViewPost.tsx'
 import Profile from './Pages/Profile.tsx'
 import { CreateMarkdown } from './Pages/CreateMarkdown.tsx'
+import { Toaster } from 'react-hot-toast'
 
 const router = createBrowserRouter([
   {
@@ -33,12 +34,8 @@ const router = createBrowserRouter([
         element:<CreatePost/>,
       },
       {
-        path:"createbookmark",
+        path:":postid/createmarkdown",
         element:<CreateMarkdown/>
-      },
-      {
-        path:"viewpost",
-        element:<ViewPost/>
       },
       {
         path:"profile",
@@ -46,10 +43,15 @@ const router = createBrowserRouter([
       }
     ]
   },
+  {
+    path:"/viewpost",
+    element:<ViewPost/>
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <RouterProvider router={router} />
+    <Toaster/>
   </React.StrictMode>,
 )

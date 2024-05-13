@@ -3,9 +3,11 @@ import { userRouter } from './routes/user'
 import { postRouter } from './routes/Post'
 import { pageRouter } from './routes/page'
 import { markdownRouter } from './routes/markdown'
+import { cors } from 'hono/cors'
 
 const app = new Hono()
 
+app.use(cors())
 
 app.get('/', (c) => {
   return c.text('Hello Hono!')
