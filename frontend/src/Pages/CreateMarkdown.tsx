@@ -5,7 +5,7 @@ export const CreateMarkdown=()=>{
     const [input,setInput]=useState();
     return (
         <div>
-            <div className="min-h-[80vh] w-[90vw] mx-auto flex justify-center gap-1 ">
+            <div className="min-h-[80vh] my-2 w-[90vw] mx-auto flex justify-center gap-1 ">
                 <textarea 
                 onChange={(e:any)=>setInput(e.target.value)}
                 autoFocus

@@ -5,7 +5,9 @@ export const Navbar = () => {
   return (
     <div className="bg-black  py-2">
         <div className="w-[90vw] mx-auto flex justify-between items-center">
-            <h1 className="font-bold text-2xl">MyCodingNotes</h1>   
+            <NavLink to={"/"}>
+                <h1 className="font-bold text-2xl">MyCodingNotes</h1>   
+            </NavLink>
             <form action="" className="w-[50%]">
                 <div className="relative ">
                     <input type="text" placeholder="Search notes ....." className="w-[100%] bg-transparent p-2 px-4 border-[1px] border-gray-400 rounded-2xl" />
@@ -14,7 +16,7 @@ export const Navbar = () => {
             </form>
 
             <div className="flex gap-2 items-center">
-                <p className="">Profile</p>
+                <NavLink to={"/profile"} className="">Profile</NavLink>
                 <NavLink to={"/login"} className="p-2 border-[1px] px-5 rounded-full bg-green-600 hover:bg-green-700 border-none">Login</NavLink>
             </div>
         </div>

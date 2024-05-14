@@ -1,13 +1,19 @@
-import { Navbar } from "../Components/Header/Navbar"
-
+import { useNavigate } from "react-router-dom"
 
 export const CreatePost=()=>{
+  const navigate=useNavigate();
+  const handleSubmit=(e:any)=>{
+    e.preventDefault();
+    navigate("/:postid/createmarkdown")
+  }
+
     return (
         <>
-          <Navbar/>
-          <div className="sm:w-[90vw] mx-2 sm:mx-auto bg-black mt-2 py-4 rounded-2xl">
+          <div className="sm:w-[90vw] mx-2 sm:mx-auto bg-black my-2 py-4 rounded-2xl">
             <h1 className="text-2xl text-center font-bold">Create new note</h1>
-            <form action="" className="w-[95vw] sm:w-[80vw] mx-auto flex flex-col gap-4 p-2">
+            <form 
+            onSubmit={handleSubmit}
+            action="" className="w-[95vw] sm:w-[80vw] mx-auto flex flex-col gap-4 p-2">
               <div className="flex flex-col gap-1">
                 <label htmlFor="title" className="font-semibold">Title for note</label>
                 <input type="text" className="w-full p-2 bg-black border-[1px] rounded-md" placeholder="Title" />
