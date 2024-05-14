@@ -149,6 +149,7 @@ userRouter.post("/login",async(c)=>{
         }else{
             //7. return the response if password not matched
             return c.json({
+                success:false,
                 status:401,
                 message:"Wrong Password"
             })
