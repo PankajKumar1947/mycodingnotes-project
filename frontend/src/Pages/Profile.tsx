@@ -5,8 +5,22 @@ import axios from "axios";
 import { AUTH_ENDPOINTS } from "../Services/apis";
 import { logout } from "../Services/operations/logout";
 
+interface User{
+  fullname:string,
+  username:string,
+  email:string,
+  notes:[],
+  savednotes:[],
+}
+
 const Profile = () => {
-  const [user,setUser]=useState({});
+  const [user,setUser]=useState<User>({
+    fullname:"",
+    username:"",
+    email:"",
+    notes:[],
+    savednotes:[],
+  });
   const navigate=useNavigate();
 
   const getUser=async(token:string)=>{
@@ -15,7 +29,15 @@ const Profile = () => {
         headers: {
         'Authorization': `${token}`
       }})
-      setUser(response?.data);
+      const data=response.data?.data;
+      console.log(data)
+      setUser({
+        username:data.username,
+        fullname:data.fullname,
+        email:data.email,
+        notes:data.notes,
+        savednotes:data.savednotes,
+      });
     }catch(error){
       console.log("Error in getting user info")
     }
@@ -23,12 +45,11 @@ const Profile = () => {
 
   useEffect(()=>{
     const token = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")!) : null;
+    console.log("Fetching the user details....")
     getUser(token);
   },[])
 
-  useEffect(()=>{
-    console.log("User",user)
-  },[user])
+ 
 
   return (
     <div className="sm:w-[80vw] mx-auto">
@@ -40,8 +61,8 @@ const Profile = () => {
               className="w-20 h-20 rounded-full mr-4"
             />
             <div>
-              <h1 className="text-xl sm:text-3xl font-bold">{user?.data?.fullname}</h1>
-              <p className="text-gray-400">{user?.data?.username}</p>
+              <h1 className="text-xl sm:text-3xl font-bold">{user.fullname}</h1>
+              <p className="text-gray-400">{user.username}</p>
             </div>
           </div>
           <div className="flex gap-4 text-sm">

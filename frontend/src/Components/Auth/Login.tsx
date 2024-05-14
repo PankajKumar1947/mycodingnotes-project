@@ -19,7 +19,8 @@ export const Login=()=>{
             const response=await axios.post(AUTH_ENDPOINTS.LOGIN_API,data);
             if(response.data && response.data.success){
                 // Successful login
-                console.log(response)
+                //console.log(response)
+                localStorage.setItem("token",JSON.stringify(response.data.token));
                 toast.success("Logged in ... ");
                 navigate("/profile")
             }else{ 
