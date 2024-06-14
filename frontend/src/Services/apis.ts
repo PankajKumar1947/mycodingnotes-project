@@ -6,3 +6,8 @@ export const AUTH_ENDPOINTS={
     LOGIN_API:BASE_URL+"/user/login",
     USER_INFO_API:BASE_URL+"/user/info"
 }
+
+//create notes
+export const NOTES_ENDPOINTS={
+    CREATE_NOTE:BASE_URL+"/post/createPost"
+}
