@@ -1,4 +1,4 @@
 # mycodingnotes-project
 
 # created 
-# github test
+# github connection test
