@@ -11,6 +11,9 @@ import ViewPost from './Pages/ViewPost.tsx'
 import Profile from './Pages/Profile.tsx'
 import { CreateMarkdown } from './Pages/CreateMarkdown.tsx'
 import { Toaster } from 'react-hot-toast'
+import { configureStore } from '@reduxjs/toolkit'
+import rootReducer from './reducers/index.ts'
+import { Provider } from 'react-redux'
 
 const router = createBrowserRouter([
   {
@@ -49,9 +52,15 @@ const router = createBrowserRouter([
   },
 ]);
 
+const store=configureStore({
+  reducer:rootReducer
+})
+
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
-    <Toaster/>
+    <Provider store={store}>
+      <RouterProvider router={router} />
+      <Toaster />
+    </Provider>
   </React.StrictMode>,
 )

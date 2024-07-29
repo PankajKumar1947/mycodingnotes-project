@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import axios from "axios";
 import { AUTH_ENDPOINTS } from "../Services/apis";
 import { logout } from "../Services/operations/logout";
+import { useDispatch } from "react-redux";
 
 interface User{
   fullname:string,
@@ -14,6 +15,7 @@ interface User{
 }
 
 const Profile = () => {
+  const dispatch=useDispatch();
   const [user,setUser]=useState<User>({
     fullname:"",
     username:"",
@@ -68,7 +70,7 @@ const Profile = () => {
           <div className="flex gap-4 text-sm">
             <button className="px-4 bg-yellow-500 py-1 rounded-full">Edit</button>
             <button 
-            onClick={()=>logout(navigate)}
+            onClick={()=>logout(navigate,dispatch)}
             className="px-4 bg-red-500 py-1 rounded-full">Logout</button>
           </div>
           

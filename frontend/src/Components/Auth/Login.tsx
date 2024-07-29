@@ -4,6 +4,8 @@ import { SubmitHandler, useForm } from "react-hook-form"
 import toast from "react-hot-toast"
 import axios from "axios"
 import { AUTH_ENDPOINTS } from "../../Services/apis"
+import { useDispatch } from "react-redux"
+import { setIsLoggedIn } from "../../slices/loginSlice"
 
 interface loginData{
     username:string,
@@ -12,12 +14,14 @@ interface loginData{
 
 export const Login=()=>{
     const navigate=useNavigate();
+    const dispatch=useDispatch();
 
     const {register,handleSubmit}=useForm<loginData>();
     const onSubmit: SubmitHandler<loginData> = async(data) => {
         try{
             const response=await axios.post(AUTH_ENDPOINTS.LOGIN_API,data);
             if(response.data && response.data.success){
+                dispatch(setIsLoggedIn(true))
                 // Successful login
                 //console.log(response)
                 localStorage.setItem("token",JSON.stringify(response.data.token));
