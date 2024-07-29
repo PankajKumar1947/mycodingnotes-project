@@ -13,10 +13,7 @@ export const userRouter = new Hono<{
 		JWT_SECRET: string,
 	},
     Variables:{
-        userId:string,
-        username:string,
-        fullname:string,
-        email:string
+        userId:string
     }
 }>();
 
@@ -169,40 +166,6 @@ userRouter.post("/login",async(c)=>{
 
 //middleware
 userRouter.use("/*",auth)
-
-userRouter.get("verifytoken",async(c)=>{
-    try{
-        const data={
-            userid:c.get("userId"),
-            username:c.get("username"),
-            email:c.get("email"),
-            fullname:c.get("fullname"),
-            loggedIn:true
-        }
-
-        if (!data) {
-            return c.json({
-                success: false,
-                status: 400,
-                message: "userId not provided",
-            });
-        }
-
-        return c.json({
-            success:true,
-            status:200,
-            message:"Verified token",
-            data:data
-        })
-    }catch(error){
-        c.status(500);
-        console.log(error);
-        return c.json({
-            success:false,
-            message:"Internal Server error in verifying token"
-        })
-    }
-})
 
 //3. GET USER INFO INCLUDING POSTS, BOOKMARKS
 userRouter.get("/info",async(c)=>{

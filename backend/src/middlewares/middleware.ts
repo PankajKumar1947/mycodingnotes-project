@@ -9,9 +9,6 @@ export const auth=async(c:any,next:any)=>{
 
         if(user){
             c.set("userId",user.id);
-            c.set("username",user.username);
-            c.set("fullname",user.fullname);
-            c.set("email",user.email);
             await next();
         }else{
             c.status(403);
@@ -21,7 +18,6 @@ export const auth=async(c:any,next:any)=>{
         }
     }catch(error){
         c.status(403);
-        console.log(error)
         return c.json({
             message: "You are not logged in"
         })
