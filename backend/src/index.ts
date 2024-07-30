@@ -8,7 +8,7 @@ import { cors } from 'hono/cors'
 const app = new Hono()
 
 app.use('*', cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://mycodingnotes.vercel.app',
   allowHeaders: ['Origin', 'Content-Type', 'Content-Length', 'Host','User-Agent','Connection', 'Authorization'],
   allowMethods: ['GET', 'OPTIONS', 'POST', 'PUT', 'DELETE'],
   credentials: true
