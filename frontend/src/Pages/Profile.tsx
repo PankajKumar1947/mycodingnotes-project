@@ -118,7 +118,7 @@ const Profile = () => {
                 {
                   user.savednotes.map((post, ind) => {
                     return (
-                      <Card key={ind} />
+                      <Card key={ind} post={post} />
                     )
                   })
                 }
