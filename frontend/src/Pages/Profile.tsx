@@ -98,7 +98,7 @@ const Profile = () => {
                 {
                   user.notes.map((post, ind) => {
                     return (
-                      <Card key={ind} />
+                      <Card key={ind} post={post} />
                     )
                   })
                 }
