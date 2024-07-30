@@ -7,7 +7,13 @@ import { cors } from 'hono/cors'
 
 const app = new Hono()
 
-app.use(cors())
+const corsOptions = {
+  origin: 'https://mycodingnotes.vercel.app', 
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], 
+  headers: ['Content-Type', 'Authorization'],
+};
+
+app.use(cors(corsOptions));
 
 app.get('/', (c) => {
   return c.text('Hello Hono!')
