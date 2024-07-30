@@ -6,6 +6,7 @@ import axios from "axios"
 import { AUTH_ENDPOINTS } from "../../Services/apis"
 import { useDispatch } from "react-redux"
 import { setIsLoggedIn } from "../../slices/loginSlice"
+import { verifytoken } from "../../Services/operations/auth"
 
 interface loginData{
     username:string,
@@ -25,6 +26,8 @@ export const Login=()=>{
                 // Successful login
                 //console.log(response)
                 localStorage.setItem("token",JSON.stringify(response.data.token));
+                const verifytokenResponse = await verifytoken();
+                localStorage.setItem('isLoggedIn', JSON.stringify(verifytokenResponse.data));
                 toast.success("Logged in ... ");
                 navigate("/profile")
             }else{ 
