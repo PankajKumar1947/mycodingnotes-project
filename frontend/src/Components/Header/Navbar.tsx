@@ -13,13 +13,13 @@ export const Navbar = () => {
             try {
                 const verifytokenResponse = await verifytoken();
                 dispatch(setLogin(verifytokenResponse));
+                localStorage.setItem('isLoggedIn', JSON.stringify(verifytokenResponse.data));
             } catch (error) {
                 console.log(error);
             }
         }
         verifyToken();
     }, [login])
-    console.log("user from nabar", user)
 
     return (
         <div className="bg-black  py-2">
