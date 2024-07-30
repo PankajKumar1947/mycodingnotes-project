@@ -1,7 +1,8 @@
 import { MdOutlineArrowCircleRight } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
-export const Card = () => {
+export const Card = ({post}:any) => {
+  console.log("post",post)
   return (
     <div className="border-[1px] rounded-lg bg-zinc-900 p-2 flex gap-4 relative">
         <img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F085e8ad8-528e-47d7-8922-a23dc4016453%2F6149d7bc-57ad-4f0d-9469-ecd452329d3a%2FxTkbdgnzQzGI17aOBUh2Cg.jpeg?table=block&id=bb1052e8-bad5-42e8-969c-444886cc3fd7&cache=v2" alt="" className="h-[200px] w-[200px] rounded-lg "/>

@@ -10,7 +10,7 @@ export const verifytoken =async()=>{
     try{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
-        const response=await apiConnector("GET",VERIFY_TOKEN,{},headers,{})
+        const response=await apiConnector("GET",VERIFY_TOKEN,{},headers as any,{})
         return response.data;
     }catch(error){
         console.log("error occured in verifying token");

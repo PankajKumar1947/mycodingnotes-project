@@ -14,6 +14,8 @@ import { Toaster } from 'react-hot-toast'
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './reducers/index.ts'
 import { Provider } from 'react-redux'
+import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes.tsx'
+import OpenRoute from './Components/ProtectedRoutes/OpenRoute.tsx'
 
 const router = createBrowserRouter([
   {
@@ -26,23 +28,34 @@ const router = createBrowserRouter([
       },
       {
         path:"signup",
-        element:<Signup/>
+        element:<OpenRoute>
+          <Signup/> 
+        </OpenRoute>
       },
       {
         path:"login",
-        element:<Login/>
+        element:<OpenRoute>
+          <Login/>
+        </OpenRoute>
       },
       {
         path:"createpost",
-        element:<CreatePost/>,
+        element: <ProtectedRoutes>
+          <CreatePost/>,
+        </ProtectedRoutes>
       },
       {
         path:":postid/createmarkdown",
-        element:<CreateMarkdown/>
+        element: <ProtectedRoutes>
+          <CreateMarkdown/>
+        </ProtectedRoutes>
+        
       },
       {
         path:"profile",
-        element:<Profile/>
+        element: <ProtectedRoutes>
+            <Profile/>
+          </ProtectedRoutes>
       }
     ]
   },
