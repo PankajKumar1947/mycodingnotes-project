@@ -7,12 +7,14 @@ import { cors } from 'hono/cors'
 
 const app = new Hono()
 
-app.use('*', cors({
-  origin: 'http://localhost:3000',
-  allowHeaders: ['Origin', 'Content-Type', 'Content-Length', 'Host','User-Agent','Connection', 'Authorization'],
-  allowMethods: ['GET', 'OPTIONS', 'POST', 'PUT', 'DELETE'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: 'http://localhost:5173', 
+    allowMethods: ['GET', 'POST', 'PUT', 'DELETE'], 
+    allowHeaders: ['Content-Type', 'Authorization'], 
+    credentials: true,  
+  })
+);
 
 app.get('/', (c) => {
   return c.text('Hello Hono!')

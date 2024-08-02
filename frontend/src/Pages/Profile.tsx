@@ -3,7 +3,7 @@ import { Card } from "../Components/Card/Card"
 import { useEffect, useState } from "react"
 import axios from "axios";
 import { AUTH_ENDPOINTS } from "../Services/apis";
-import { logout } from "../Services/operations/logout";
+import { logout } from "../Services/operations/auth";
 import { useDispatch } from "react-redux";
 import Loader from "../Components/Loaders/Loader";
 
