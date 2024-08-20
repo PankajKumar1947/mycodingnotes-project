@@ -94,11 +94,11 @@ const Profile = () => {
 
           <div className="w-full">
             {
-              user?.notes?.length > 0 ? <div className="grid border-2 sm:grid-cols-2 gap-2">
+              user?.notes?.length > 0 ? <div className="grid sm:grid-cols-2 gap-2">
                 {
                   user.notes.map((post, ind) => {
                     return (
-                      <Card key={ind} post={post} />
+                      <Card key={ind} note={post} />
                     )
                   })
                 }

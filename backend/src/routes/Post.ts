@@ -13,6 +13,43 @@ export const postRouter = new Hono<{
     }
 }>();
 
+//fetch the post
+postRouter.get("/bulk",async(c)=>{
+    const prisma = new PrismaClient({
+		datasourceUrl: c.env?.DATABASE_URL	,
+	}).$extends(withAccelerate());
+
+    try{
+        const posts=await prisma.post.findMany({
+            include:{
+                likes:true,
+                comments:true
+            }
+        });
+
+        if(!posts){
+            c.status(404);
+            return c.json({
+                success:false,
+                messgae:"No Post found"
+            })
+        }
+
+        return c.json({
+            status:200,
+            success:true,
+            message:"Post fetched ",
+            data:posts,
+        })
+    }catch(error){
+        c.status(500);
+        return c.json({
+            success:false,
+            message:"Internal Server Error in Post Fetching"
+        })
+    }
+})
+
 //creating middleware
 postRouter.use("/*",auth)
 
@@ -22,6 +59,7 @@ postRouter.post("/createPost",async(c)=>{
 		datasourceUrl: c.env?.DATABASE_URL	,
 	}).$extends(withAccelerate());
 
+    console.log("check1")
     const body=await c.req.json();
     //TODO
     //1. zod validation
@@ -42,7 +80,7 @@ postRouter.post("/createPost",async(c)=>{
                 message:"User not Found"
             })
         }
-
+        console.log("check1")
         //3. create the post in db
         const post=await prisma.post.create({
             data:{
@@ -79,43 +117,6 @@ postRouter.post("/createPost",async(c)=>{
         return c.json({
             success:false,
             message:"Internal Server Error in Post"
-        })
-    }
-})
-
-//fetch the post
-postRouter.get("/bulk",async(c)=>{
-    const prisma = new PrismaClient({
-		datasourceUrl: c.env?.DATABASE_URL	,
-	}).$extends(withAccelerate());
-
-    try{
-        const posts=await prisma.post.findMany({
-            include:{
-                likes:true,
-                comments:true
-            }
-        });
-
-        if(!posts){
-            c.status(404);
-            return c.json({
-                success:false,
-                messgae:"No Post found"
-            })
-        }
-
-        return c.json({
-            status:200,
-            success:true,
-            message:"Post fetched ",
-            data:posts,
-        })
-    }catch(error){
-        c.status(500);
-        return c.json({
-            success:false,
-            message:"Internal Server Error in Post Fetching"
         })
     }
 })

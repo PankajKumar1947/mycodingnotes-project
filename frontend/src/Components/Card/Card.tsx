@@ -1,20 +1,26 @@
 import { MdOutlineArrowCircleRight } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
-export const Card = ({post}:any) => {
-  console.log("post",post)
+export const Card = ({post,note}:any) => {
+  console.log("post",post);
+  console.log("notes=",note)
   return (
-    <div className="border-[1px] rounded-lg bg-zinc-900 p-2 flex gap-4 relative">
+    <div className="border-[1px] rounded-lg bg-zinc-900 p-2 flex gap-4 relative h-[220px]">
         <img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F085e8ad8-528e-47d7-8922-a23dc4016453%2F6149d7bc-57ad-4f0d-9469-ecd452329d3a%2FxTkbdgnzQzGI17aOBUh2Cg.jpeg?table=block&id=bb1052e8-bad5-42e8-969c-444886cc3fd7&cache=v2" alt="" className="h-[200px] w-[200px] rounded-lg "/>
         <div>
-            <h1 className="text-xl font-semibold">First blog</h1>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aspernatur, mollitia dignissimos? Maxime laudantium assumend.</p>
+            <h1 className="text-xl font-semibold">{note?.title}</h1>
+            <p>{note?.description}</p>
             {/* keywords section */}
             <div className="flex gap-2 mt-2">
-              <button className="border-[1px] px-3 rounded-full">C</button>
-              <button className="border-[1px] px-3 rounded-full">CPP</button>
-              <button className="border-[1px] px-3 rounded-full">DSA</button>
-              
+              {
+                note?.keywords?.map((keyword:string)=>{
+                  return (
+                    <button
+                    key={keyword}
+                    className="border-[1px] px-3 rounded-full">{keyword}</button>
+                  )
+                })
+              } 
             </div>
             <div className="absolute bottom-4 right-6 group cursor-pointer">
                 <NavLink
