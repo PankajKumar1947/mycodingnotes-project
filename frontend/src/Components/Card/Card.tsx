@@ -1,13 +1,9 @@
 import { MdOutlineArrowCircleRight } from "react-icons/md";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setPageLength } from "../../slices/pageCountSlice";
 
 export const Card = ({post,note}:any) => {
   const navigate=useNavigate();
-  const dispatch=useDispatch();
   const viewPostHandler=()=>{
-    dispatch(setPageLength(note.pages.length))
     navigate(`/viewnotes/${note.id}`);
   }
   console.log("post",post);
@@ -31,12 +27,12 @@ export const Card = ({post,note}:any) => {
               } 
             </div>
             <div className="absolute bottom-4 right-6 group cursor-pointer">
-                <button
+                <div
                 onClick={viewPostHandler}
                 className="flex items-center border-[1px] rounded-lg px-4 py-2 bg-black gap-2">
                     <button className="">Explore</button>
                     <MdOutlineArrowCircleRight className="text-xl group-hover:rotate-45 duration-200 group-hover:text-2xl "/>
-                </button>
+                </div>
                 
             </div>
         </div>

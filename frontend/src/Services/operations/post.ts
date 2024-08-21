@@ -25,7 +25,7 @@ export const getPage=async(postId:string,pageId:string)=>{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         const response=await apiConnector("GET",GET_PAGE(postId,pageId),{},headers as any, {});
-        return response.data.data;
+        return response.data;
     }catch(error){
         console.log("error occured in getting the page");
     }
