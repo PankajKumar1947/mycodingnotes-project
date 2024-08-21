@@ -60,8 +60,8 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path:"/viewpost",
-    element:<ViewPost/>
+    path:"/viewnotes/:postid",
+    element:<ViewPost/>,
   },
 ]);
 

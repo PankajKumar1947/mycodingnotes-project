@@ -24,7 +24,7 @@ export const Card = ({post,note}:any) => {
             </div>
             <div className="absolute bottom-4 right-6 group cursor-pointer">
                 <NavLink
-                to={"/viewpost"}
+                to={`/viewnotes/${note.id}`}
                 className="flex items-center border-[1px] rounded-lg px-4 py-2 bg-black gap-2">
                     <button className="">Explore</button>
                     <MdOutlineArrowCircleRight className="text-xl group-hover:rotate-45 duration-200 group-hover:text-2xl "/>
