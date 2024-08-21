@@ -23,7 +23,8 @@ postRouter.get("/bulk",async(c)=>{
         const posts=await prisma.post.findMany({
             include:{
                 likes:true,
-                comments:true
+                comments:true,
+                pages: true,
             }
         });
 

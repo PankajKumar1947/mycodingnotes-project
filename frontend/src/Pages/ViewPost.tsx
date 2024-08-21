@@ -3,22 +3,24 @@ import PostNabar from "../Components/Header/PostNabar";
 import { getPage } from "../Services/operations/post";
 import Loader from "../Components/Loaders/Loader";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
 const ViewPost = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const pageCnt=useSelector((state:any)=>state.page.pagecnt);
 
   useEffect(() => {
     setLoading(true);
     const fetchPageDetails = async () => {
       const id = window.location.pathname.split("/")[2];
-      const response = await getPage(id, "1");
+      const response = await getPage(id, pageCnt);
       setData(response?.markdowns);
       setLoading(false);
     }
 
     fetchPageDetails();
-  }, [])
+  }, [pageCnt])
   return (
     <div className='min-h-[90vh]  mx-auto'>
       <PostNabar />
