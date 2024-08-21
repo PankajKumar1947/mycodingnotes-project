@@ -1,9 +1,13 @@
 import { MdOutlineArrowCircleRight } from "react-icons/md";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setPageCnt } from "../../slices/pageCountSlice";
 
 export const Card = ({post,note}:any) => {
   const navigate=useNavigate();
+  const dispatch=useDispatch();
   const viewPostHandler=()=>{
+    dispatch(setPageCnt(1));
     navigate(`/viewnotes/${note.id}`);
   }
   console.log("post",post);
