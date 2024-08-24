@@ -1,4 +1,5 @@
 import { useState } from 'react'
+
 import {
   EditorCommand,
   EditorCommandEmpty,
@@ -11,7 +12,11 @@ import {
 
 import { ImageResizer, handleCommandNavigation } from 'novel/extensions'
 import { handleImageDrop, handleImagePaste } from 'novel/plugins'
-import { slashCommand, suggestionItems } from '@/Components/editor/slash-command'
+
+import {
+  slashCommand,
+  suggestionItems
+} from '@/Components/editor/slash-command'
 import EditorMenu from '@/Components/editor/editor-menu'
 import { uploadFn } from '@/Components/editor/image-upload'
 import { defaultExtensions } from '@/Components/editor/extensions'
@@ -22,6 +27,8 @@ import { MathSelector } from '@/Components/editor/selectors/math-selector'
 import { ColorSelector } from '@/Components/editor/selectors/color-selector'
 
 import { Separator } from '@/Components/ui/separator'
+
+// import hljs from 'highlight.js'
 
 const extensions = [...defaultExtensions, slashCommand]
 
@@ -52,13 +59,13 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
   //   doc.querySelectorAll('pre code').forEach(el => {
   //     // @ts-ignore
   //     // https://highlightjs.readthedocs.io/en/latest/api.html?highlight=highlightElement#highlightelement
-
+  //     hljs.highlightElement(el)
   //   })
   //   return new XMLSerializer().serializeToString(doc)
   // }
 
   return (
-    <div className='relative w-full'>
+    <div className='relative w-full '>
       <EditorRoot>
         <EditorContent
           immediatelyRender={false}
@@ -83,7 +90,7 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
           }}
           slotAfter={<ImageResizer />}
         >
-          <EditorCommand className='z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-background px-1 py-2 shadow-md transition-all '>
+          <EditorCommand className='z-50 h-auto max-h-[330px] overflow-y-auto rounded-md border border-muted bg-white px-1 py-2 shadow-md transition-all text-black'>
             <EditorCommandEmpty className='px-2 text-muted-foreground'>
               No results
             </EditorCommandEmpty>
@@ -92,7 +99,7 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
                 <EditorCommandItem
                   value={item.title}
                   onCommand={val => item.command?.(val)}
-                  className='flex w-full items-center space-x-2 rounded-md px-2 py-1 text-black text-left text-sm hover:bg-gray-400 aria-selected:bg-accent'
+                  className='flex w-full items-center space-x-2 rounded-md px-2 py-1 text-left text-sm hover:bg-accent aria-selected:bg-accent'
                   key={item.title}
                 >
                   <div className='flex h-10 w-10 items-center justify-center rounded-md border border-muted bg-background'>

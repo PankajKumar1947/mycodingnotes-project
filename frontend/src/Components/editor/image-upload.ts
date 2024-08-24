@@ -1,5 +1,5 @@
 import { createImageUpload } from "novel/plugins";
-import { toast } from "sonner";
+import { toast } from "react-hot-toast";
 
 const onUpload = (file: File) => {
   const promise = fetch("/api/upload", {

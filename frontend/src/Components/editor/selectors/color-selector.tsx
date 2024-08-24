@@ -6,7 +6,7 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger
-} from '../../ui/popover'
+} from '@/Components/ui/popover'
 export interface BubbleColorMenuItem {
   name: string
   color: string
