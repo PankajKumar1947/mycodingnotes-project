@@ -1,20 +1,31 @@
 import { useState } from "react";
-import { Codeblock } from "../Components/Codeblock/Codeblock";
+import Editor from "@/Components/editor/editor";
+import { Button } from "@/Components/ui/button";
 
-export const CreateMarkdown=()=>{
-    const [input,setInput]=useState();
+export const defaultValue = {
+    type: 'doc',
+    content: [
+        {
+            type: 'paragraph',
+            content: []
+        }
+    ]
+}
+
+export const CreateMarkdown = () => {
+    const [content, setContent] = useState('')
+    const handleSubmit = async () => {
+        console.log("content ", content);
+    }
     return (
-        <div>
-            <div className="min-h-[80vh] my-2 w-[90vw] mx-auto flex justify-center gap-1 ">
-                <textarea 
-                onChange={(e:any)=>setInput(e.target.value)}
-                autoFocus
-                name="" id="" cols={30} rows={10} className="bg-gray-800 w-[50%] text-white p-2">
-
-                </textarea>
-                <div className="w-[50%] border-[1px] text-sm  text-black">
-                    <Codeblock input={input}/>
-                </div>
+        <div className="min-h-[80vh] my-2 w-[90vw] mx-auto ">
+            <div className="bg-white overflow-hidden rounded-xl mt-4">
+                <Editor initialValue={defaultValue} onChange={setContent} />
+            </div>
+            <div className="flex justify-end mt-4">
+                <Button
+                    onClick={handleSubmit}
+                    className="bg-green-500 px-10 text-black hover:bg-green-400">Save</Button>
             </div>
         </div>
     )

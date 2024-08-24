@@ -30,7 +30,7 @@ const ViewPost = () => {
       {
         loading ? <div>
           <Loader />
-        </div> : <div className="w-[90vw] mx-auto ">
+        </div> : <div className=" mx-auto prose lg:prose-xl bg-white px-10">
           {
             data?.length > 0 ? data.map((markdown: any) => {
               return (
@@ -41,10 +41,11 @@ const ViewPost = () => {
                 <h1>Nothing inside</h1>
               </div>
           }
-
         </div>
       }
+      
     </div>
+    
   )
 }
 
