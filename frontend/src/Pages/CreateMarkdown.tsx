@@ -13,13 +13,13 @@ export const defaultValue = {
 }
 
 export const CreateMarkdown = () => {
-    const [content, setContent] = useState('')
+    const [content, setContent] = useState<string>('')
     const handleSubmit = async () => {
         console.log("content ", content);
     }
     return (
         <div className="min-h-[80vh] my-2 w-[90vw] mx-auto ">
-            <div className="bg-white overflow-hidden rounded-xl mt-4">
+            <div className="bg-white text-black overflow-hidden rounded-xl mt-4">
                 <Editor initialValue={defaultValue} onChange={setContent} />
             </div>
             <div className="flex justify-end mt-4">
