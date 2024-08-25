@@ -8,6 +8,7 @@ import { setPageLength } from "../slices/pageCountSlice";
 
 const ViewPost = () => {
   const [data, setData] = useState([]);
+  const [pageTitle,setPageTitle]=useState<string>("");
   const [loading, setLoading] = useState(false);
   const pageCnt = useSelector((state: any) => state.page.pagecnt);
   const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const ViewPost = () => {
     const fetchPageDetails = async () => {
       const postId = window.location.pathname.split("/")[2];
       const response = await getPage(postId, pageCnt);
+      setPageTitle(response?.data?.page_title);
       setData(response?.data?.markdowns);
       dispatch(setPageLength(response?.pageLength || 1));
       setLoading(false);
@@ -31,7 +33,8 @@ const ViewPost = () => {
         loading ? <div>
           <Loader />
         </div> : <div className=" mx-auto prose lg:prose-xl bg-white px-10">
-          {
+          <div className="text-black">{pageTitle}</div>
+          {          
             data?.length > 0 ? data.map((markdown: any) => {
               return (
                 <Codeblock input={markdown?.content} key={markdown.id} />

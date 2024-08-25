@@ -7,7 +7,8 @@ const {
 ;
 
 const {
-    GET_PAGE
+    GET_PAGE,
+    CREATE_PAGE
 }=PAGE_ENDPOINTS
 
 export const getAllNotes=async()=>{
@@ -25,6 +26,20 @@ export const getPage=async(postId:string,pageId:string)=>{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         const response=await apiConnector("GET",GET_PAGE(postId,pageId),{},headers as any, {});
+        return response.data;
+    }catch(error){
+        console.log("error occured in getting the page");
+    }
+}
+
+export const createPage=async(postId:string,page_title:string)=>{
+    try{
+        const token = localStorage.getItem('token');
+        const headers = token ? { Authorization: JSON.parse(token) } : {};
+        const response=await apiConnector("POST",CREATE_PAGE,{
+            page_title:page_title,
+            post_id:postId,
+        },headers as any, {});
         return response.data;
     }catch(error){
         console.log("error occured in getting the page");

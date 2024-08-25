@@ -14,20 +14,20 @@ export const pageRouter = new Hono<{
 }>();
 
 //get the page
-pageRouter.get("/:post_id/:page_id",async(c)=>{
+pageRouter.get("/:post_id/:page_cnt",async(c)=>{
     const prisma = new PrismaClient({
 		datasourceUrl: c.env?.DATABASE_URL,
 	}).$extends(withAccelerate());
 
     //get the post_id and page_id from the url
     const post_id=c.req.param("post_id");
-    const page_id=c.req.param('page_id')
+    const page_cnt=c.req.param('page_cnt')
     try{
         //1. find the page with post_id and page_id
-        const page=await prisma.page.findUnique({
+        const page=await prisma.page.findFirst({
             where:{
                 post_id:post_id,
-                id:Number(page_id)
+                page_cnt:Number(page_cnt),
             },
             include:{
                 markdowns:true
