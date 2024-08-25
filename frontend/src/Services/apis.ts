@@ -8,7 +8,18 @@ export const AUTH_ENDPOINTS={
     USER_INFO_API:BASE_URL+"/user/info"
 }
 
+//post endpoints
+export const POST_ENDPOINTS={
+    GET_ALL_POST_API:BASE_URL+"/post/bulk"
+}
+
 //create notes
 export const NOTES_ENDPOINTS={
     CREATE_NOTE:BASE_URL+"/post/createPost"
+}
+
+//create page
+export const PAGE_ENDPOINTS={
+    CREATE_PAGE:BASE_URL+"/post/page/create",
+    GET_PAGE:(postId:string,pageId:string)=>BASE_URL+`/post/page/${postId}/${pageId}`
 }

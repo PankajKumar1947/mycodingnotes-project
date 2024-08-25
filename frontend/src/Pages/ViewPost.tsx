@@ -1,64 +1,54 @@
 import { Codeblock } from "../Components/Codeblock/Codeblock";
 import PostNabar from "../Components/Header/PostNabar";
-
+import { getPage } from "../Services/operations/post";
+import Loader from "../Components/Loaders/Loader";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setPageLength } from "../slices/pageCountSlice";
 
 const ViewPost = () => {
-  const input=`
-  **bold**
+  const [data, setData] = useState([]);
+  const [pageTitle,setPageTitle]=useState<string>("");
+  const [loading, setLoading] = useState(false);
+  const pageCnt = useSelector((state: any) => state.page.pagecnt);
+  const dispatch = useDispatch();
 
-  Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam id cumque, voluptates inventore in ea recusandae explicabo reprehenderit quo quisquam qui quos voluptatibus ad earum ipsum repudiandae ipsa quod mollitia magnam suscipit. Tenetur, dolorum in nemo non a explicabo sit enim quos hic illum dolorem, reiciendis labore quo eius, odio soluta beatae accusantium ipsum repellendus? Deserunt sed temporibus earum quas soluta molestias modi odit nulla! Et dolorem hic quos assumenda soluta excepturi nostrum fuga autem eos voluptate doloribus molestiae architecto repellat, molestias omnis dolorum, fugit unde similique perspiciatis, quisquam velit!
-  
+  useEffect(() => {
+    setLoading(true);
+    const fetchPageDetails = async () => {
+      const postId = window.location.pathname.split("/")[2];
+      const response = await getPage(postId, pageCnt);
+      setPageTitle(response?.data?.page_title);
+      setData(response?.data?.markdowns);
+      dispatch(setPageLength(response?.pageLength || 1));
+      setLoading(false);
+    }
 
-  *italic*
-
-
-  Just a link: www.nasa.gov.
-
-  **code**
-  ~~~js
-  <div className='min-h-[90vh]  mx-auto'>
-      <PostNabar/>
-
-      <div className="w-[90vw] mx-auto">
-      <div className=" ">
-        <Markdown
-            children={input}
-            components={{
-            code(props) {
-                const {children, className, node, ...rest} = props
-                const match = /language-(\w+)/.exec(className || '')
-                return match ? (
-                <SyntaxHighlighter
-                    
-                    PreTag="div"
-                    children={String(children).replace(/\n$/, '')}
-                    language={match[1]}
-                    style={irBlack}
-                />
-                ) : (
-                <code {...rest} className={className}>
-                    {children}
-                </code>
-                )
-            }
-            }}
-        />
-        </div>
-      </div>
-    </div>
-  ~~~
-
-  # This is Heading
-  `
-  
+    fetchPageDetails();
+  }, [pageCnt])
   return (
     <div className='min-h-[90vh]  mx-auto'>
-      <PostNabar/>
-
-      <div className="w-[90vw] mx-auto ">
-        <Codeblock input={input}/>
-      </div>
+      <PostNabar />
+      {
+        loading ? <div>
+          <Loader />
+        </div> : <div className=" mx-auto prose lg:prose-xl bg-white px-10">
+          <div className="text-black">{pageTitle}</div>
+          {          
+            data?.length > 0 ? data.map((markdown: any) => {
+              return (
+                <Codeblock input={markdown?.content} key={markdown.id} />
+              )
+            }) :
+              <div className="flex justify-center items-center text-4xl font-bold mt-20">
+                <h1>Nothing inside</h1>
+              </div>
+          }
+        </div>
+      }
+      
     </div>
+    
   )
 }
 

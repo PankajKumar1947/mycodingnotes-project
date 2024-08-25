@@ -1,5 +1,7 @@
 import { apiConnector } from "../apiConnector"
 import { AUTH_ENDPOINTS } from "../apis"
+import toast from "react-hot-toast";
+import { setIsLoggedIn, setLogin } from "../../slices/loginSlice";
 
 const {
     VERIFY_TOKEN,
@@ -15,4 +17,14 @@ export const verifytoken =async()=>{
     }catch(error){
         console.log("error occured in verifying token");
     }
+}
+
+export function logout(navigate:any,dispatch:any){
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("isLoggedIn")
+    dispatch(setLogin({}));
+    dispatch(setIsLoggedIn(false));
+    toast.success("Logged Out");
+    navigate("/login");
 }
