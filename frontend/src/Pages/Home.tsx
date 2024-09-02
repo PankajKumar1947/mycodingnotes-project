@@ -22,7 +22,7 @@ export const Home = () => {
               <h1 className="text-2xl font-bold text-center">No Notes Found</h1>
             </div>
               :
-              <div className="grid md:grid-cols-2 min-h-[80vh] justify-between gap-5">
+              <div className="grid md:grid-cols-2  gap-5">
                 {
                   notes?.map((note, ind) => {
                     return <Card key={ind} note={note} />

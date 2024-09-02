@@ -22,7 +22,7 @@ app.get('/', (c) => {
 
 app.route("/api/v1/user",userRouter);
 app.route("/api/v1/post",postRouter);
-app.route("/api/v1/post/page",pageRouter);
+app.route("/api/v1/page",pageRouter);
 app.route("/api/v1/post/page/markdown",markdownRouter)
 
 
