@@ -20,6 +20,6 @@ export const NOTES_ENDPOINTS={
 
 //create page
 export const PAGE_ENDPOINTS={
-    CREATE_PAGE:BASE_URL+"/post/page/create",
-    GET_PAGE:(postId:string,pageId:string)=>BASE_URL+`/post/page/${postId}/${pageId}`
+    CREATE_PAGE:BASE_URL+"/page/create",
+    GET_PAGE:(postId:string,pageId:string)=>BASE_URL+`/page/${postId}/${pageId}`
 }
