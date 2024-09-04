@@ -2,6 +2,7 @@ import { useState } from "react";
 import Editor from "@/Components/editor/editor";
 import { Button } from "@/Components/ui/button";
 import { useNavigate } from "react-router-dom";
+import { createMarkdown } from "@/Services/operations/post";
 
 export const defaultValue = {
     type: 'doc',
@@ -17,12 +18,14 @@ export const CreateMarkdown = () => {
     const navigate=useNavigate();
     const [content, setContent] = useState<string>('');
     const postId = window.location.pathname.split("/")[1];
+    const pageId = window.location.pathname.split("/")[3];
     const handleSubmit = async () => {
-        console.log("content ", content);
-        //add this contenxt to the markdown schema
-        //refresh the get post for profile page
-        navigate(`/adminpost/${postId}`)
-        
+        try{
+            await createMarkdown(postId,parseInt(pageId),content );;
+            navigate(`/adminpost/${postId}`)
+        }catch(error){
+            console.log("error in creating the markdonw");
+        }
     }
     return (
         <div className="min-h-[80vh] my-2 w-[90vw] mx-auto ">

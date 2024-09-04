@@ -46,7 +46,7 @@ const router = createBrowserRouter([
         </ProtectedRoutes>
       },
       {
-        path:":postid/createmarkdown",
+        path:":postid/createmarkdown/:pageid",
         element: <ProtectedRoutes>
           <CreateMarkdown/>
         </ProtectedRoutes>

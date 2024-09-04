@@ -23,3 +23,8 @@ export const PAGE_ENDPOINTS={
     CREATE_PAGE:BASE_URL+"/page/create",
     GET_PAGE:(postId:string,pageId:string)=>BASE_URL+`/page/${postId}/${pageId}`
 }
+
+//create markdown
+export const MARKDOWN_ENDPOINTS={
+    CREATE_MARKDOWN:(postId:string,pageId:number)=>BASE_URL+`/post/page/markdown/create/${postId}/${pageId}`
+}

@@ -8,31 +8,39 @@ import PostNabar from "@/Components/Header/PostNabar";
 import CreatePageBtn from "@/Components/Common/CreatePageBtn";
 import { useNavigate } from "react-router-dom";
 
+interface pageDetails {
+    tilte: string,
+    page_id: number
+}
+
 const AdminEdit = () => {
     const [data, setData] = useState([]);
-    const [pageTitle, setPageTitle] = useState<string>("");
+    const [currPageDetails, setCurrPageDetails] = useState<pageDetails>();
     const [loading, setLoading] = useState(false);
     const page = useSelector((state: any) => state.page);
     const pageCnt = page?.pagecnt;
     const dispatch = useDispatch();
-    const navigate=useNavigate();
+    const navigate = useNavigate();
     const postId = window.location.pathname.split("/")[2];
+    const [notesRefresh, setNotesRefresh] = useState(false);
 
     useEffect(() => {
         setLoading(true);
         const fetchPageDetails = async () => {
             const response = await getPage(postId, pageCnt);
-            setPageTitle(response?.data?.page_title);
+            setCurrPageDetails({
+                tilte: response?.data?.page_title,
+                page_id: response?.data?.id,
+            })
             setData(response?.data?.markdowns);
             dispatch(setPageLength(response?.pageLength || 1));
             setLoading(false);
         }
-        console.log("data", data)
         fetchPageDetails();
-    }, [pageCnt])
+    }, [pageCnt, notesRefresh])
 
-    const addNewNotes=()=>{
-        navigate(`/${postId}/createmarkdown`)
+    const addNewNotes = () => {
+        navigate(`/${postId}/createmarkdown/${currPageDetails?.page_id}`)
     }
     return (
         <div className=" text-white">
@@ -40,17 +48,15 @@ const AdminEdit = () => {
             {
                 loading ? <div>
                     <Loader />
-                </div> : <div className="mx-auto prose lg:prose-xl bg-white px-10 py-4">
-                    <div className="text-black">{pageTitle}</div>
+                </div> : <div className="sm:max-w-[90%] mx-auto bg-white px-4 sm:px-14 py-4  ">
+                    <h1 className="text-black text-2xl font-bold text-center">{currPageDetails?.tilte}</h1>
                     {
                         data?.length > 0 ? data.map((markdown: any) => {
                             return (
                                 <div
-                                key={markdown.id}
-                                className="border-t-2 py-2">
-                                    <div>
-                                        {markdown.content}
-                                    </div>
+                                    key={markdown.id}
+                                    className="border-t-2 py-2 prose lg:prose-xl mx-auto overflow-hidden">
+                                    <div dangerouslySetInnerHTML={{__html:markdown.content}}></div>
                                     <div className="text-end">
                                         <Button className="bg-yellow-400 hover:bg-yellow-500 text-black">Edit</Button>
                                     </div>
@@ -62,21 +68,17 @@ const AdminEdit = () => {
                             </div>
                     }
                     <div className="text-center">
-                        <Button 
-                        onClick={addNewNotes}
-                        className="bg-green-400 hover:bg-green-500 text-black">Add new notes</Button>
+                        <Button
+                            onClick={addNewNotes}
+                            className="bg-green-400 hover:bg-green-500 text-black">Add new notes</Button>
                     </div>
 
                     {/* show the add new page in the last page */}
                     {
-                        page.pagecnt===page.pageLength && <div className="text-center  flex justify-between gap-2 text-sm items-center">
-                        <input type="text" placeholder="Enter Title for new Page" className="flex-1 p-2 border-black rounded-md border-2"/>
-                        <CreatePageBtn/>
-                    </div>
+                        page.pagecnt === page.pageLength && <CreatePageBtn setNotesRefresh={setNotesRefresh} />
                     }
                 </div>
             }
-
         </div>
     )
 }
