@@ -2,16 +2,21 @@ import { MdOutlineArrowCircleRight } from "react-icons/md";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setPageCnt } from "../../slices/pageCountSlice";
+import { Button } from "../ui/button";
 
-export const Card = ({ post, note }: any) => {
+export const Card = ({ note, adminView }: any) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const viewPostHandler = () => {
     dispatch(setPageCnt(1));
     navigate(`/viewnotes/${note.id}`);
   }
-  console.log("post", post);
-  console.log("notes=", note)
+
+  const adminPostHandler=()=>{
+    dispatch(setPageCnt(1));
+    navigate(`/adminpost/${note.id}`);
+  }
+
   return (
     <div className="border-[1px] rounded-lg bg-zinc-900 p-2 relative ">
       <div className="flex sm:gap-4 flex-wrap sm:flex-nowrap">
@@ -34,13 +39,22 @@ export const Card = ({ post, note }: any) => {
         </div>
       </div>
 
-      <div className="group cursor-pointer flex justify-between items-center mt-2">
-          <p>11 lessions</p>
+      <div className="cursor-pointer flex justify-between items-center mt-2">
+        <p>11 lessions</p>
+        {
+          adminView && (
+            <Button
+            onClick={adminPostHandler}
+            className="bg-yellow-400 hover:bg-yellow-500 px-6 text-black">
+              Edit
+            </Button>
+          )
+        }
         <div
           onClick={viewPostHandler}
-          className="flex items-center border-[1px] rounded-lg px-4 py-2 bg-black gap-2">
+          className="flex items-center group border-[1px] rounded-lg px-4 py-2 bg-black gap-2">
           <button className="">Explore</button>
-          <MdOutlineArrowCircleRight className="text-xl group-hover:rotate-45 duration-200 group-hover:text-2xl " />
+          <MdOutlineArrowCircleRight className="text-xl group-hover:rotate-45 duration-200  " />
         </div>
       </div>
     </div>

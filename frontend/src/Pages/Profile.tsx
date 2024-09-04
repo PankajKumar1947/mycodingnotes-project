@@ -98,7 +98,7 @@ const Profile = () => {
                 {
                   user.notes.map((post, ind) => {
                     return (
-                      <Card key={ind} note={post} />
+                      <Card key={ind} note={post} adminView={true}/>
                     )
                   })
                 }
@@ -118,7 +118,7 @@ const Profile = () => {
                 {
                   user.savednotes.map((post, ind) => {
                     return (
-                      <Card key={ind} post={post} />
+                      <Card key={ind} post={post} adminView={false}/>
                     )
                   })
                 }

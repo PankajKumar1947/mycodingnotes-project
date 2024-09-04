@@ -16,6 +16,7 @@ import rootReducer from './reducers/index.ts'
 import { Provider } from 'react-redux'
 import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes.tsx'
 import OpenRoute from './Components/ProtectedRoutes/OpenRoute.tsx'
+import AdminEdit from './Pages/AdminEdit.tsx'
 
 const router = createBrowserRouter([
   {
@@ -56,13 +57,19 @@ const router = createBrowserRouter([
         element: <ProtectedRoutes>
             <Profile/>
           </ProtectedRoutes>
-      }
+      },
     ]
   },
   {
     path:"/viewnotes/:postid",
     element:<ViewPost/>,
   },
+  {
+    path:"adminpost/:postid",
+    element:<ProtectedRoutes>
+      <AdminEdit/>
+    </ProtectedRoutes>
+  }
 ]);
 
 const store=configureStore({

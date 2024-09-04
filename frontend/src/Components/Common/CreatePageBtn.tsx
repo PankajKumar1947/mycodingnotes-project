@@ -16,6 +16,7 @@ const CreatePageBtn = () => {
   return (
     <div className="py-4 flex justify-end">
       <Button
+        className="bg-green-400 hover:bg-green-500  px-4 text-black"
         onClick={createNewPage}
       >Create a new page</Button>
     </div>
