@@ -12,10 +12,16 @@ export const Card = ({ note, adminView }: any) => {
     navigate(`/viewnotes/${note.id}`);
   }
 
-  const adminPostHandler=()=>{
+  const adminPostHandler = () => {
     dispatch(setPageCnt(1));
     navigate(`/adminpost/${note.id}`);
   }
+
+  //for date
+  const date = new Date(note?.updated_at);
+  const day = date.getDate();
+  const monthName = date.toLocaleString('default', { month: 'long' });
+  const year = date.getFullYear();
 
   return (
     <div className="border-[1px] rounded-lg bg-zinc-900 p-2 relative ">
@@ -39,22 +45,24 @@ export const Card = ({ note, adminView }: any) => {
         </div>
       </div>
 
-      <div className="cursor-pointer flex justify-between items-center mt-2">
-        <p>11 lessions</p>
-        {
-          adminView && (
-            <Button
-            onClick={adminPostHandler}
-            className="bg-yellow-400 hover:bg-yellow-500 px-6 text-black">
-              Edit
-            </Button>
-          )
-        }
-        <div
-          onClick={viewPostHandler}
-          className="flex items-center group border-[1px] rounded-lg px-4 py-2 bg-black gap-2">
-          <button className="">Explore</button>
-          <MdOutlineArrowCircleRight className="text-xl group-hover:rotate-45 duration-200  " />
+      <div className="cursor-pointer flex justify-end md:justify-between items-center mt-2">
+        <p className="hidden md:block">created at <span className="italic">{day}-{monthName},{year}</span></p>
+        <div className="flex items-center gap-2">
+          {
+            adminView && (
+              <Button
+                onClick={adminPostHandler}
+                className="bg-yellow-400 hover:bg-yellow-500 px-6 text-black">
+                Edit
+              </Button>
+            )
+          }
+          <div
+            onClick={viewPostHandler}
+            className="flex items-center group border-[1px] rounded-lg px-4 py-2 bg-black gap-2">
+            <button className="">Explore</button>
+            <MdOutlineArrowCircleRight className="text-xl group-hover:rotate-45 duration-200  " />
+          </div>
         </div>
       </div>
     </div>

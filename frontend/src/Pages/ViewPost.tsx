@@ -31,15 +31,15 @@ const ViewPost = () => {
       {
         loading ? <div>
           <Loader />
-        </div> : <div className=" mx-auto bg-gray-300 px-4 sm:px-10">
-          <h1 className="text-black text-2xl sm:text-3xl font-bold text-center">{pageTitle}</h1>
+        </div> : <div className="mx-auto bg-gray-300 px-4 sm:px-14 py-4 ">
+          <h1 className="text-black text-2xl sm:text-4xl font-bold text-center underline underline-offset-4 pb-4">{pageTitle}</h1>
           {
             data?.length > 0 ? data.map((markdown: any) => {
               return (
                 <div
                   key={markdown.id}
                   dangerouslySetInnerHTML={{ __html: markdown.content }}
-                  className="border-t-2 py-2 prose lg:prose-xl mx-auto overflow-hidden">
+                  className="py-4 prose lg:prose-xl mx-auto overflow-hidden">
                 </div>
               )
             }) :

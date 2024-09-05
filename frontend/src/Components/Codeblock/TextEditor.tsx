@@ -2,9 +2,9 @@ import { useState } from 'react'
 import Editor from "@/Components/editor/editor";
 import { generateJSON } from '@tiptap/core';
 import { Button } from '../ui/button';
-
 import { defaultExtensions } from '../editor/extensions';
 import { updateMarkdown } from '@/Services/operations/post';
+import ViewContent from './ViewContent';
 
 const TextEditor = ({ content, editOption, id ,setNotesRefresh,setEditOption}: any) => {
     const defaultValue = generateJSON(content, defaultExtensions);
@@ -33,9 +33,7 @@ const TextEditor = ({ content, editOption, id ,setNotesRefresh,setEditOption}: a
                             onClick={updateContent}
                             className="bg-green-400 hover:bg-green-500 text-black">Update</Button>
                     </div>
-                </div> : <div
-                    className='p-4'
-                    dangerouslySetInnerHTML={{ __html: content }}></div>
+                </div> : <ViewContent content={content}/>
             }
         </div>
     )

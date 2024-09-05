@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import hljs from 'highlight.js'
+import 'highlight.js/styles/a11y-dark.css' // Import the style you want
 
 import {
   EditorCommand,
@@ -28,8 +30,6 @@ import { ColorSelector } from '@/Components/editor/selectors/color-selector'
 
 import { Separator } from '@/Components/ui/separator'
 
-// import hljs from 'highlight.js'
-
 const extensions = [...defaultExtensions, slashCommand]
 
 export const defaultEditorContent = {
@@ -53,25 +53,32 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
   const [openLink, setOpenLink] = useState(false)
   const [openAI, setOpenAI] = useState(false)
 
-  //Apply Codeblock Highlighting on the HTML from editor.getHTML()
-  // const highlightCodeblocks = (content: string) => {
-  //   const doc = new DOMParser().parseFromString(content, 'text/html')
-  //   doc.querySelectorAll('pre code').forEach(el => {
-  //     // @ts-ignore
-  //     // https://highlightjs.readthedocs.io/en/latest/api.html?highlight=highlightElement#highlightelement
-  //     hljs.highlightElement(el)
-  //   })
-  //   return new XMLSerializer().serializeToString(doc)
-  // }
+  // Function to apply syntax highlighting
+  const highlightCodeblocks = (content: string) => {
+    const doc = new DOMParser().parseFromString(content, 'text/html')
+    doc.querySelectorAll('pre code').forEach(el => {
+      //@ts-ignore
+      hljs.highlightElement(el)
+    })
+    return new XMLSerializer().serializeToString(doc)
+  }
+
+  // Apply highlighting when the component mounts or content updates
+  useEffect(() => {
+    const contentElement = document.querySelector('.editor-content') // Adjust selector if necessary
+    if (contentElement) {
+      highlightCodeblocks(contentElement.innerHTML)
+    }
+  }, [initialValue]) // Add dependencies as needed
 
   return (
-    <div className='relative w-full '>
+    <div className='relative w-full'>
       <EditorRoot>
         <EditorContent
           immediatelyRender={false}
           initialContent={initialValue}
           extensions={extensions}
-          className='min-h-96 rounded-xl border p-4'
+          className='min-h-96 rounded-xl border p-4 editor-content'
           editorProps={{
             handleDOMEvents: {
               keydown: (_view, event) => handleCommandNavigation(event)
@@ -86,7 +93,9 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
             }
           }}
           onUpdate={({ editor }) => {
-            onChange(editor.getHTML())
+            const htmlContent = editor.getHTML()
+            onChange(htmlContent)
+            highlightCodeblocks(htmlContent) // Apply highlighting after updating
           }}
           slotAfter={<ImageResizer />}
         >
