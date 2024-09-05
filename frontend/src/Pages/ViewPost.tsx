@@ -4,6 +4,7 @@ import Loader from "../Components/Loaders/Loader";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPageLength } from "../slices/pageCountSlice";
+import ViewContent from "@/Components/Codeblock/ViewContent";
 
 const ViewPost = () => {
   const [data, setData] = useState([]);
@@ -36,10 +37,11 @@ const ViewPost = () => {
           {
             data?.length > 0 ? data.map((markdown: any) => {
               return (
-                <div
-                  key={markdown.id}
-                  dangerouslySetInnerHTML={{ __html: markdown.content }}
-                  className="py-4 prose lg:prose-xl mx-auto overflow-hidden">
+                <div className="md:max-w-[80%] mx-auto overflow-hidden">
+                  <ViewContent
+                    key={markdown.id}
+                    content={markdown.content}
+                  />
                 </div>
               )
             }) :

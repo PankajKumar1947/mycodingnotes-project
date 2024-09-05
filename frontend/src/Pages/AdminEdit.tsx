@@ -15,16 +15,16 @@ interface pageDetails {
 }
 
 interface editMarkdown {
-    markdownId:number,
-    editOption:boolean,
+    markdownId: number,
+    editOption: boolean,
 }
 
 const AdminEdit = () => {
     const [data, setData] = useState([]);
     const [currPageDetails, setCurrPageDetails] = useState<pageDetails>();
-    const [editOption,setEditOption] = useState<editMarkdown>({
-        markdownId:0,
-        editOption:false
+    const [editOption, setEditOption] = useState<editMarkdown>({
+        markdownId: 0,
+        editOption: false
     });
     const [loading, setLoading] = useState(false);
     const page = useSelector((state: any) => state.page);
@@ -53,8 +53,8 @@ const AdminEdit = () => {
         navigate(`/${postId}/createmarkdown/${currPageDetails?.page_id}`)
     }
 
-    const editMarkdownHandler=(id:number)=>{
-        setEditOption({markdownId:id,editOption:true})
+    const editMarkdownHandler = (id: number) => {
+        setEditOption({ markdownId: id, editOption: true })
     }
 
     return (
@@ -70,15 +70,15 @@ const AdminEdit = () => {
                             return (
                                 <div
                                     key={markdown.id}
-                                    className="border-b-2 border-gray-500 py-2 prose lg:prose-xl mx-auto overflow-hidden">
-                                        <TextEditor 
+                                    className="border-b-2 border-gray-500 py-2 md:max-w-[80%] mx-auto overflow-hidden">
+                                    <TextEditor
                                         setEditOption={setEditOption}
                                         setNotesRefresh={setNotesRefresh}
-                                        content={markdown.content} editOption={editOption} id={markdown?.id}/>
+                                        content={markdown.content} editOption={editOption} id={markdown?.id} />
                                     <div className="text-end opacity-40 hover:opacity-100">
-                                        <Button 
-                                        onClick={()=>editMarkdownHandler(markdown.id)}
-                                        className="bg-yellow-400 hover:bg-yellow-500 text-black px-6">Edit</Button>
+                                        <Button
+                                            onClick={() => editMarkdownHandler(markdown.id)}
+                                            className="bg-yellow-400 hover:bg-yellow-500 text-black px-6">Edit</Button>
                                     </div>
                                 </div>
                             )
@@ -87,11 +87,14 @@ const AdminEdit = () => {
                                 <h1>Nothing inside</h1>
                             </div>
                     }
-                    <div className="text-center">
-                        <Button
-                            onClick={addNewNotes}
-                            className="bg-green-400 hover:bg-green-500 text-black">Add new notes</Button>
-                    </div>
+
+                    {
+                        currPageDetails?.page_id != undefined && <div className="text-center">
+                            <Button
+                                onClick={addNewNotes}
+                                className="bg-green-400 hover:bg-green-500 text-black">Add new notes</Button>
+                        </div>
+                    }
 
                     {/* show the add new page in the last page */}
                     {

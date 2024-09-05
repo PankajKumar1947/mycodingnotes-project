@@ -48,7 +48,7 @@ export const CreatePost = () => {
         throw new Error("Error in Creating notes");
       }
       toast.success("Notes created successfully");
-      navigate(`/${response.data.data.id}/createmarkdown`);
+      navigate(`/adminpost/${response.data.data.id}`);
     } catch (error) {
       console.log(error);
     }
