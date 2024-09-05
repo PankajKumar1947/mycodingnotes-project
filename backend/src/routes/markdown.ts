@@ -75,3 +75,44 @@ markdownRouter.post("/create/:post_id/:page_id",auth,async(c)=>{
         })
     }
 })  
+
+markdownRouter.put("/update/:markdownid",auth,async(c)=>{
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env?.DATABASE_URL,
+    }).$extends(withAccelerate())
+
+    const markdown_id= c.req.param('markdownid');
+    const body=await c.req.json();
+
+    try{
+        const markdown=await prisma.markdown.update({
+            where:{
+                id:Number(markdown_id)
+            },
+            data:{
+                content:body.content,
+            }
+        })
+
+        if(!markdown){
+            c.status(404);
+            return c.json({
+                success:false,
+                message:"Markdown not updated"
+            })
+        }
+
+        return c.json({
+            status:200,
+            success:true,
+            message:"Markdown updated",
+        })
+    }catch(error){
+        c.status(500);
+        return c.json({
+            success:false,
+            message:"Internal Server error in updating the markdown",
+            data:error
+        })
+    }
+})

@@ -12,7 +12,8 @@ const {
 }=PAGE_ENDPOINTS
 
 const {
-    CREATE_MARKDOWN
+    CREATE_MARKDOWN,
+    UPDATE_MARKDOWN
 }=MARKDOWN_ENDPOINTS;
 
 export const getAllNotes=async()=>{
@@ -54,9 +55,18 @@ export const createMarkdown=async(postId:string,pageId:number,content:string)=>{
     try{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
-        const response=await apiConnector("POST",CREATE_MARKDOWN(postId,pageId),{content},headers as any,{});
-        console.log("markdown created",response.data)
+        await apiConnector("POST",CREATE_MARKDOWN(postId,pageId),{content},headers as any,{});
     }catch(eror){
         console.log("error occured in creating markdown");
+    }
+}
+
+export const updateMarkdown=async(markdownId:number,content:string)=>{
+    try{
+        const token = localStorage.getItem('token');
+        const headers = token ? { Authorization: JSON.parse(token) } : {};
+        await apiConnector("PUT",UPDATE_MARKDOWN(markdownId),{content},headers as any,{})
+    }catch(error){
+        console.log("error occured in updating markdown");
     }
 }

@@ -64,14 +64,17 @@ const AdminEdit = () => {
                 loading ? <div>
                     <Loader />
                 </div> : <div className=" mx-auto bg-gray-300 px-4 sm:px-14 py-4  ">
-                    <h1 className="text-black text-2xl sm:text-4xl font-bold text-center">{currPageDetails?.tilte}</h1>
+                    <h1 className="text-black text-2xl sm:text-4xl font-bold text-center underline underline-offset-4">{currPageDetails?.tilte}</h1>
                     {
                         data?.length > 0 ? data.map((markdown: any) => {
                             return (
                                 <div
                                     key={markdown.id}
-                                    className="border-t-2 border-black py-2 prose lg:prose-xl mx-auto overflow-hidden">
-                                        <TextEditor content={markdown.content} editOption={editOption} id={markdown?.id}/>
+                                    className="border-b-2 border-gray-500 py-2 prose lg:prose-xl mx-auto overflow-hidden">
+                                        <TextEditor 
+                                        setEditOption={setEditOption}
+                                        setNotesRefresh={setNotesRefresh}
+                                        content={markdown.content} editOption={editOption} id={markdown?.id}/>
                                     <div className="text-end opacity-40 hover:opacity-100">
                                         <Button 
                                         onClick={()=>editMarkdownHandler(markdown.id)}

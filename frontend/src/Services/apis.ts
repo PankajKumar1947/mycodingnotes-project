@@ -26,5 +26,6 @@ export const PAGE_ENDPOINTS={
 
 //create markdown
 export const MARKDOWN_ENDPOINTS={
-    CREATE_MARKDOWN:(postId:string,pageId:number)=>BASE_URL+`/post/page/markdown/create/${postId}/${pageId}`
+    CREATE_MARKDOWN:(postId:string,pageId:number)=>BASE_URL+`/post/page/markdown/create/${postId}/${pageId}`,
+    UPDATE_MARKDOWN:(markdownid:number)=>BASE_URL+`/post/page/markdown/update/${markdownid}`
 }
