@@ -7,15 +7,25 @@ import { Button } from "@/Components/ui/button";
 import PostNabar from "@/Components/Header/PostNabar";
 import CreatePageBtn from "@/Components/Common/CreatePageBtn";
 import { useNavigate } from "react-router-dom";
+import TextEditor from "@/Components/Codeblock/TextEditor";
 
 interface pageDetails {
     tilte: string,
     page_id: number
 }
 
+interface editMarkdown {
+    markdownId:number,
+    editOption:boolean,
+}
+
 const AdminEdit = () => {
     const [data, setData] = useState([]);
     const [currPageDetails, setCurrPageDetails] = useState<pageDetails>();
+    const [editOption,setEditOption] = useState<editMarkdown>({
+        markdownId:0,
+        editOption:false
+    });
     const [loading, setLoading] = useState(false);
     const page = useSelector((state: any) => state.page);
     const pageCnt = page?.pagecnt;
@@ -42,23 +52,30 @@ const AdminEdit = () => {
     const addNewNotes = () => {
         navigate(`/${postId}/createmarkdown/${currPageDetails?.page_id}`)
     }
+
+    const editMarkdownHandler=(id:number)=>{
+        setEditOption({markdownId:id,editOption:true})
+    }
+
     return (
         <div className=" text-white">
             <PostNabar />
             {
                 loading ? <div>
                     <Loader />
-                </div> : <div className="sm:max-w-[90%] mx-auto bg-white px-4 sm:px-14 py-4  ">
-                    <h1 className="text-black text-2xl font-bold text-center">{currPageDetails?.tilte}</h1>
+                </div> : <div className=" mx-auto bg-gray-300 px-4 sm:px-14 py-4  ">
+                    <h1 className="text-black text-2xl sm:text-4xl font-bold text-center">{currPageDetails?.tilte}</h1>
                     {
                         data?.length > 0 ? data.map((markdown: any) => {
                             return (
                                 <div
                                     key={markdown.id}
-                                    className="border-t-2 py-2 prose lg:prose-xl mx-auto overflow-hidden">
-                                    <div dangerouslySetInnerHTML={{__html:markdown.content}}></div>
-                                    <div className="text-end">
-                                        <Button className="bg-yellow-400 hover:bg-yellow-500 text-black">Edit</Button>
+                                    className="border-t-2 border-black py-2 prose lg:prose-xl mx-auto overflow-hidden">
+                                        <TextEditor content={markdown.content} editOption={editOption} id={markdown?.id}/>
+                                    <div className="text-end opacity-40 hover:opacity-100">
+                                        <Button 
+                                        onClick={()=>editMarkdownHandler(markdown.id)}
+                                        className="bg-yellow-400 hover:bg-yellow-500 text-black px-6">Edit</Button>
                                     </div>
                                 </div>
                             )
