@@ -2,33 +2,33 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState={
     pagecnt:1,
-    pageLength:0,
+    pages:[],
 }
 
 const pageCntSlice=createSlice({
     initialState,
     name:'pagecnt',
     reducers:{
-        setPageLength:(state,action)=>{
-            state.pageLength=action.payload
-        },
         setPageCnt:(state,action)=>{
             state.pagecnt=action.payload
         },
         increasePage:(state)=>{
-            if(state.pagecnt<state.pageLength)
+            if(state.pagecnt<state.pages.length)
                 state.pagecnt++;
         },
         decreasePage:(state)=>{
             if(state.pagecnt>1)
                 state.pagecnt--;
+        },
+        setPages:(state,action)=>{
+            state.pages=action.payload
         }
     }
 })
 export const {
-    setPageLength,
     setPageCnt,
     increasePage,
-    decreasePage
+    decreasePage,
+    setPages
 }=pageCntSlice.actions;
 export default pageCntSlice.reducer;

@@ -1,4 +1,4 @@
-const BASE_URL="https://mycodingnotes.pankaj7371873145.workers.dev/api/v1"
+const BASE_URL="http://127.0.0.1:8787/api/v1"
 
 //auth endpoints
 export const AUTH_ENDPOINTS={
@@ -22,4 +22,10 @@ export const NOTES_ENDPOINTS={
 export const PAGE_ENDPOINTS={
     CREATE_PAGE:BASE_URL+"/page/create",
     GET_PAGE:(postId:string,pageId:string)=>BASE_URL+`/page/${postId}/${pageId}`
+}
+
+//create markdown
+export const MARKDOWN_ENDPOINTS={
+    CREATE_MARKDOWN:(postId:string,pageId:number)=>BASE_URL+`/post/page/markdown/create/${postId}/${pageId}`,
+    UPDATE_MARKDOWN:(markdownid:number)=>BASE_URL+`/post/page/markdown/update/${markdownid}`
 }

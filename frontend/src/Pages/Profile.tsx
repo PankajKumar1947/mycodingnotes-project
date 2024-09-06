@@ -58,7 +58,7 @@ const Profile = () => {
   }, [])
 
   return (
-    <div className="sm:w-[80vw] mx-auto min-h-[80vh]">
+    <div className="sm:w-[80vw] mx-auto min-h-[80vh] px-4">
       <div className="flex items-center justify-between sm:w-[60vw] mx-auto  p-4">
         <div className="flex items-center">
           <img
@@ -94,11 +94,11 @@ const Profile = () => {
 
           <div className="w-full">
             {
-              user?.notes?.length > 0 ? <div className="grid sm:grid-cols-2 gap-2">
+              user?.notes?.length > 0 ? <div className="grid md:grid-cols-2 gap-2">
                 {
                   user.notes.map((post, ind) => {
                     return (
-                      <Card key={ind} note={post} />
+                      <Card key={ind} note={post} adminView={true}/>
                     )
                   })
                 }
@@ -118,7 +118,7 @@ const Profile = () => {
                 {
                   user.savednotes.map((post, ind) => {
                     return (
-                      <Card key={ind} post={post} />
+                      <Card key={ind} post={post} adminView={false}/>
                     )
                   })
                 }
