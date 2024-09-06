@@ -2,7 +2,7 @@ import { getPage } from "../Services/operations/post";
 import Loader from "../Components/Loaders/Loader";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPageLength } from "../slices/pageCountSlice";
+import { setPages } from "../slices/pageCountSlice";
 import { Button } from "@/Components/ui/button";
 import PostNabar from "@/Components/Header/PostNabar";
 import CreatePageBtn from "@/Components/Common/CreatePageBtn";
@@ -43,7 +43,7 @@ const AdminEdit = () => {
                 page_id: response?.data?.id,
             })
             setData(response?.data?.markdowns);
-            dispatch(setPageLength(response?.pageLength || 1));
+            dispatch(setPages(response?.pages));
             setLoading(false);
         }
         fetchPageDetails();
@@ -98,7 +98,7 @@ const AdminEdit = () => {
 
                     {/* show the add new page in the last page */}
                     {
-                        page.pagecnt === page.pageLength && <CreatePageBtn setNotesRefresh={setNotesRefresh} />
+                        page.page === page.pages?.length && <CreatePageBtn setNotesRefresh={setNotesRefresh} />
                     }
                 </div>
             }

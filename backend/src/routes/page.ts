@@ -43,7 +43,7 @@ pageRouter.get("/:post_id/:page_cnt",async(c)=>{
         }
 
         //find the length of the pages
-        const pageLength=await prisma.page.findMany({
+        const pages=await prisma.page.findMany({
             where:{
                 post_id:post_id
             }
@@ -55,7 +55,7 @@ pageRouter.get("/:post_id/:page_cnt",async(c)=>{
             success:true,
             message:"Page fetched ",
             data:page,
-            pageLength:pageLength.length
+            pages:pages,
         })
 
     }catch(error){

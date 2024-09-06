@@ -3,7 +3,7 @@ import { getPage } from "../Services/operations/post";
 import Loader from "../Components/Loaders/Loader";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPageLength } from "../slices/pageCountSlice";
+import { setPages } from "../slices/pageCountSlice";
 import ViewContent from "@/Components/Codeblock/ViewContent";
 
 const ViewPost = () => {
@@ -19,8 +19,8 @@ const ViewPost = () => {
       const postId = window.location.pathname.split("/")[2];
       const response = await getPage(postId, pageCnt);
       setPageTitle(response?.data?.page_title);
+      dispatch(setPages(response?.pages));
       setData(response?.data?.markdowns);
-      dispatch(setPageLength(response?.pageLength || 1));
       setLoading(false);
     }
 
