@@ -8,7 +8,7 @@ const DropDown = ({ pages,pagecnt }: any) => {
             <div className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" >
                 <div className="py-3 text-base" role="none">
                     {
-                        pages.map((page: any) => {
+                        pages?.map((page: any) => {
                             return (
                                 <li 
                                 key={page.id}
