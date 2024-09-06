@@ -10,7 +10,7 @@ const app = new Hono();
 // CORS configuration
 app.use(
   cors({
-    origin: 'http://localhost:5173', 
+    origin: 'https://mycodingnotes.vercel.app', 
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE'], 
     allowHeaders: ['Content-Type', 'Authorization'], 
     credentials: true,  
