@@ -1,4 +1,4 @@
-const BASE_URL="https://mycodingnotes.pankaj7371873145.workers.dev/api/v1"
+const BASE_URL="http://127.0.0.1:8787/api/v1"
 
 //auth endpoints
 export const AUTH_ENDPOINTS={
