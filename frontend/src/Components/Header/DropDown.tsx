@@ -13,7 +13,7 @@ const DropDown = ({ pages,pagecnt }: any) => {
                                 <li 
                                 key={page.id}
                                 onClick={()=>dispatch(setPageCnt(page?.page_cnt))}
-                                className={`${page?.page_cnt===pagecnt ? "bg-gray-300" :""} py-1 cursor-pointer list-none px-4 hover:bg-gray-200`}>{page.page_title}</li>
+                                className={`${page?.page_cnt===pagecnt ? "bg-gray-300" :""} py-1 cursor-pointer list-none px-4 hover:bg-gray-200`}>{page?.page_cnt}. {page.page_title}</li>
                             )
                         })
                     }
