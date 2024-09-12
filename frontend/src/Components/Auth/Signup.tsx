@@ -17,6 +17,7 @@ export const Signup=()=>{
 
     const {register,handleSubmit}=useForm<SignupData>()
     const onSubmit: SubmitHandler<SignupData> = async(data) => {
+        const toastId=toast.loading("Creating Account ...");
         try{
             const response=await axios.post(AUTH_ENDPOINTS.SIGNUP_API,data);
             if(!response)
@@ -24,10 +25,12 @@ export const Signup=()=>{
             console.log(response);
             toast.success("Account creted ... ");
             toast.success("Please Login ... ");
+            toast.remove(toastId);
             navigate("/profile")
         }catch(error){
             console.log("Error in Signup=",error);
             toast.error("Error")
+            toast.remove(toastId);
             navigate("/signup")
         }  
     };

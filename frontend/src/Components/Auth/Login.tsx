@@ -19,6 +19,7 @@ export const Login=()=>{
 
     const {register,handleSubmit}=useForm<loginData>();
     const onSubmit: SubmitHandler<loginData> = async(data) => {
+        const toastId = toast.loading("Logging in ...");
         try{
             const response=await axios.post(AUTH_ENDPOINTS.LOGIN_API,data);
             if(response.data && response.data.success){
@@ -29,13 +30,16 @@ export const Login=()=>{
                 const verifytokenResponse = await verifytoken();
                 localStorage.setItem('isLoggedIn', JSON.stringify(verifytokenResponse.data));
                 toast.success("Logged in ... ");
+                toast.remove(toastId);
                 navigate("/profile")
             }else{ 
                 toast.error(response.data.message)
+                toast.remove(toastId);
             }
         }catch(error:any){
             //console.log("Error in Signup=",error);
             toast.error(error.response.data.message)
+            toast.remove(toastId);
             navigate("/login")
         }  
     };
