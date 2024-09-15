@@ -30,7 +30,7 @@ pageRouter.get("/:post_id/:page_cnt",async(c)=>{
                 page_cnt:Number(page_cnt),
             },
             include:{
-                markdowns:true
+                markdowns:true,
             }
         })
 
@@ -93,7 +93,8 @@ pageRouter.post("/create",async(c)=>{
                 authorId:userId
             },
             select:{
-                pages:true
+                pages:true,
+                title:true
             }
         })
 
@@ -109,6 +110,7 @@ pageRouter.post("/create",async(c)=>{
         const page=await prisma.page.create({
             data:{
                 page_title:body.page_title,
+                post_title:post.title,
                 post_id:body.post_id,
                 page_cnt:post.pages.length+1
             }

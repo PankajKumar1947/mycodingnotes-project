@@ -4,6 +4,7 @@ import DropDown from "./DropDown";
 import { MdOutlineNavigateNext } from "react-icons/md";
 import { GrFormPrevious } from "react-icons/gr";
 import { MdArrowOutward } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 
 const PostNabar = () => {
   const page=useSelector((state:any)=>state.page.pagecnt);
@@ -13,7 +14,9 @@ const PostNabar = () => {
   return (
     <div className="bg-black  py-2">
         <div className="w-[90vw] mx-auto flex justify-between items-center">
-            <h1 className="font-bold text-xl sm:text-2xl">MyCodingNotes</h1>   
+            <NavLink 
+            to={"/"}
+            className="font-bold text-xl sm:text-2xl">MyCodingNotes</NavLink>   
             <div className="flex justify-center gap-1 sm:gap-2 items-center">
                 <button 
                 onClick={()=>dispatch(decreasePage())}

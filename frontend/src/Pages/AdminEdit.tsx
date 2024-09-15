@@ -11,7 +11,8 @@ import TextEditor from "@/Components/Codeblock/TextEditor";
 
 interface pageDetails {
     tilte: string,
-    page_id: number
+    page_id: number,
+    post_title:string,
 }
 
 interface editMarkdown {
@@ -41,6 +42,7 @@ const AdminEdit = () => {
             setCurrPageDetails({
                 tilte: response?.data?.page_title,
                 page_id: response?.data?.id,
+                post_title:response?.data?.post_title,
             })
             setData(response?.data?.markdowns);
             dispatch(setPages(response?.pages));
@@ -64,7 +66,8 @@ const AdminEdit = () => {
                 loading ? <div>
                     <Loader />
                 </div> : <div className=" mx-auto bg-gray-300 px-4 sm:px-14 py-4  ">
-                    <h1 className="text-black text-2xl mb-2 sm:text-4xl font-bold text-center underline underline-offset-4">{currPageDetails?.tilte}</h1>
+                    <h1 className="text-black text-2xl sm:text-4xl font-bold text-start underline underline-offset-4 ">{currPageDetails?.post_title}</h1>
+                    <h1 className="text-black text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic">{currPageDetails?.tilte}</h1>
                     {
                         data?.length > 0 ? data.map((markdown: any) => {
                             return (

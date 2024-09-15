@@ -9,6 +9,7 @@ import ViewContent from "@/Components/Codeblock/ViewContent";
 const ViewPost = () => {
   const [data, setData] = useState([]);
   const [pageTitle, setPageTitle] = useState<string>("");
+  const [postTitle, setPostTitle] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const pageCnt = useSelector((state: any) => state.page.pagecnt);
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const ViewPost = () => {
       const postId = window.location.pathname.split("/")[2];
       const response = await getPage(postId, pageCnt);
       setPageTitle(response?.data?.page_title);
+      setPostTitle(response?.data?.post_title);
       dispatch(setPages(response?.pages));
       setData(response?.data?.markdowns);
       setLoading(false);
@@ -32,14 +34,16 @@ const ViewPost = () => {
       {
         loading ? <div>
           <Loader />
-        </div> : <div className="mx-auto bg-gray-300 px-4 sm:px-14 py-4 ">
-          <h1 className="text-black text-2xl sm:text-4xl font-bold text-center underline underline-offset-4 pb-4">{pageTitle}</h1>
+        </div> : <div className="mx-auto bg-gray-300 px-4 sm:px-14 pb-4 ">
+          <h1 className="text-black text-2xl sm:text-4xl font-bold text-start underline underline-offset-4 ">{postTitle}</h1>
+          <h1 className="text-black text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic">{pageTitle}</h1>
           {
             data?.length > 0 ? data.map((markdown: any) => {
               return (
-                <div className="md:max-w-[80%] mx-auto overflow-hidden">
+                <div 
+                key={markdown.id}
+                className="md:max-w-[80%] mx-auto overflow-hidden">
                   <ViewContent
-                    key={markdown.id}
                     content={markdown.content}
                   />
                 </div>
