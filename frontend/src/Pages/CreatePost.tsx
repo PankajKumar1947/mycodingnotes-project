@@ -1,19 +1,23 @@
 import { useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
-import axios from "axios";
-import { NOTES_ENDPOINTS } from "../Services/apis";
+import { createNotes } from "@/Services/operations/post";
+import { imageDb } from "@/Services/firebase/Config";
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import { v4 } from 'uuid';
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 interface NotesData {
   title: string;
   post_img: string;
   keyword: string;
   description: string;
-  keywords:Array<String>;
+  keywords: Array<String>;
 }
 
 export const CreatePost = () => {
   const navigate = useNavigate();
+  const [img, setImg] = useState<File | null>(null); 
 
   const {
     register,
@@ -22,35 +26,25 @@ export const CreatePost = () => {
   } = useForm<NotesData>();
 
   const onSubmit: SubmitHandler<NotesData> = async (data) => {
-    console.log(data)
-    const token = localStorage.getItem("token") ? JSON.parse(localStorage.getItem("token")!) : null;
-
-    // Splitintg keyword string into an array
     const keywordArray = data.keyword.split(' ').filter(keyword => keyword);
-
-    data.keywords=keywordArray;
-    data.post_img="url"//dummy url for testing
-
+    data.keywords = keywordArray;
+    const toastId = toast.loading("Creating Notes ...");
     try {
-      const response = await axios.post(
-        NOTES_ENDPOINTS.CREATE_NOTE,
-        data,
-        {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }
-      );
-
-      console.log(response)
-
-      if (!response) {
-        throw new Error("Error in Creating notes");
+      //uploading the image on firebase
+      if (img) {
+        const imgRef = ref(imageDb, `files/${v4()}`);
+        await uploadBytes(imgRef, img);
+        const url = await getDownloadURL(imgRef);
+        data.post_img = url;
+  
       }
+      await createNotes(data, navigate);
       toast.success("Notes created successfully");
-      navigate(`/adminpost/${response.data.data.id}`);
+      toast.remove(toastId);
     } catch (error) {
-      console.log(error);
+      console.log("notes creation failed", error);
+      toast.error("Notes creation failed");
+      toast.remove(toastId);
     }
   };
 
@@ -60,39 +54,39 @@ export const CreatePost = () => {
       <form onSubmit={handleSubmit(onSubmit)} className="w-[95vw] sm:w-[80vw] mx-auto flex flex-col gap-4 p-2">
         <div className="flex flex-col gap-1">
           <label htmlFor="title" className="font-semibold">Title for note</label>
-          <input 
+          <input
             {...register("title", { required: true })}
-            type="text" 
-            className="w-full p-2 bg-black border-[1px] rounded-md" 
-            placeholder="Title" 
+            type="text"
+            className="w-full p-2 bg-black border-[1px] rounded-md"
+            placeholder="Title"
           />
           {errors.title && <span className="text-red-400 font-semibold text-sm">Title is required</span>}
         </div>
         <div className="flex flex-col gap-1">
-          <label htmlFor="post_img" className="font-semibold">Note's image</label>
-          <input 
-            {...register("post_img")}
-            type="file" 
-            className="w-full p-2 bg-black border-[1px] rounded-md" 
-            placeholder="Post image" 
+          <label htmlFor="notes_img" className="font-semibold">Note's image</label>
+          <input
+            onChange={(e) => setImg(e.target.files?.[0] || null)} 
+            type="file"
+            className="w-full p-2 bg-black border-[1px] rounded-md"
+            placeholder="Post image"
           />
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="keyword" className="font-semibold">Keyword</label>
-          <input 
+          <input
             {...register("keyword")}
-            type="text" 
-            className="w-full p-2 bg-black border-[1px] rounded-md" 
-            placeholder="c cpp dsa" 
+            type="text"
+            className="w-full p-2 bg-black border-[1px] rounded-md"
+            placeholder="c cpp dsa"
           />
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="description" className="font-semibold">Description</label>
           <textarea
             {...register("description", { required: true })}
-            rows={10} 
-            className="w-full p-2 bg-black border-[1px] rounded-md" 
-            placeholder="Description" 
+            rows={10}
+            className="w-full p-2 bg-black border-[1px] rounded-md"
+            placeholder="Description"
           />
           {errors.description && <span className="text-red-400 font-semibold text-sm">Description is required</span>}
         </div>

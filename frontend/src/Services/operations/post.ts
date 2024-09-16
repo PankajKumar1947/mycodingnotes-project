@@ -1,11 +1,14 @@
 import toast from "react-hot-toast";
 import { apiConnector } from "../apiConnector";
-import { MARKDOWN_ENDPOINTS, PAGE_ENDPOINTS, POST_ENDPOINTS } from "../apis";
+import { MARKDOWN_ENDPOINTS, NOTES_ENDPOINTS, PAGE_ENDPOINTS, POST_ENDPOINTS } from "../apis";
 
 const {
     GET_ALL_POST_API
 }=POST_ENDPOINTS
 ;
+const {
+    CREATE_NOTE
+}=NOTES_ENDPOINTS
 
 const {
     GET_PAGE,
@@ -16,6 +19,17 @@ const {
     CREATE_MARKDOWN,
     UPDATE_MARKDOWN
 }=MARKDOWN_ENDPOINTS;
+
+export const createNotes=async(data:any,navigate:any)=>{
+    try{
+        const token = localStorage.getItem('token');
+        const headers = token ? { Authorization: JSON.parse(token) } : {};
+        const response=await apiConnector("POST",CREATE_NOTE,data,headers as any,{});
+        navigate(`/adminpost/${response.data.data.id}`);
+    }catch(error){
+        console.log("error occured in creating the post",error);
+    }
+}
 
 export const getAllNotes=async()=>{
     try{
