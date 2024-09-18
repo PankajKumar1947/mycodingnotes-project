@@ -1,48 +1,40 @@
 import { createImageUpload } from "novel/plugins";
-import { toast } from "react-hot-toast";
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
+import { imageDb } from '@/Services/firebase/Config'; 
+import { v4 } from 'uuid';
+import toast from 'react-hot-toast';
 
 const onUpload = (file: File) => {
-  const promise = fetch("/api/upload", {
-    method: "POST",
-    headers: {
-      "content-type": file?.type || "application/octet-stream",
-      "x-vercel-filename": file?.name || "image.png",
-    },
-    body: file,
+  const storageRef = ref(imageDb, `pagesImg/${v4()}`);
+
+  const promise = uploadBytes(storageRef, file).then(async (snapshot) => {
+    // Successfully uploaded image, now get the download URL
+    const url = await getDownloadURL(snapshot.ref);
+    return url;
   });
 
   return new Promise((resolve, reject) => {
     toast.promise(
-      promise.then(async (res) => {
-        // Successfully uploaded image
-        if (res.status === 200) {
-          const { url } = (await res.json()) as { url: string };
-          // preload the image
-          const image = new Image();
-          image.src = url;
-          image.onload = () => {
-            resolve(url);
-          };
-          // No blob store configured
-        } else if (res.status === 401) {
-          resolve(file);
-          throw new Error("`BLOB_READ_WRITE_TOKEN` environment variable not found, reading image locally instead.");
-          // Unknown error
-        } else {
-          throw new Error("Error uploading image. Please try again.");
-        }
+      promise.then((url) => {
+        // Preload the image to verify it loads
+        const image = new Image();
+        image.src = url;
+        image.onload = () => {
+          resolve(url); // Resolve with the Firebase URL
+        };
       }),
       {
-        loading: "Uploading image...",
+        loading: "Uploading image ...",
         success: "Image uploaded successfully.",
         error: (e) => {
           reject(e);
-          return e.message;
+          return "Error uploading image. Please try again.";
         },
-      },
+      }
     );
   });
 };
+
 
 export const uploadFn = createImageUpload({
   onUpload,
