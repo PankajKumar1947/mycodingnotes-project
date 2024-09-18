@@ -6,6 +6,7 @@ import { AUTH_ENDPOINTS } from "../Services/apis";
 import { logout } from "../Services/operations/auth";
 import { useDispatch } from "react-redux";
 import Loader from "../Components/Loaders/Loader";
+import { FaRegUserCircle } from "react-icons/fa";
 
 interface User {
   fullname: string,
@@ -60,18 +61,20 @@ const Profile = () => {
   return (
     <div className="sm:w-[80vw] mx-auto min-h-[80vh] px-4">
       <div className="flex items-center justify-between sm:w-[60vw] mx-auto  p-4">
-        <div className="flex items-center">
-          <img
-            src="https://via.placeholder.com/150"
-            alt="Profile"
-            className="w-20 h-20 rounded-full mr-4"
-          />
+        <div className="flex items-center gap-2">
+          <FaRegUserCircle className="text-7xl" />
           <div>
             <h1 className="text-xl sm:text-3xl font-bold">{loggedInUser?.fullname}</h1>
             <p className="text-gray-400">{loggedInUser?.username}</p>
+            <div className="flex sm:hidden gap-2 text-sm">
+              <button className="px-4 bg-yellow-500 py-1 rounded-full">Edit</button>
+              <button
+                onClick={() => logout(navigate, dispatch)}
+                className="px-4 bg-red-500 py-1 rounded-full">Logout</button>
+            </div>
           </div>
         </div>
-        <div className="flex gap-4 text-sm">
+        <div className="hidden sm:flex gap-4 text-sm">
           <button className="px-4 bg-yellow-500 py-1 rounded-full">Edit</button>
           <button
             onClick={() => logout(navigate, dispatch)}
@@ -98,7 +101,7 @@ const Profile = () => {
                 {
                   user.notes.map((post, ind) => {
                     return (
-                      <Card key={ind} note={post} adminView={true}/>
+                      <Card key={ind} note={post} adminView={true} />
                     )
                   })
                 }
@@ -118,7 +121,7 @@ const Profile = () => {
                 {
                   user.savednotes.map((post, ind) => {
                     return (
-                      <Card key={ind} post={post} adminView={false}/>
+                      <Card key={ind} post={post} adminView={false} />
                     )
                   })
                 }

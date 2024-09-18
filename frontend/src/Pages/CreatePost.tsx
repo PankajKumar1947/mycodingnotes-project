@@ -55,12 +55,13 @@ export const CreatePost = () => {
         <div className="flex flex-col gap-1">
           <label htmlFor="title" className="font-semibold">Title for note</label>
           <input
-            {...register("title", { required: true })}
+            {...register("title", { required: true ,maxLength:55})}
             type="text"
             className="w-full p-2 bg-black border-[1px] rounded-md"
             placeholder="Title"
           />
-          {errors.title && <span className="text-red-400 font-semibold text-sm">Title is required</span>}
+          {errors.title?.type==="required" && <span className="text-red-400 font-semibold text-sm">{"Title is required"}</span>}
+          {errors.title?.type==="maxLength" && <span className="text-red-400 font-semibold text-sm">{"Title should not exceed 55 characters"}</span>}
         </div>
         <div className="flex flex-col gap-1">
           <label htmlFor="notes_img" className="font-semibold">Note's image</label>
@@ -83,12 +84,13 @@ export const CreatePost = () => {
         <div className="flex flex-col gap-1">
           <label htmlFor="description" className="font-semibold">Description</label>
           <textarea
-            {...register("description", { required: true })}
+            {...register("description", { required: true ,maxLength:95})}
             rows={10}
             className="w-full p-2 bg-black border-[1px] rounded-md"
             placeholder="Description"
           />
-          {errors.description && <span className="text-red-400 font-semibold text-sm">Description is required</span>}
+          {errors.description?.type==="required" && <span className="text-red-400 font-semibold text-sm">Description is required</span>}
+          {errors.description?.type==="maxLength" && <span className="text-red-400 font-semibold text-sm">{"Description should not exceed 95 characters"}</span>}
         </div>
         <input type="submit" value="Submit" className="bg-green-600 font-semibold px-4 py-2 rounded-2xl" />
       </form>

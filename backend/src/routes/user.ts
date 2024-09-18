@@ -223,12 +223,15 @@ userRouter.get("/info",async(c)=>{
                 where: {
                   authorId:userId,
                 },
+                include:{
+                    pages:true
+                }
               },
               bookmarks:{
                 where:{
                     user_id:userId
                 }
-              }
+              },
             }
           })
 

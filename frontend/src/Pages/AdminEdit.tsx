@@ -101,7 +101,7 @@ const AdminEdit = () => {
 
                     {/* show the add new page in the last page */}
                     {
-                        page.pagecnt === page.pages?.length && <CreatePageBtn setNotesRefresh={setNotesRefresh} />
+                        (page.pagecnt === page.pages?.length || page.pages?.length === undefined) && <CreatePageBtn setNotesRefresh={setNotesRefresh} />
                     }
                 </div>
             }
