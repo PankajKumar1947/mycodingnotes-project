@@ -28,6 +28,7 @@ model Post{
   description String
   post_img    String
   keywords    String[]
+  private     Boolean @default(true)
 
   author      User  @relation(fields: [authorId],references: [id],onDelete: Cascade)
   authorId    String

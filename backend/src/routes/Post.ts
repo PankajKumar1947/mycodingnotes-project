@@ -21,6 +21,9 @@ postRouter.get("/bulk",async(c)=>{
 
     try{
         const posts=await prisma.post.findMany({
+            where:{
+                private:false,
+            },
             include:{
                 likes:true,
                 comments:true,
@@ -137,7 +140,11 @@ postRouter.post("/getPost",async(c)=>{
         const keywords=serachInput.toLowerCase().split(' ');
 
         //2.Check if any keyword matches with post's keywords
-        const posts=await prisma.post.findMany({});
+        const posts=await prisma.post.findMany({
+            where:{
+                private:false
+            }
+        });
 
         const filteredPosts = posts.filter((post) => {
             return keywords.some((keyword:string) => post.keywords.includes(keyword));
@@ -159,6 +166,71 @@ postRouter.post("/getPost",async(c)=>{
             message:"Post fetched",
             data:filteredPosts
         })
+    }catch(error){
+        c.status(500);
+        return c.json({
+            success:false,
+            message:"Internal Server error"
+        })
+    }
+})
+
+//make the post private
+postRouter.put("/private/:post_id",async(c)=>{
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env?.DATABASE_URL
+    }).$extends(withAccelerate());
+
+    try{
+        //get the post_id from the params
+        const post_id=c.req.param("post_id");
+
+        //get the userId from the token
+        const user_id=c.get("userId");
+
+        //1. find the post using userId and post_id
+        const post=await prisma.post.findUnique({
+            where:{
+                id:post_id,
+                authorId:user_id
+            }
+        })
+
+        if(!post){
+            c.status(404);
+            return c.json({
+                success:false,
+                message:"Such post doesn't exist"
+            })
+        }
+
+        //2. now update the post
+        const updated_post=await prisma.post.update({
+            where:{
+                id:post_id,
+                authorId:user_id
+            },
+            data:{
+                private:!post.private
+            }
+        })
+
+        if(!updated_post){
+            c.status(501);
+            return c.json({
+                success:false,
+                message:"Post not updated"
+            })
+        }
+
+        //3. return the success response
+        return c.json({
+            status:200,
+            success:true,
+            message:"Post updated",
+            data:updated_post
+        })
+
     }catch(error){
         c.status(500);
         return c.json({

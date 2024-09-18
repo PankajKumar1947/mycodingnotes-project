@@ -3,7 +3,8 @@ import { apiConnector } from "../apiConnector";
 import { MARKDOWN_ENDPOINTS, NOTES_ENDPOINTS, PAGE_ENDPOINTS, POST_ENDPOINTS } from "../apis";
 
 const {
-    GET_ALL_POST_API
+    GET_ALL_POST_API,
+    MAKE_PRIVATE,
 }=POST_ENDPOINTS
 ;
 const {
@@ -68,6 +69,21 @@ export const createPage=async(postId:string,page_title:string)=>{
         toast.success("Page creation Failed !");
         toast.remove(toastId);
         console.log("error occured in getting the page");
+    }
+}
+
+export const makePrivate=async(postId:string)=>{
+    const toastId = toast.loading("Making the post private...");
+    try{
+        const token = localStorage.getItem('token');
+        const headers = token ? { Authorization: JSON.parse(token) } : {};
+        await apiConnector("PUT",MAKE_PRIVATE(postId),{},headers as any, {});
+        toast.success("Post made private successfully");
+        toast.remove(toastId);
+    }catch(error){
+        console.log("error occured in making the post private");
+        toast.success("Post make private Failed !");
+        toast.remove(toastId);
     }
 }
 

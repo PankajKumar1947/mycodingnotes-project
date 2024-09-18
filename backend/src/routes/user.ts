@@ -219,21 +219,21 @@ userRouter.get("/info",async(c)=>{
                 id:userId
             },
             include: {
-              posts: {
-                where: {
-                  authorId:userId,
+                posts: {
+                    where: {
+                        authorId:userId,
+                    },
+                    include:{
+                        pages:true
+                    }
                 },
-                include:{
-                    pages:true
-                }
-              },
-              bookmarks:{
-                where:{
-                    user_id:userId
-                }
-              },
+                bookmarks:{
+                    where:{
+                        user_id:userId
+                    }
+                },
             }
-          })
+        })
 
         if(!user){
             c.status(204);

@@ -11,7 +11,8 @@ export const AUTH_ENDPOINTS={
 
 //post endpoints
 export const POST_ENDPOINTS={
-    GET_ALL_POST_API:BASE_URL+"/post/bulk"
+    GET_ALL_POST_API:BASE_URL+"/post/bulk",
+    MAKE_PRIVATE:(postid:string)=>BASE_URL+`/post/private/${postid}`,
 }
 
 //create notes
