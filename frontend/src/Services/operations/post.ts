@@ -73,16 +73,16 @@ export const createPage=async(postId:string,page_title:string)=>{
 }
 
 export const makePrivate=async(postId:string)=>{
-    const toastId = toast.loading("Making the post private...");
+    const toastId = toast.loading("Changing the post visibility");
     try{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         await apiConnector("PUT",MAKE_PRIVATE(postId),{},headers as any, {});
-        toast.success("Post made private successfully");
+        toast.success("Visibility changed successfully");
         toast.remove(toastId);
     }catch(error){
-        console.log("error occured in making the post private");
-        toast.success("Post make private Failed !");
+        console.log("error occured in changing the post visibility");
+        toast.success("changing visibility Failed !");
         toast.remove(toastId);
     }
 }

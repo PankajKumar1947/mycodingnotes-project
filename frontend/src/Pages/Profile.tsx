@@ -61,8 +61,8 @@ const Profile = () => {
   return (
     <div className="sm:w-[80vw] mx-auto min-h-[80vh] px-4">
       <div className="flex items-center justify-between sm:w-[60vw] mx-auto  p-4">
-        <div className="flex items-center gap-2">
-          <FaRegUserCircle className="text-7xl" />
+        <div className="flex items-center gap-4">
+          <FaRegUserCircle className="text-8xl" />
           <div>
             <h1 className="text-xl sm:text-3xl font-bold">{loggedInUser?.fullname}</h1>
             <p className="text-gray-400">{loggedInUser?.username}</p>
