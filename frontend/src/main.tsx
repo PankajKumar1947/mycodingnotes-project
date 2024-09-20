@@ -17,6 +17,8 @@ import { Provider } from 'react-redux'
 import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes.tsx'
 import OpenRoute from './Components/ProtectedRoutes/OpenRoute.tsx'
 import AdminEdit from './Pages/AdminEdit.tsx'
+import Feed from './Pages/Feed.tsx'
+import NotFound from './Components/Error/NotFound.tsx'
 
 const router = createBrowserRouter([
   {
@@ -25,7 +27,11 @@ const router = createBrowserRouter([
     children:[
       {
         path:"",
-        element:<Home/>,
+        element:<Home/>
+      },
+      {
+        path:"notes",
+        element:<Feed/>,
       },
       {
         path:"signup",
@@ -69,6 +75,10 @@ const router = createBrowserRouter([
     element:<ProtectedRoutes>
       <AdminEdit/>
     </ProtectedRoutes>
+  },
+  {
+    path:"*",
+    element:<NotFound/>
   }
 ]);
 
