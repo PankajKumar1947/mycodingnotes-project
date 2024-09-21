@@ -3,6 +3,28 @@ import { NavLink } from "react-router-dom"
 import { verifytoken } from "../../Services/operations/auth"
 import { useEffect } from "react"
 import { setLogin } from "../../slices/loginSlice"
+import { RxHamburgerMenu } from "react-icons/rx";
+import { FaRegUserCircle } from "react-icons/fa";
+
+const navmenu = [
+    {
+        name: "Home",
+        path: "/"
+    },
+    {
+        name: "About",
+        path: "/about"
+    },
+    {
+        name: "Notes",
+        path: "/notes"
+    },
+    {
+        name: "Contact",
+        path: "/contact"
+    },
+
+]
 
 export const Navbar = () => {
     const dispatch = useDispatch();
@@ -22,28 +44,45 @@ export const Navbar = () => {
     }, [login])
 
     return (
-        <div className="bg-black  py-2">
-            <div className="w-[90vw] mx-auto flex justify-between items-center">
-                <NavLink to={"/"}>
-                    <h1 className="font-bold text-2xl">MyCodingNotes</h1>
-                </NavLink>
-                {/* <form action="" className="w-[50%]">
-                    <div className="relative ">
-                        <input type="text" placeholder="Search notes ....." className="w-[100%] bg-transparent p-2 px-4 border-[1px] border-gray-400 rounded-2xl" />
-                        <input type="submit" value={"Search"} className="absolute right-0 top-0 bg-blue-600 hover:bg-blue-700 cursor-pointer border-[1px] rounded-2xl p-2 px-4" />
+        <>
+            <nav className="bg-[#181835] sticky top-0 z-50 border-gray-200 py-2.5">
+                <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
+                    <NavLink to={"/"} className="flex items-center">
+                        <span className="self-center text-xl font-bold whitespace-nowrap text-white">MyCodingNotes</span>
+                    </NavLink>
+                    <div className="flex items-center lg:order-2">
+                        {
+                            user?.loggedIn ? <NavLink to={"/profile"}
+                                className="">
+                                <FaRegUserCircle className="text-3xl hover:text-blue-600" />
+                            </NavLink> : <NavLink to={"/signup"}
+                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 focus:outline-none">Sign up</NavLink>
+                        }
+                        <button
+                            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                            aria-controls="mobile-menu-2" >
+                            <RxHamburgerMenu />
+                        </button>
                     </div>
-                </form> */}
-
-                <div className="flex gap-2 items-center">
-                    {
-                        user?.loggedIn? <NavLink to={"/profile"} className="">Profile</NavLink> : <NavLink to={"/login"} className="p-2 border-[1px] px-5 rounded-full bg-green-600 hover:bg-green-700 border-none">Login</NavLink>
-                    }
-                    
-                    
+                    <div className="items-center justify-between w-full lg:flex lg:w-auto lg:order-1 " >
+                        <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
+                            {
+                                navmenu.map((item, index) => (
+                                    <li key={index}>
+                                        <NavLink
+                                            to={item.path}
+                                            className={({ isActive }) =>
+                                                `block py-2 pl-3 pr-4  lg:border-0 lg:p-0  ${isActive ? 'text-blue-500 font-bold' : 'hover:text-blue-500'}`
+                                            }>
+                                            {item.name}
+                                        </NavLink>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
                 </div>
-            </div>
-
-
-        </div>
+            </nav>
+        </>
     )
 }
