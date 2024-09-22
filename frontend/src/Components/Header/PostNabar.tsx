@@ -12,7 +12,7 @@ const PostNabar = () => {
   const pageLength=pages?.length;
   const dispatch=useDispatch();
   return (
-    <div className="bg-black  py-2">
+    <div className="bg-black  py-2 sticky top-0 z-50">
         <div className="w-[90vw] mx-auto flex justify-between items-center">
             <NavLink 
             to={"/"}

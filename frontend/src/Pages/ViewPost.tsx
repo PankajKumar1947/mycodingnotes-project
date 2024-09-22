@@ -34,15 +34,15 @@ const ViewPost = () => {
       {
         loading ? <div>
           <Loader />
-        </div> : <div className="mx-auto bg-gray-300 px-4 sm:px-14 pb-4 ">
-          <h1 className="text-black text-2xl sm:text-4xl font-bold text-start underline underline-offset-4 ">{postTitle}</h1>
-          <h1 className="text-black text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic">{pageTitle}</h1>
+        </div> : <div className="mx-auto  px-4 sm:px-14 pb-4 ">
+          <h1 className=" text-2xl sm:text-4xl font-bold text-start underline underline-offset-4 ">{postTitle}</h1>
+          <h1 className=" text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic">{pageTitle}</h1>
           {
             data?.length > 0 ? data.map((markdown: any) => {
               return (
-                <div 
-                key={markdown.id}
-                className="md:max-w-[80%] mx-auto overflow-hidden">
+                <div
+                  key={markdown.id}
+                  className="md:max-w-[80%] mx-auto overflow-hidden">
                   <ViewContent
                     content={markdown.content}
                   />

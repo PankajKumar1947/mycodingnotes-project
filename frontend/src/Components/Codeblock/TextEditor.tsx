@@ -26,7 +26,7 @@ const TextEditor = ({ content, editOption, id ,setNotesRefresh,setEditOption}: a
     return (
         <div className=" text-black overflow-hidden rounded-xl">
             {
-                editOption.editOption && editOption.markdownId === id ? <div className='bg-white w-full'>
+                editOption.editOption && editOption.markdownId === id ? <div className='w-full'>
                     <Editor initialValue={defaultValue} onChange={setContent} />
                     <div className="text-center py-2">
                         <Button

@@ -65,9 +65,9 @@ const AdminEdit = () => {
             {
                 loading ? <div>
                     <Loader />
-                </div> : <div className=" mx-auto bg-gray-300 px-4 sm:px-14 py-4  ">
-                    <h1 className="text-black text-2xl sm:text-4xl font-bold text-start underline underline-offset-4 ">{currPageDetails?.post_title}</h1>
-                    <h1 className="text-black text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic">{currPageDetails?.tilte}</h1>
+                </div> : <div className=" mx-auto px-4 sm:px-14 py-4  ">
+                    <h1 className="text-2xl sm:text-4xl font-bold text-start underline underline-offset-4 ">{currPageDetails?.post_title}</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic">{currPageDetails?.tilte}</h1>
                     {
                         data?.length > 0 ? data.map((markdown: any) => {
                             return (

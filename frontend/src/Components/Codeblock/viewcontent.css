@@ -11,7 +11,28 @@
     font-size: 12px;
 }
 
+.prose * {
+    color: white ; 
+}
 
+.prose blockquote {
+    background-color:black ;
+    border-left: 5px solid blue; 
+    padding-left: 10px; 
+    padding: 5px;
+}
+
+
+.prose code {
+    background-color: rgb(58, 58, 58);
+    color: rgb(255, 77, 77);
+   
+}
+
+.prose pre code {
+    color: unset; 
+    background-color: unset; 
+}
 
 pre {
     position: relative;
