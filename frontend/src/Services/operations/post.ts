@@ -4,6 +4,7 @@ import { MARKDOWN_ENDPOINTS, NOTES_ENDPOINTS, PAGE_ENDPOINTS, POST_ENDPOINTS } f
 
 const {
     GET_ALL_POST_API,
+    GET_POST_KEYWORDS_API,
     MAKE_PRIVATE,
 }=POST_ENDPOINTS
 ;
@@ -29,6 +30,16 @@ export const createNotes=async(data:any,navigate:any)=>{
         navigate(`/adminpost/${response.data.data.id}`);
     }catch(error){
         console.log("error occured in creating the post",error);
+    }
+}
+
+
+export const getPostByKeywords=async(keywords:string)=>{
+    try{
+        const response=await apiConnector("POST",GET_POST_KEYWORDS_API,{keywords},{} as any,{});
+        return response.data;       
+    }catch(error){
+        console.log("error occured in fetching the post",error);
     }
 }
 

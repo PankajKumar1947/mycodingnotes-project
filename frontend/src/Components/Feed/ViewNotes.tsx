@@ -1,18 +1,10 @@
-import { useEffect, useState } from "react"
+
 import { Card } from "../Card/Card"
-import { getAllNotes } from "../../Services/operations/post";
+
 import FeedLoader from "./FeedLoader";
 
-const ViewNotes = () => {
-    const [notes, setNotes] = useState([]);
-    const [loading, setLoading] = useState(true);
-    useEffect(() => {
-        const getNotes = async () => {
-            setNotes(await getAllNotes());
-            setLoading(false);
-        }
-        getNotes();
-    }, [])
+const ViewNotes = ({notes,loading}:any) => {
+    
     return (
         <div className="w-[90vw] mx-auto   ">
             {
@@ -22,12 +14,12 @@ const ViewNotes = () => {
                     <FeedLoader />
                 </div> :
                     notes?.length === 0 ? <div className="min-h-[80vh] w-full">
-                        <h1 className="text-2xl font-bold text-center">No Notes Found</h1>
+                        <h1 className="text-2xl font-bold text-center text-white">No Notes Found</h1>
                     </div>
                         :
                         <div className="grid md:grid-cols-2  gap-5">
                             {
-                                notes?.map((note, ind) => {
+                                notes?.map((note:any, ind:number) => {
                                     return <Card key={ind} note={note} />
                                 })}
                         </div>

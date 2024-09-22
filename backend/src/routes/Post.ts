@@ -54,6 +54,46 @@ postRouter.get("/bulk",async(c)=>{
     }
 })
 
+//fetch post by keywords
+postRouter.post("/getPost",async(c)=>{
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env?.DATABASE_URL
+    }).$extends(withAccelerate());
+
+    const body=await c.req.json();
+
+    try{
+        //1. take out the keywords from body and split by space
+        const serachInput=body.keywords;
+        const keywords=serachInput.toLowerCase().split(' ');
+
+        //2.Check if any keyword matches with post's keywords
+        const posts=await prisma.post.findMany({
+            where:{
+                private:false
+            }
+        });
+
+        const filteredPosts = posts.filter((post) => {
+            return keywords.some((keyword:string) => post.keywords.includes(keyword));
+        });
+        
+        //return the success response
+        return c.json({
+            status:200,
+            success:true,
+            message:"Post fetched",
+            data:filteredPosts
+        })
+    }catch(error){
+        c.status(500);
+        return c.json({
+            success:false,
+            message:"Internal Server error"
+        })
+    }
+})
+
 //creating middleware
 postRouter.use("/*",auth)
 
@@ -121,56 +161,6 @@ postRouter.post("/createPost",async(c)=>{
         return c.json({
             success:false,
             message:"Internal Server Error in Post"
-        })
-    }
-})
-
-//fetch post by keywords
-postRouter.post("/getPost",async(c)=>{
-    const prisma=new PrismaClient({
-        datasourceUrl:c.env?.DATABASE_URL
-    }).$extends(withAccelerate());
-
-    const body=await c.req.json();
-
-    try{
-        //1. take out the keywords from body and split by space
-        const serachInput=body.keywords;
-
-        const keywords=serachInput.toLowerCase().split(' ');
-
-        //2.Check if any keyword matches with post's keywords
-        const posts=await prisma.post.findMany({
-            where:{
-                private:false
-            }
-        });
-
-        const filteredPosts = posts.filter((post) => {
-            return keywords.some((keyword:string) => post.keywords.includes(keyword));
-        });
-
-
-        if(filteredPosts.length===0){
-            c.status(204);
-            return c.json({
-                success:true,
-                message:"No Post Found"
-            })
-        }
-
-        //return the success response
-        return c.json({
-            status:200,
-            success:true,
-            message:"Post fetched",
-            data:filteredPosts
-        })
-    }catch(error){
-        c.status(500);
-        return c.json({
-            success:false,
-            message:"Internal Server error"
         })
     }
 })
