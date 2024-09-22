@@ -13,7 +13,7 @@ export const Card = ({ note, adminView }: any) => {
   }
 
   return (
-    <div className="border-[1px] rounded-lg bg-zinc-900 sm:p-2 relative ">
+    <div className="border-[1px] rounded-lg hover:bg-indigo-950/70 cursor-pointer duration-200 border-blue-500 sm:p-2 relative ">
       <div className="flex sm:gap-4 flex-wrap sm:flex-nowrap ">
         <img src={note?.post_img} alt="" className=" h-[150px] sm:max-h-[160px] w-full sm:w-[180px] border-[1px] rounded-t-lg sm:rounded-lg" />
         <div className="p-2 sm:p-0">

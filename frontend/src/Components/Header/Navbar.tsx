@@ -1,8 +1,8 @@
-import { useDispatch, useSelector } from "react-redux"
-import { NavLink } from "react-router-dom"
-import { verifytoken } from "../../Services/operations/auth"
-import { useEffect } from "react"
-import { setLogin } from "../../slices/loginSlice"
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { verifytoken } from "../../Services/operations/auth";
+import { useEffect, useState } from "react";
+import { setLogin } from "../../slices/loginSlice";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { FaRegUserCircle } from "react-icons/fa";
 
@@ -23,13 +23,14 @@ const navmenu = [
         name: "Contact",
         path: "/contact"
     },
-
-]
+];
 
 export const Navbar = () => {
     const dispatch = useDispatch();
     const login = useSelector((state: any) => state.login?.isLoggedIn);
     const user = useSelector((state: any) => state.login.login?.data);
+    const [navOpen, setNavOpen] = useState(false); // For toggling mobile nav menu
+
     useEffect(() => {
         const verifyToken = async () => {
             try {
@@ -41,7 +42,12 @@ export const Navbar = () => {
             }
         }
         verifyToken();
-    }, [login])
+    }, [login]);
+
+    // Toggle function for mobile menu
+    const toggleNav = () => {
+        setNavOpen(!navOpen);
+    };
 
     return (
         <>
@@ -52,19 +58,25 @@ export const Navbar = () => {
                     </NavLink>
                     <div className="flex items-center lg:order-2">
                         {
-                            user?.loggedIn ? <NavLink to={"/profile"}
-                                className="">
-                                <FaRegUserCircle className="text-3xl hover:text-blue-600" />
-                            </NavLink> : <NavLink to={"/signup"}
-                                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 focus:outline-none">Sign up</NavLink>
+                            user?.loggedIn ? (
+                                <NavLink to={"/profile"} className="">
+                                    <FaRegUserCircle className="text-3xl hover:text-blue-600" />
+                                </NavLink>
+                            ) : (
+                                <NavLink to={"/signup"}
+                                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 sm:mr-2 lg:mr-0 focus:outline-none">
+                                    Sign up
+                                </NavLink>
+                            )
                         }
                         <button
+                            onClick={toggleNav} // Toggle mobile menu on click
                             className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                            aria-controls="mobile-menu-2" >
+                            aria-controls="mobile-menu-2">
                             <RxHamburgerMenu />
                         </button>
                     </div>
-                    <div className="items-center justify-between w-full lg:flex lg:w-auto lg:order-1 " >
+                    <div className={`${navOpen ? "block" : "hidden"} items-center justify-between w-full lg:flex lg:w-auto lg:order-1`} id="mobile-menu">
                         <ul className="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                             {
                                 navmenu.map((item, index) => (
@@ -72,7 +84,7 @@ export const Navbar = () => {
                                         <NavLink
                                             to={item.path}
                                             className={({ isActive }) =>
-                                                `block py-2 pl-3 pr-4  lg:border-0 lg:p-0  ${isActive ? 'text-blue-500 font-bold' : 'hover:text-blue-500'}`
+                                                `block py-2 pl-3 pr-4 lg:border-0 lg:p-0 ${isActive ? 'text-blue-500 font-bold' : 'hover:text-blue-500'}`
                                             }>
                                             {item.name}
                                         </NavLink>
@@ -84,5 +96,5 @@ export const Navbar = () => {
                 </div>
             </nav>
         </>
-    )
-}
+    );
+};
