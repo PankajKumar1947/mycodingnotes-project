@@ -37,8 +37,12 @@ export const Navbar = () => {
                 const verifytokenResponse = await verifytoken();
                 dispatch(setLogin(verifytokenResponse));
                 localStorage.setItem('isLoggedIn', JSON.stringify(verifytokenResponse.data));
-            } catch (error) {
+            } catch (error:any) {
                 console.log(error);
+                dispatch(setLogin({}));
+                localStorage.setItem('isLoggedIn', JSON.stringify(false));
+                localStorage.removeItem('token');
+                localStorage.removeItem('user');
             }
         }
         verifyToken();
