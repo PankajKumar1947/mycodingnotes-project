@@ -5,7 +5,7 @@ import { FaFacebook } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 export const Footer = () => {
     return (
-        <footer className="w-full py-4 mt-10 px-4 sm:px-10 bg-black">
+        <footer className="w-full py-4 mt-10 px-4 sm:px-10 bg-gradient-to-b from-transparent via-indigo-950 to-black">
             <NavLink to={"/"}  className="flex justify-center ">
                 <h1 className="text-3xl sm:text-4xl font-bold">My Coding Notes</h1>
             </NavLink>
