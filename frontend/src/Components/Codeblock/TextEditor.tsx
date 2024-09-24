@@ -30,6 +30,9 @@ const TextEditor = ({ content, editOption, id ,setNotesRefresh,setEditOption}: a
                     <Editor initialValue={defaultValue} onChange={setContent} />
                     <div className="text-center py-2">
                         <Button
+                            onClick={()=>setEditOption(false)}
+                            className="bg-gray-500 hover:bg-gray-600 text-white mx-2">Cancel</Button>
+                        <Button
                             onClick={updateContent}
                             className="bg-green-400 hover:bg-green-500 text-black">Update</Button>
                     </div>

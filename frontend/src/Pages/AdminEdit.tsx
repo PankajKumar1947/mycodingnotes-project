@@ -8,11 +8,12 @@ import PostNabar from "@/Components/Header/PostNabar";
 import CreatePageBtn from "@/Components/Common/CreatePageBtn";
 import { useNavigate } from "react-router-dom";
 import TextEditor from "@/Components/Codeblock/TextEditor";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 interface pageDetails {
     tilte: string,
     page_id: number,
-    post_title:string,
+    post_title: string,
 }
 
 interface editMarkdown {
@@ -34,6 +35,7 @@ const AdminEdit = () => {
     const navigate = useNavigate();
     const postId = window.location.pathname.split("/")[2];
     const [notesRefresh, setNotesRefresh] = useState(false);
+    const [menu, setMenu] = useState<boolean>(false);
 
     useEffect(() => {
         setLoading(true);
@@ -42,7 +44,7 @@ const AdminEdit = () => {
             setCurrPageDetails({
                 tilte: response?.data?.page_title,
                 page_id: response?.data?.id,
-                post_title:response?.data?.post_title,
+                post_title: response?.data?.post_title,
             })
             setData(response?.data?.markdowns);
             dispatch(setPages(response?.pages));
@@ -65,9 +67,14 @@ const AdminEdit = () => {
             {
                 loading ? <div>
                     <Loader />
-                </div> : <div className=" mx-auto px-4 sm:px-14 py-4  ">
-                    <h1 className="text-2xl sm:text-4xl font-bold text-start underline underline-offset-4 ">{currPageDetails?.post_title}</h1>
-                    <h1 className="text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic">{currPageDetails?.tilte}</h1>
+                </div> : <div className="mx-auto bg-slate-900 px-4 sm:px-14 pb-4">
+                    <div className="font-bold text-start fixed top-12 sm:top-14 left-2 sm:left-8 flex gap-2 items-center z-10">
+                        <GiHamburgerMenu
+                            onClick={() => setMenu(!menu)}
+                            className="cursor-pointer text-white bg-gray-600 text-3xl p-2 rounded-md" />
+                        {menu && <h1 className="bg-slate-950 px-4 py-2 rounded-md">{currPageDetails?.post_title}</h1>}
+                    </div>
+                    <h1 className=" text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic mt-1">{currPageDetails?.tilte}</h1>
                     {
                         data?.length > 0 ? data.map((markdown: any) => {
                             return (
