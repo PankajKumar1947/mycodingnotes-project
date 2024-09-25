@@ -59,8 +59,9 @@ export const getPage=async(postId:string,pageId:string)=>{
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         const response=await apiConnector("GET",GET_PAGE(postId,pageId),{},headers as any, {});
         return response.data;
-    }catch(error){
+    }catch(error:any){
         console.log("error occured in getting the page");
+        return error?.response;
     }
 }
 

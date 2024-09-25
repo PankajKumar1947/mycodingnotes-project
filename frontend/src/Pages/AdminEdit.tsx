@@ -6,7 +6,7 @@ import { setPages } from "../slices/pageCountSlice";
 import { Button } from "@/Components/ui/button";
 import PostNabar from "@/Components/Header/PostNabar";
 import CreatePageBtn from "@/Components/Common/CreatePageBtn";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import TextEditor from "@/Components/Codeblock/TextEditor";
 import { GiHamburgerMenu } from "react-icons/gi";
 
@@ -30,17 +30,20 @@ const AdminEdit = () => {
     });
     const [loading, setLoading] = useState(false);
     const page = useSelector((state: any) => state.page);
-    const pageCnt = page?.pagecnt;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const postId = window.location.pathname.split("/")[2];
+    const location = useLocation();
+    
+    const segments = location.pathname.split("/");
+    const postId = segments[2];
+    const pageid = segments[3];
     const [notesRefresh, setNotesRefresh] = useState(false);
     const [menu, setMenu] = useState<boolean>(false);
 
     useEffect(() => {
         setLoading(true);
         const fetchPageDetails = async () => {
-            const response = await getPage(postId, pageCnt);
+            const response = await getPage(postId, pageid);
             setCurrPageDetails({
                 tilte: response?.data?.page_title,
                 page_id: response?.data?.id,
@@ -51,10 +54,10 @@ const AdminEdit = () => {
             setLoading(false);
         }
         fetchPageDetails();
-    }, [pageCnt, notesRefresh])
+    }, [pageid, notesRefresh])
 
     const addNewNotes = () => {
-        navigate(`/${postId}/createmarkdown/${currPageDetails?.page_id}`)
+        navigate(`/${postId}/createmarkdown/${pageid}`)
     }
 
     const editMarkdownHandler = (id: number) => {

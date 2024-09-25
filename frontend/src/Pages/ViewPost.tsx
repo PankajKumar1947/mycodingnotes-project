@@ -2,25 +2,30 @@ import PostNabar from "../Components/Header/PostNabar";
 import { getPage } from "../Services/operations/post";
 import Loader from "../Components/Loaders/Loader";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setPages } from "../slices/pageCountSlice";
 import ViewContent from "@/Components/Codeblock/ViewContent";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 
 const ViewPost = () => {
   const [data, setData] = useState([]);
   const [pageTitle, setPageTitle] = useState<string>("");
   const [postTitle, setPostTitle] = useState<string>("");
   const [loading, setLoading] = useState(false);
-  const pageCnt = useSelector((state: any) => state.page.pagecnt);
   const dispatch = useDispatch();
   const [menu,setMenu]=useState<boolean>(false);
+  const navigate=useNavigate();
+  const pageid = window.location.pathname.split("/")[3];
 
   useEffect(() => {
     setLoading(true);
     const fetchPageDetails = async () => {
       const postId = window.location.pathname.split("/")[2];
-      const response = await getPage(postId, pageCnt);
+      const response = await getPage(postId, pageid);
+      if(response?.status===404){
+        navigate("/notes");
+      }
       setPageTitle(response?.data?.page_title);
       setPostTitle(response?.data?.post_title);
       dispatch(setPages(response?.pages));
@@ -29,7 +34,7 @@ const ViewPost = () => {
     }
 
     fetchPageDetails();
-  }, [pageCnt])
+  }, [pageid])
   return (
     <div className='min-h-[90vh]  mx-auto'>
       <PostNabar />

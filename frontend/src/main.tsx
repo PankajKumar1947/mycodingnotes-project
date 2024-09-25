@@ -67,11 +67,11 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path:"/viewnotes/:postid",
+    path:"/viewnotes/:postid/:pageid",
     element:<ViewPost/>,
   },
   {
-    path:"adminpost/:postid",
+    path:"adminpost/:postid/:pageid",
     element:<ProtectedRoutes>
       <AdminEdit/>
     </ProtectedRoutes>

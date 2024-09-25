@@ -1,15 +1,11 @@
 import { MdOutlineArrowCircleRight } from "react-icons/md";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setPageCnt } from "../../slices/pageCountSlice";
 import DropDown from "./DropDown";
 
 export const Card = ({ note, adminView }: any) => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const viewPostHandler = () => {
-    dispatch(setPageCnt(1));
-    navigate(`/viewnotes/${note.id}`);
+    navigate(`/viewnotes/${note.id}/1`);
   }
 
   return (
