@@ -33,9 +33,6 @@ model Post{
   author      User  @relation(fields: [authorId],references: [id],onDelete: Cascade)
   authorId    String
 
-  comments    Comment[]
-  likes       Like[]
-
   pages       Page[]
 
   bookmark    Bookmark? @relation(fields: [bookmark_id],references: [id],onDelete: Cascade)
@@ -54,7 +51,8 @@ model Page{
   page_title  String
   post_title  String?
   markdowns   Markdown[]
- 
+  comments    Comment[]
+  likes       Like[]
 }
 
 model Markdown{
@@ -67,8 +65,8 @@ model Markdown{
 model Comment{
   id          String @id @default(uuid())
   title       String
-  post        Post  @relation(fields: [post_id],references: [id], onDelete: Cascade)
-  post_id     String
+  page        Page  @relation(fields: [page_id],references: [id], onDelete: Cascade)
+  page_id     Int
 
   user        User @relation(fields: [user_id],references: [id], onDelete: Cascade)
   user_id     String
@@ -76,8 +74,8 @@ model Comment{
 
 model Like{
   id          String @id @default(uuid())
-  post        Post  @relation(fields: [post_id],references: [id],onDelete: Cascade)
-  post_id     String
+  page        Page  @relation(fields: [page_id],references: [id],onDelete: Cascade)
+  page_id     Int
 
   user        User   @relation(fields: [user_id],references: [id])
   user_id     String

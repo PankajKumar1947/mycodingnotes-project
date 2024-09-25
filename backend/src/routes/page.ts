@@ -13,6 +13,40 @@ export const pageRouter = new Hono<{
     }
 }>();
 
+//fetch comments for the page
+pageRouter.get("/comment/:page_id",async(c)=>{
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env?.DATABASE_URL
+    }).$extends(withAccelerate());
+    const page_id=c.req.param('page_id');
+    try{
+        const comments=await prisma.comment.findMany({
+            where:{
+                page_id:parseInt(page_id)
+            },
+            include:{
+                user:{
+                    select:{
+                        id:true,
+                        username:true,
+                        fullname:true
+                    }
+                }
+            }   
+        })
+        return c.json({
+            success:true,
+            data:comments
+        })
+    }catch(error){
+        c.status(500);
+        return c.json({ 
+            success:false,  
+            message:"Internal Server error in fetching comments"
+        })  
+    }
+})
+
 //get the page
 pageRouter.get("/:post_id/:page_cnt",async(c)=>{
     const prisma = new PrismaClient({
@@ -66,7 +100,6 @@ pageRouter.get("/:post_id/:page_cnt",async(c)=>{
         })
     }
 })
-
 
 //middleware
 pageRouter.use("/*",auth)
@@ -273,6 +306,170 @@ pageRouter.delete("/delete",async(c)=>{
         return c.json({
             success:false,
             message:"Internal Server Error"
+        })
+    }
+})
+
+//like page route
+pageRouter.post("/like",async(c)=>{
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env?.DATABASE_URL
+    }).$extends(withAccelerate());
+
+    
+    const body=await c.req.json();
+    const user_id =c.get('userId')
+
+    try{
+        //1. extract the page_id from body and userId from token for liking
+        //check wether the post exist or not
+        const page=await prisma.page.findUnique({
+            where:{
+                id:parseInt(body.page_id)
+            },
+            include:{
+                likes:true
+            }
+        })
+        
+
+        if(!page){
+            c.status(404);
+            return c.json({
+                success:false,
+                message:"Such page doesn't exist",
+            })
+        }
+
+        
+
+        //2. check wether the page_id  and userid already exist in the like model
+        const like=await prisma.like.findFirst({
+            where:{
+                user_id:user_id,
+                page_id:parseInt(body.page_id)
+            },
+            
+        })
+
+
+        console.log("error 2",like)
+
+        if(like==null){
+            //like the page
+            const doLike=await prisma.like.create({
+                data:{
+                    user_id:user_id,
+                    page_id:parseInt(body.page_id)
+                }
+            })
+
+            console.log("error in liking",doLike)
+
+            if(!doLike){
+                c.status(501);
+                return c.json({
+                    success:false,
+                    message:"Error in doing like"
+                })
+            }
+
+            return c.json({
+                status:200,
+                success:true,
+                message:"page liked",
+                data:doLike
+            })
+        }else{
+            //unlike the page
+            const removeLike=await prisma.like.delete({
+                where:{
+                    id:like.id,
+                    page_id:body.post_id,
+                    user_id:user_id
+                }
+            })
+
+            if(!removeLike){
+                c.status(501);
+                return c.json({
+                    success:false,
+                    message:"Error in disliking the post"
+                })
+            }
+
+            return c.json({
+                status:200,
+                success:true,
+                message:"Like removed",
+                data:removeLike
+            })
+        }
+
+    }catch(error){
+        c.status(500);
+        return c.json({
+            success:false,
+            message:"Internal Server error in liking post",
+            error:error
+        })
+    }
+})
+
+//comment post route
+pageRouter.post("/comment/:page_id",async(c)=>{
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env?.DATABASE_URL
+    }).$extends(withAccelerate());
+
+    const body=await c.req.json();
+    const user_id=c.get("userId");
+    const page_id=c.req.param('page_id');
+    try{
+        //extract the page id from the body and userId from the token
+        const page=await prisma.page.findUnique({
+            where:{
+                id:parseInt(page_id)
+            }
+        })
+
+        if(!page){
+            c.status(404);
+            return c.json({
+                success:false,
+                message:"No such page found"
+            })
+        }
+
+        //2. do the comment on this page
+        const comment=await prisma.comment.create({
+            data:{
+                page_id:parseInt(page_id),
+                user_id:user_id,
+                title:body.title
+            }
+        })
+
+        if(!comment){
+            c.status(501);
+            return c.json({
+                success:false,
+                message:"No comment created"
+            })
+        }
+
+        //return the success response
+        return c.json({
+            success:true,
+            message:"Comment created",
+            data:comment
+        })
+
+    }catch(error){
+        c.status(500);
+        return c.json({
+            success:false,
+            message:"Internal Server error in comment"
         })
     }
 })
