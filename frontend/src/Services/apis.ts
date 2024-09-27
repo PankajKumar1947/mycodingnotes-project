@@ -32,3 +32,9 @@ export const MARKDOWN_ENDPOINTS={
     CREATE_MARKDOWN:(postId:string,pageId:number)=>BASE_URL+`/post/page/markdown/create/${postId}/${pageId}`,
     UPDATE_MARKDOWN:(markdownid:number)=>BASE_URL+`/post/page/markdown/update/${markdownid}`
 }
+
+//comment endpoints
+export const COMMENT_ENDPOINTS={
+    CREATE_COMMENT:(pageId:number)=>BASE_URL+`/page/comment/${pageId}`,
+    GET_COMMENT:(pageId:number)=>BASE_URL+`/page/comment/${pageId}`
+}

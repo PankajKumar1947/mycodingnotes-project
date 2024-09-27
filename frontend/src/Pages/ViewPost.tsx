@@ -7,6 +7,7 @@ import { setPages } from "../slices/pageCountSlice";
 import ViewContent from "@/Components/Codeblock/ViewContent";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
+import Comments from "@/Components/Comments/Comments";
 
 const ViewPost = () => {
   const [data, setData] = useState([]);
@@ -14,16 +15,16 @@ const ViewPost = () => {
   const [postTitle, setPostTitle] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [menu,setMenu]=useState<boolean>(false);
-  const navigate=useNavigate();
+  const [menu, setMenu] = useState<boolean>(false);
+  const navigate = useNavigate();
   const pageid = window.location.pathname.split("/")[3];
+  const postId = window.location.pathname.split("/")[2];
 
   useEffect(() => {
     setLoading(true);
     const fetchPageDetails = async () => {
-      const postId = window.location.pathname.split("/")[2];
       const response = await getPage(postId, pageid);
-      if(response?.status===404){
+      if (response?.status === 404) {
         navigate("/notes");
       }
       setPageTitle(response?.data?.page_title);
@@ -43,9 +44,9 @@ const ViewPost = () => {
           <Loader />
         </div> : <div className="mx-auto bg-slate-900 px-4 sm:px-14 pb-4">
           <div className="font-bold text-start fixed top-12 sm:top-14 left-2 sm:left-8 flex gap-2 items-center z-10">
-            <GiHamburgerMenu 
-            onClick={()=>setMenu(!menu)}
-            className="cursor-pointer text-white bg-gray-600 text-3xl p-2 rounded-md"/>
+            <GiHamburgerMenu
+              onClick={() => setMenu(!menu)}
+              className="cursor-pointer text-white bg-gray-600 text-3xl p-2 rounded-md" />
             {menu && <h1 className="bg-slate-950 px-4 py-2 rounded-md">{postTitle}</h1>}
           </div>
           <h1 className=" text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic mt-1">{pageTitle}</h1>
@@ -65,11 +66,12 @@ const ViewPost = () => {
                 <h1>Nothing inside</h1>
               </div>
           }
+          <div className="">
+            <Comments pageId={pageid} />
+          </div>
         </div>
       }
-
     </div>
-
   )
 }
 
