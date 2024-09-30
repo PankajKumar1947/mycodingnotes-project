@@ -29,7 +29,7 @@ const Comments = ({ pageId }: any) => {
 
   return (
     <>
-      <div className="md:max-w-[80%] mx-auto overflow-hidden">
+      <div className="md:max-w-[80%] mx-auto overflow-hidden mt-4 border-t-2 border-blue-600">
         <h1 className='text-2xl font-bold mt-2'>Comments</h1>
         <form onSubmit={handleSubmit(onSubmit)} className='flex justify-between my-2'>
           <input

@@ -19,6 +19,7 @@ import OpenRoute from './Components/ProtectedRoutes/OpenRoute.tsx'
 import AdminEdit from './Pages/AdminEdit.tsx'
 import Feed from './Pages/Feed.tsx'
 import NotFound from './Components/Error/NotFound.tsx'
+import About from './Pages/About.tsx'
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path:"notes",
         element:<Feed/>,
+      },
+      {
+        path:"about",
+        element:<About/>
       },
       {
         path:"signup",

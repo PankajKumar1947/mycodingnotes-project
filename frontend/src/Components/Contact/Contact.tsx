@@ -15,7 +15,7 @@ const Contact = () => {
             </div>
             <div className='absolute top-8 left-1/2 -translate-x-1/2 w-full px-4'>
                 <div className="mx-auto max-w-2xl text-center">
-                    <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Contact sales</h2>
+                    <h2 className="text-3xl font-bold tracking-tight text-blue-600 sm:text-4xl">Get in touch</h2>
                     <p className="mt-2 sm:text-lg leading-8 text-gray-300">Aute magna irure deserunt veniam aliqua magna enim voluptate.</p>
                 </div>
                 <form action="#" method="POST" className="mx-auto mt-8 max-w-xl sm:mt-20">

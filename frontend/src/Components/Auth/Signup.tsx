@@ -26,7 +26,7 @@ export const Signup=()=>{
             toast.success("Account creted ... ");
             toast.success("Please Login ... ");
             toast.remove(toastId);
-            navigate("/profile")
+            navigate("/login")
         }catch(error){
             console.log("Error in Signup=",error);
             toast.error("Error")

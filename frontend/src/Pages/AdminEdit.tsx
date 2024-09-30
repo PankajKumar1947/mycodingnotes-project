@@ -33,31 +33,32 @@ const AdminEdit = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
-    
+    const [pageId,setPageId]=useState<number>(0);
     const segments = location.pathname.split("/");
     const postId = segments[2];
-    const pageid = segments[3];
+    const pageCnt = segments[3];
     const [notesRefresh, setNotesRefresh] = useState(false);
     const [menu, setMenu] = useState<boolean>(false);
 
     useEffect(() => {
         setLoading(true);
         const fetchPageDetails = async () => {
-            const response = await getPage(postId, pageid);
+            const response = await getPage(postId, pageCnt);
             setCurrPageDetails({
                 tilte: response?.data?.page_title,
                 page_id: response?.data?.id,
                 post_title: response?.data?.post_title,
             })
             setData(response?.data?.markdowns);
+            setPageId(response?.data?.id);
             dispatch(setPages(response?.pages));
             setLoading(false);
         }
         fetchPageDetails();
-    }, [pageid, notesRefresh])
+    }, [pageCnt, notesRefresh])
 
     const addNewNotes = () => {
-        navigate(`/${postId}/createmarkdown/${pageid}`)
+        navigate(`/${postId}/createmarkdown/${pageId}`)
     }
 
     const editMarkdownHandler = (id: number) => {

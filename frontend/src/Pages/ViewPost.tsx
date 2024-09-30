@@ -19,6 +19,7 @@ const ViewPost = () => {
   const navigate = useNavigate();
   const pageid = window.location.pathname.split("/")[3];
   const postId = window.location.pathname.split("/")[2];
+  const [pageId,setPageId]=useState<number>(0);
 
   useEffect(() => {
     setLoading(true);
@@ -27,6 +28,7 @@ const ViewPost = () => {
       if (response?.status === 404) {
         navigate("/notes");
       }
+      setPageId(response?.data?.id);
       setPageTitle(response?.data?.page_title);
       setPostTitle(response?.data?.post_title);
       dispatch(setPages(response?.pages));
@@ -67,7 +69,7 @@ const ViewPost = () => {
               </div>
           }
           <div className="">
-            <Comments pageId={pageid} />
+            <Comments pageId={pageId} />
           </div>
         </div>
       }
