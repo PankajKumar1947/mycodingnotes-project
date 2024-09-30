@@ -12,7 +12,7 @@ const Features = () => {
     return (
         <div className="mx-auto grid max-w-2xl grid-cols-1 items-center gap-x-8 gap-y-4 px-4 py-4 sm:px-6 sm:py-32 lg:max-w-7xl lg:grid-cols-2 lg:px-8">
             <div>
-                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Why Choose MyCodingNotes?</h2>
+                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl text-blue-600">Why Choose MyCodingNotes?</h2>
                 <p className="mt-4 ">
                 At MyCodingNotes, we make it simple to create, organize, and share your knowledge. Whether you’re a Teacher, developer or a student, here’s what makes our platform stand out
                 </p>

@@ -52,7 +52,7 @@ const Workflow = () => {
                     <div className="lg:pr-4">
                         <div className="lg:max-w-lg">
                             <p className="text-2xl font-semibold leading-7 text-indigo-600">How It Works ? </p>
-                            <h1 className="mt-2 text-3xl font-bold tracking-tight text-white sm:text-4xl">Get Started with MyCodingNotes</h1>
+                            <h1 className="mt-2 text-3xl font-bold tracking-tight text-blue-600 sm:text-4xl">Getting Started with MyCodingNotes</h1>
                             <p className="mt-6 text-xl leading-8 text-gray-300">Whether you're a coding enthusiast, a teacher, or a student, MyCodingNotes makes note-taking simple, secure, and shareable. Here's a step-by-step guide on how you can begin using the platform today.</p>
                         </div>
                     </div>
