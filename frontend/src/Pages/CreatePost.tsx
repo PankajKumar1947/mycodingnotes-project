@@ -78,13 +78,13 @@ export const CreatePost = () => {
         <div className="flex flex-col gap-1">
           <label htmlFor="description" className="font-semibold text-indigo-400">Description</label>
           <textarea
-            {...register("description", { required: true ,maxLength:95})}
+            {...register("description", { required: true ,maxLength:115})}
             rows={10}
             className="w-full p-2 bg-transparent border-[1px] rounded-md"
             placeholder="Description"
           />
           {errors.description?.type==="required" && <span className="text-red-400 font-semibold text-sm">Description is required</span>}
-          {errors.description?.type==="maxLength" && <span className="text-red-400 font-semibold text-sm">{"Description should not exceed 95 characters"}</span>}
+          {errors.description?.type==="maxLength" && <span className="text-red-400 font-semibold text-sm">{"Description should not exceed 115 characters"}</span>}
         </div>
         <input type="submit" value="Submit" className="bg-green-600 cursor-pointer hover:bg-green-700 duration-200 font-semibold px-4 py-2 rounded-2xl" />
       </form>

@@ -64,7 +64,12 @@ pageRouter.get("/:post_id/:page_cnt",async(c)=>{
                 page_cnt:Number(page_cnt),
             },
             include:{
-                markdowns:true,
+                markdowns:{
+                    orderBy:{
+                        id:"asc"
+                    }
+                }
+                
             }
         })
 

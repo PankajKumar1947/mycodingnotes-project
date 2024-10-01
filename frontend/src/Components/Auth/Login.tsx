@@ -40,7 +40,7 @@ export const Login=()=>{
             //console.log("Error in Signup=",error);
             toast.error(error.response.data.message)
             toast.remove(toastId);
-            navigate("/login")
+            navigate("/signup")
         }  
     };
 
@@ -67,7 +67,7 @@ export const Login=()=>{
                     <div className="sm:w-[80%] w-full">
                         <label htmlFor="password">Password</label>
                         <br />
-                        <input type="text" placeholder="password"
+                        <input type="password" placeholder="password"
                         {...register("password",{required:true})}
                         name="password" className="bg-gray-700 border-[1px] px-4 p-2 w-[100%]  rounded-md" />
                     </div>
