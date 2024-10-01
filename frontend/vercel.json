@@ -1,48 +1,8 @@
 {
-    "routes":[
+    "rewrites": [
         {
-            "src":"/",
-            "dest":"/"
-        },
-        {
-            "src":"/notes",
-            "dest":"/"
-        },
-        {
-            "src":"/about",
-            "dest":"/"
-        },
-        {
-            "src":"/contact",
-            "dest":"/"
-        },
-        {
-            "src":"/signup",
-            "dest":"/"
-        },
-        {
-            "src":"/login",
-            "dest":"/"
-        },
-        {
-            "src":"/createpost",
-            "dest":"/"
-        },
-        {
-            "src":"/profile",
-            "dest":"/"
-        },
-        {
-            "src":"/viewnotes/:postid/:pageid",
-            "dest":"/"
-        },
-        {
-            "src":"/adminpost/:postid/:pageid",
-            "dest":"/"
-        },
-        {
-            "src":"*",
-            "dest":"/"
+            "source": "/(.*)",
+            "destination": "/"
         }
     ]
 }
