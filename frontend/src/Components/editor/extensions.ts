@@ -128,7 +128,7 @@ const codeBlockLowlight = CodeBlockLowlight.configure({
 
 const youtube = Youtube.configure({
   HTMLAttributes: {
-    class: cx('rounded-lg border border-muted')
+    class: cx('rounded-lg border border-muted w-full h-auto sm:h-[540px]')
   },
   inline: false
 })

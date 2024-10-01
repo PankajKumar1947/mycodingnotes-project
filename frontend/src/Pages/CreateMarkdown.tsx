@@ -27,6 +27,7 @@ export const CreateMarkdown = ({setNoesBoxOpen ,setNotesRefresh ,postId, pageId}
     return (
         <div className="min-h-[80vh] my-2 w-full mx-auto ">
             <div className="bg-white text-black overflow-hidden rounded-xl mt-4">
+                <h2 className="text-center text-2xl font-bold bg-gray-700 text-blue-400 p-1 border-b-[1px] border-blue-400">Type / to get commands</h2>
                 <Editor initialValue={defaultValue} onChange={setContent} />
             </div>
             <div className="flex justify-center mt-2 gap-2"> 

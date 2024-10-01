@@ -78,7 +78,7 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
           immediatelyRender={false}
           initialContent={initialValue}
           extensions={extensions}
-          className='min-h-96 rounded-xl border p-4 editor-content'
+          className='min-h-96 rounded-b-xl p-4 editor-content'
           editorProps={{
             handleDOMEvents: {
               keydown: (_view, event) => handleCommandNavigation(event)
