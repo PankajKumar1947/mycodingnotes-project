@@ -1,7 +1,6 @@
 import { useState } from "react";
 import Editor from "@/Components/editor/editor";
 import { Button } from "@/Components/ui/button";
-import { useNavigate } from "react-router-dom";
 import { createMarkdown } from "@/Services/operations/post";
 
 export const defaultValue = {
@@ -14,25 +13,26 @@ export const defaultValue = {
     ]
 }
 
-export const CreateMarkdown = () => {
-    const navigate=useNavigate();
+export const CreateMarkdown = ({setNoesBoxOpen ,setNotesRefresh ,postId, pageId}:any) => {
     const [content, setContent] = useState<string>('');
-    const postId = window.location.pathname.split("/")[1];
-    const pageId = window.location.pathname.split("/")[3];
     const handleSubmit = async () => {
         try{
-            await createMarkdown(postId,parseInt(pageId),content );;
-            navigate(`/adminpost/${postId}`)
+            await createMarkdown(postId,parseInt(pageId),content );
+            setNoesBoxOpen(false);
+            setNotesRefresh((prev:boolean)=>!prev);
         }catch(error){
             console.log("error in creating the markdonw");
         }
     }
     return (
-        <div className="min-h-[80vh] my-2 w-[90vw] mx-auto ">
+        <div className="min-h-[80vh] my-2 w-full mx-auto ">
             <div className="bg-white text-black overflow-hidden rounded-xl mt-4">
                 <Editor initialValue={defaultValue} onChange={setContent} />
             </div>
-            <div className="flex justify-end mt-4">
+            <div className="flex justify-center mt-2 gap-2"> 
+                <Button
+                    onClick={() => setNoesBoxOpen(false)}
+                    className="bg-red-500 px-10 text-white hover:bg-red-400">Cancel</Button>
                 <Button
                     onClick={handleSubmit}
                     className="bg-green-500 px-10 text-black hover:bg-green-400">Save</Button>

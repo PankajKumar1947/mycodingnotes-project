@@ -9,7 +9,6 @@ import { Home } from './Pages/Home.tsx'
 import { CreatePost} from './Pages/CreatePost.tsx'
 import ViewPost from './Pages/ViewPost.tsx'
 import Profile from './Pages/Profile.tsx'
-import { CreateMarkdown } from './Pages/CreateMarkdown.tsx'
 import { Toaster } from 'react-hot-toast'
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './reducers/index.ts'
@@ -60,13 +59,6 @@ const router = createBrowserRouter([
         element: <ProtectedRoutes>
           <CreatePost/>,
         </ProtectedRoutes>
-      },
-      {
-        path:":postid/createmarkdown/:pageid",
-        element: <ProtectedRoutes>
-          <CreateMarkdown/>
-        </ProtectedRoutes>
-        
       },
       {
         path:"profile",

@@ -43,13 +43,13 @@ const Review = () => {
                     <p className="text-gray-300">Let us know what you think!</p>
                 </div>
                 <div className="p-4 sm:p-8 space-y-4 sm:space-y-8">
-                    <input id="name" type="text" className=" w-full rounded-lg border  px-4 py-2 text-black " placeholder="Enter your name" />
+                    <input id="name" type="text" className=" w-full rounded-lg border  px-4 py-2 border-blue-300 bg-transparent " placeholder="Enter your name" />
 
-                    <input id="email" type="email" className=" w-full  rounded-lg border  px-4 py-2 text-black " placeholder="Enter your email" />
+                    <input id="email" type="email" className=" w-full  rounded-lg border  px-4 py-2 border-blue-300 bg-transparent " placeholder="Enter your email" />
 
                     <div>
                         <label className=" inline-block max-w-full text-yellow-500 font-semibold">Your Review</label>
-                        <textarea id="about" className="w-full rounded-lg border  px-4 py-2 text-black " placeholder="Share your experience with MyCodingNotes..."></textarea>
+                        <textarea id="about" className="w-full rounded-lg border  px-4 py-2 border-blue-300 bg-transparent " placeholder="Share your experience with MyCodingNotes..."></textarea>
                     </div>
 
                     <button className="w-full rounded-lg border border-blue-700 bg-blue-700 p-2 text-center font-medium text-white outline-none transition focus:ring hover:border-blue-700 hover:bg-blue-600 hover:text-white">Submit</button>

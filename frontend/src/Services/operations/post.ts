@@ -23,13 +23,19 @@ const {
 }=MARKDOWN_ENDPOINTS;
 
 export const createNotes=async(data:any,navigate:any)=>{
+    const toastId = toast.loading("Creating Notes ...");
     try{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         const response=await apiConnector("POST",CREATE_NOTE,data,headers as any,{});
-        navigate(`/adminpost/${response.data.data.id}`);
-    }catch(error){
+        toast.success("Notes created successfully");
+        toast.remove(toastId);
+        navigate(`/adminpost/${response.data.data.id}/1`);
+    }catch(error:any){
         console.log("error occured in creating the post",error);
+        toast.error("Notes creation Failed !");
+        toast.remove(toastId);
+        return error?.response
     }
 }
 
@@ -105,12 +111,13 @@ export const createMarkdown=async(postId:string,pageId:number,content:string)=>{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         await apiConnector("POST",CREATE_MARKDOWN(postId,pageId),{content},headers as any,{});
-        toast.success("Notes created successfully");
+        toast.success("Your notes created");
         toast.remove(toastId);
-    }catch(eror){
+    }catch(error:any){
         toast.success("Notes creation Failed !");
         toast.remove(toastId);
         console.log("error occured in creating markdown");
+        return error?.response;
     }
 }
 

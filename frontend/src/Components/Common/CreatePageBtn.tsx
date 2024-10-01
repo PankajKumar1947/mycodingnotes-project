@@ -29,7 +29,7 @@ const CreatePageBtn = ({setNotesRefresh}:any) => {
     <>
       <form
         onSubmit={handleSubmit(onSubmit)} // Correct usage
-        className="flex justify-end items-center gap-2 mt-4 text-base text-black"
+        className="flex justify-end flex-wrap items-center gap-2 mt-4 text-base text-black"
       >
         <input
           type="text"
