@@ -4,6 +4,7 @@ import { MARKDOWN_ENDPOINTS, NOTES_ENDPOINTS, PAGE_ENDPOINTS, POST_ENDPOINTS } f
 
 const {
     GET_ALL_POST_API,
+    GET_POST_KEYWORDS_API,
     MAKE_PRIVATE,
 }=POST_ENDPOINTS
 ;
@@ -22,13 +23,29 @@ const {
 }=MARKDOWN_ENDPOINTS;
 
 export const createNotes=async(data:any,navigate:any)=>{
+    const toastId = toast.loading("Creating Notes ...");
     try{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         const response=await apiConnector("POST",CREATE_NOTE,data,headers as any,{});
-        navigate(`/adminpost/${response.data.data.id}`);
-    }catch(error){
+        toast.success("Notes created successfully");
+        toast.remove(toastId);
+        navigate(`/adminpost/${response.data.data.id}/1`);
+    }catch(error:any){
         console.log("error occured in creating the post",error);
+        toast.error("Notes creation Failed !");
+        toast.remove(toastId);
+        return error?.response
+    }
+}
+
+
+export const getPostByKeywords=async(keywords:string)=>{
+    try{
+        const response=await apiConnector("POST",GET_POST_KEYWORDS_API,{keywords},{} as any,{});
+        return response.data;       
+    }catch(error){
+        console.log("error occured in fetching the post",error);
     }
 }
 
@@ -48,8 +65,9 @@ export const getPage=async(postId:string,pageId:string)=>{
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         const response=await apiConnector("GET",GET_PAGE(postId,pageId),{},headers as any, {});
         return response.data;
-    }catch(error){
+    }catch(error:any){
         console.log("error occured in getting the page");
+        return error?.response;
     }
 }
 
@@ -93,12 +111,13 @@ export const createMarkdown=async(postId:string,pageId:number,content:string)=>{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         await apiConnector("POST",CREATE_MARKDOWN(postId,pageId),{content},headers as any,{});
-        toast.success("Notes created successfully");
+        toast.success("Your notes created");
         toast.remove(toastId);
-    }catch(eror){
+    }catch(error:any){
         toast.success("Notes creation Failed !");
         toast.remove(toastId);
         console.log("error occured in creating markdown");
+        return error?.response;
     }
 }
 

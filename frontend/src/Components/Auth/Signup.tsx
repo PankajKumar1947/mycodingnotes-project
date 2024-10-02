@@ -26,7 +26,7 @@ export const Signup=()=>{
             toast.success("Account creted ... ");
             toast.success("Please Login ... ");
             toast.remove(toastId);
-            navigate("/profile")
+            navigate("/login")
         }catch(error){
             console.log("Error in Signup=",error);
             toast.error("Error")
@@ -73,7 +73,7 @@ export const Signup=()=>{
                     <div className="sm:w-[80%] w-full">
                         <label htmlFor="password">Password</label>
                         <br />
-                        <input type="text" 
+                        <input type="password" 
                         {...register("password", {required:true,minLength:5})}
                         placeholder="password" name="password" className="bg-gray-700 border-[1px] px-4 p-2 w-[100%]  rounded-md" />
                     </div>

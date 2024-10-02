@@ -1,7 +1,5 @@
 import { BsThreeDotsVertical } from "react-icons/bs";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setPageCnt } from "../../slices/pageCountSlice";
 
 import {
     DropdownMenu,
@@ -12,11 +10,9 @@ import {
 import { makePrivate } from "@/Services/operations/post";
 
 const DropDown = ({ note }: any) => {
-    const dispatch = useDispatch();
     const navigate = useNavigate();
     const adminPostHandler = () => {
-        dispatch(setPageCnt(1));
-        navigate(`/adminpost/${note?.id}`);
+        navigate(`/adminpost/${note?.id}/1`);
     }
 
     return (

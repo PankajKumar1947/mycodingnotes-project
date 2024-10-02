@@ -25,8 +25,6 @@ postRouter.get("/bulk",async(c)=>{
                 private:false,
             },
             include:{
-                likes:true,
-                comments:true,
                 pages: true,
             }
         });
@@ -50,6 +48,46 @@ postRouter.get("/bulk",async(c)=>{
         return c.json({
             success:false,
             message:"Internal Server Error in Post Fetching"
+        })
+    }
+})
+
+//fetch post by keywords
+postRouter.post("/getPost",async(c)=>{
+    const prisma=new PrismaClient({
+        datasourceUrl:c.env?.DATABASE_URL
+    }).$extends(withAccelerate());
+
+    const body=await c.req.json();
+
+    try{
+        //1. take out the keywords from body and split by space
+        const serachInput=body.keywords;
+        const keywords=serachInput.toLowerCase().split(' ');
+
+        //2.Check if any keyword matches with post's keywords
+        const posts=await prisma.post.findMany({
+            where:{
+                private:false
+            }
+        });
+
+        const filteredPosts = posts.filter((post) => {
+            return keywords.some((keyword:string) => post.keywords.includes(keyword));
+        });
+        
+        //return the success response
+        return c.json({
+            status:200,
+            success:true,
+            message:"Post fetched",
+            data:filteredPosts
+        })
+    }catch(error){
+        c.status(500);
+        return c.json({
+            success:false,
+            message:"Internal Server error"
         })
     }
 })
@@ -121,56 +159,6 @@ postRouter.post("/createPost",async(c)=>{
         return c.json({
             success:false,
             message:"Internal Server Error in Post"
-        })
-    }
-})
-
-//fetch post by keywords
-postRouter.post("/getPost",async(c)=>{
-    const prisma=new PrismaClient({
-        datasourceUrl:c.env?.DATABASE_URL
-    }).$extends(withAccelerate());
-
-    const body=await c.req.json();
-
-    try{
-        //1. take out the keywords from body and split by space
-        const serachInput=body.keywords;
-
-        const keywords=serachInput.toLowerCase().split(' ');
-
-        //2.Check if any keyword matches with post's keywords
-        const posts=await prisma.post.findMany({
-            where:{
-                private:false
-            }
-        });
-
-        const filteredPosts = posts.filter((post) => {
-            return keywords.some((keyword:string) => post.keywords.includes(keyword));
-        });
-
-
-        if(filteredPosts.length===0){
-            c.status(204);
-            return c.json({
-                success:true,
-                message:"No Post Found"
-            })
-        }
-
-        //return the success response
-        return c.json({
-            status:200,
-            success:true,
-            message:"Post fetched",
-            data:filteredPosts
-        })
-    }catch(error){
-        c.status(500);
-        return c.json({
-            success:false,
-            message:"Internal Server error"
         })
     }
 })
@@ -304,157 +292,6 @@ postRouter.delete("/delete/:post_id",async(c)=>{
     }
 })
 
-//like post route
-postRouter.post("/like",async(c)=>{
-    const prisma=new PrismaClient({
-        datasourceUrl:c.env?.DATABASE_URL
-    }).$extends(withAccelerate());
-
-    const body=await c.req.json();
-    const user_id =c.get('userId')
-    try{
-        //1. extract the post_id from body and userId from token for liking
-        
-        //check wether the post exist or not
-        const post=await prisma.post.findUnique({
-            where:{
-                id:body.post_id
-            }
-        })
-
-        if(!post){
-            c.status(404);
-            return c.json({
-                success:false,
-                message:"Such post doesn't exist",
-            })
-        }
-
-
-        //2. check wether the post_id  and userid already exist in the like model
-        const like=await prisma.like.findFirst({
-            where:{
-                user_id:user_id,
-                post_id:body.post_id
-            },
-            
-        })
-
-        if(!like){
-            //like the post
-            const doLike=await prisma.like.create({
-                data:{
-                    user_id:user_id,
-                    post_id:body.post_id
-                }
-            })
-
-            if(!doLike){
-                c.status(501);
-                return c.json({
-                    success:false,
-                    message:"Error in doing like"
-                })
-            }
-
-            return c.json({
-                status:200,
-                success:true,
-                message:"Post liked",
-                data:doLike
-            })
-        }else{
-            //unlike the post
-            const removeLike=await prisma.like.delete({
-                where:{
-                    id:like.id,
-                    post_id:body.post_id,
-                    user_id:user_id
-                }
-            })
-
-            if(!removeLike){
-                c.status(501);
-                return c.json({
-                    success:false,
-                    message:"Error in disliking the post"
-                })
-            }
-
-            return c.json({
-                status:200,
-                success:true,
-                message:"Like removed",
-                data:removeLike
-            })
-        }
-
-    }catch(error){
-        c.status(500);
-        return c.json({
-            success:false,
-            message:"Internal Server error in liking post"
-        })
-    }
-})
-
-//comment post route
-postRouter.post("/comment/:post_id",async(c)=>{
-    const prisma=new PrismaClient({
-        datasourceUrl:c.env?.DATABASE_URL
-    }).$extends(withAccelerate());
-
-    const body=await c.req.json();
-    const user_id=c.get("userId");
-    const post_id=c.req.param('post_id');
-    try{
-        //extract the post id from the body and userId from the token
-        const post=await prisma.post.findUnique({
-            where:{
-                id:post_id
-            }
-        })
-
-        if(!post){
-            c.status(404);
-            return c.json({
-                success:false,
-                message:"No such post found"
-            })
-        }
-
-        //2. do the comment on this post
-        const comment=await prisma.comment.create({
-            data:{
-                post_id:post_id,
-                user_id:user_id,
-                title:body.title
-            }
-        })
-
-        if(!comment){
-            c.status(501);
-            return c.json({
-                success:false,
-                message:"No comment created"
-            })
-        }
-
-        //return the success response
-        return c.json({
-            success:true,
-            message:"Comment created",
-            data:comment
-        })
-
-    }catch(error){
-        c.status(500);
-        return c.json({
-            success:false,
-            message:"Internal Server error in comment"
-        })
-    }
-})
 
 //bookmark post route
 postRouter.post("/bookmark/:post_id",async(c)=>{

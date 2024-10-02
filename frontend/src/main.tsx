@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { createBrowserRouter,RouterProvider } from 'react-router-dom'
+import { createBrowserRouter,RouterProvider, ScrollRestoration } from 'react-router-dom'
 import { Signup } from './Components/Auth/Signup.tsx'
 import { Login } from './Components/Auth/Login.tsx'
 import Layout from './Components/Layout.tsx'
@@ -9,7 +9,6 @@ import { Home } from './Pages/Home.tsx'
 import { CreatePost} from './Pages/CreatePost.tsx'
 import ViewPost from './Pages/ViewPost.tsx'
 import Profile from './Pages/Profile.tsx'
-import { CreateMarkdown } from './Pages/CreateMarkdown.tsx'
 import { Toaster } from 'react-hot-toast'
 import { configureStore } from '@reduxjs/toolkit'
 import rootReducer from './reducers/index.ts'
@@ -17,15 +16,34 @@ import { Provider } from 'react-redux'
 import ProtectedRoutes from './Components/ProtectedRoutes/ProtectedRoutes.tsx'
 import OpenRoute from './Components/ProtectedRoutes/OpenRoute.tsx'
 import AdminEdit from './Pages/AdminEdit.tsx'
+import Feed from './Pages/Feed.tsx'
+import NotFound from './Components/Error/NotFound.tsx'
+import About from './Pages/About.tsx'
+import Contact from './Components/Contact/Contact.tsx'
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout/>,
+    element: <>
+        <ScrollRestoration/>
+        <Layout/>
+      </> ,
     children:[
       {
         path:"",
-        element:<Home/>,
+        element:<Home/>
+      },
+      {
+        path:"notes",
+        element:<Feed/>,
+      },
+      {
+        path:"about",
+        element:<About/>
+      },
+      {
+        path:"contact",
+        element:<Contact/>
       },
       {
         path:"signup",
@@ -46,13 +64,6 @@ const router = createBrowserRouter([
         </ProtectedRoutes>
       },
       {
-        path:":postid/createmarkdown/:pageid",
-        element: <ProtectedRoutes>
-          <CreateMarkdown/>
-        </ProtectedRoutes>
-        
-      },
-      {
         path:"profile",
         element: <ProtectedRoutes>
             <Profile/>
@@ -61,14 +72,18 @@ const router = createBrowserRouter([
     ]
   },
   {
-    path:"/viewnotes/:postid",
+    path:"/viewnotes/:postid/:pageid",
     element:<ViewPost/>,
   },
   {
-    path:"adminpost/:postid",
+    path:"adminpost/:postid/:pageid",
     element:<ProtectedRoutes>
       <AdminEdit/>
     </ProtectedRoutes>
+  },
+  {
+    path:"*",
+    element:<NotFound/>
   }
 ]);
 

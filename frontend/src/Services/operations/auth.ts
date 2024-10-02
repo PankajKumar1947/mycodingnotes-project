@@ -14,8 +14,9 @@ export const verifytoken =async()=>{
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         const response=await apiConnector("GET",VERIFY_TOKEN,{},headers as any,{})
         return response.data;
-    }catch(error){
+    }catch(error:any){
         console.log("error occured in verifying token");
+        throw error
     }
 }
 
