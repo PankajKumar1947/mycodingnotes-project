@@ -1,3 +1,7 @@
+import teacher from '../../assets/teacher.png'
+import student from '../../assets/student.png'
+import mycodingnotes from '../../assets/mycodingnotes.png'
+import computer from '../../assets/computer.png'
 
 const features = [
     { name: 'Create Notes Easily', description: 'Our editor is designed for simplicity. Format text, embed media, or even add code blocks effortlessly. Your notes, your way' },
@@ -26,26 +30,26 @@ const Features = () => {
                     ))}
                 </dl>
             </div>
-            <div className="grid grid-cols-2 grid-rows-2 gap-4 sm:gap-6 lg:gap-8">
+            <div className="grid grid-cols-2 gap-4 justify-center items-center">
                 <img
                     alt="Walnut card tray with white powder coated steel divider and 3 punchout holes."
-                    src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-01.jpg"
-                    className="rounded-lg border-[1px]"
+                    src={teacher}
+                    className="rounded-lg"
                 />
                 <img
                     alt="Top down view of walnut card tray with embedded magnets and card groove."
-                    src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-02.jpg"
-                    className="rounded-lg border-[1px]"
+                    src={student}
+                    className="rounded-lg"
                 />
                 <img
                     alt="Side of walnut card tray with card groove and recessed card area."
-                    src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-03.jpg"
-                    className="rounded-lg border-[1px]"
+                    src={computer}
+                    className="rounded-lg"
                 />
                 <img
                     alt="Walnut card tray filled with cards and card angled in dedicated groove."
-                    src="https://tailwindui.com/img/ecommerce-images/product-feature-03-detail-04.jpg"
-                    className="rounded-lg border-[1px]"
+                    src={mycodingnotes}
+                    className="rounded-lg bg-gradient-to-bl from-indigo-900 via-black to-blue-900"
                 />
             </div>
         </div>

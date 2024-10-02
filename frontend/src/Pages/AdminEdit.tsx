@@ -80,7 +80,7 @@ const AdminEdit = () => {
                     <h1 className=" text-2xl sm:text-3xl font-bold text-center underline underline-offset-4 pb-4 italic mt-1">{currPageDetails?.tilte}</h1>
                     <div>
                         {
-                            data?.length > 0 ? data.map((markdown: any) => {
+                            data?.length > 0 && data.map((markdown: any) => {
                                 return (
                                     <div
                                         key={markdown.id}
@@ -98,10 +98,7 @@ const AdminEdit = () => {
                                         </div>
                                     </div>
                                 )
-                            }) :
-                                <div className="flex justify-center items-center text-4xl font-bold mt-20">
-                                    <h1>Nothing inside</h1>
-                                </div>
+                            })
                         }
                     </div>
 

@@ -3,6 +3,7 @@ import { IoIosCreate } from "react-icons/io";
 import { BsFillCollectionFill } from "react-icons/bs";
 import { MdPrivacyTip } from "react-icons/md";
 import { TiExport } from "react-icons/ti";
+import macbook from '../../assets/macbook.png'
 
 const steps = [
     {
@@ -53,17 +54,17 @@ const Workflow = () => {
                         <div className="lg:max-w-lg">
                             <p className="text-2xl font-semibold leading-7 text-indigo-600">How It Works ? </p>
                             <h1 className="mt-2 text-3xl font-bold tracking-tight text-blue-600 sm:text-4xl">Getting Started with MyCodingNotes</h1>
-                            <p className="mt-6 text-xl leading-8 text-gray-300">Whether you're a coding enthusiast, a teacher, or a student, MyCodingNotes makes note-taking simple, secure, and shareable. Here's a step-by-step guide on how you can begin using the platform today.</p>
+                            <p className="mt-6 sm:text-xl leading-8 text-gray-300">Whether you're a coding enthusiast, a teacher, or a student, MyCodingNotes makes note-taking simple, secure, and shareable. Here's a step-by-step guide on how you can begin using the platform today.</p>
                         </div>
                     </div>
                 </div>
-                <div className="-ml-12 -mt-12 sm:p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
-                    <img className="w-[48rem] max-w-none rounded-xl bg-gray-900 shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]" src="https://tailwindui.com/img/component-images/dark-project-app-screenshot.png" alt="MyCodingNotes Interface" />
+                <div className="-mt-8 sm:p-12 lg:sticky lg:top-4 lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:overflow-hidden">
+                    <img className="w-full max-w-none rounded-xl  shadow-xl ring-1 ring-gray-400/10 sm:w-[57rem]" src={macbook} alt="MyCodingNotes Interface" />
                 </div>
                 <div className="lg:col-span-2 lg:col-start-1 lg:row-start-2 lg:mx-auto lg:grid lg:w-full lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8">
                     <div className="lg:pr-4">
                         <div className="max-w-xl text-base leading-7 text-gray-300 lg:max-w-lg">
-                            <ul role="list" className="mt-8 space-y-8 text-gray-600">
+                            <ul role="list" className="sm:mt-8 sm:space-y-8 text-gray-600">
                                 {
                                     steps.map((step, ind) => {
                                         return (

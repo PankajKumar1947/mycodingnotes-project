@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { FaCircleArrowDown } from "react-icons/fa6";
 
 const Hero = () => {
     return (
@@ -19,25 +19,25 @@ const Hero = () => {
             </div>
             <div className="relative z-20 mx-auto px-6 lg:px-8">
                 <div className="mx-auto text-center">
-                    <h1 className="text-3xl font-bold tracking-tight sm:text-6xl">
-                        Your notes, your way. 
+                    <h1 className="text-2xl font-bold tracking-tight sm:text-6xl">
+                        Effortless Note-taking, Anytime.
                     </h1>
-                    <h1 className="text-3xl font-bold tracking-tight sm:text-6xl text-blue-600 mt-2 sm:mt-4">
-                    Create, share, and manage with ease. 
+                    <h1 className="text-2xl font-bold tracking-tight sm:text-6xl text-blue-600 mt-2 sm:mt-4">
+                        Create, Organize, and Share Seamlessly.
                     </h1>
-                    <h2 className="mt-6 text-lg leading-8 text-gray-300">
-                        Welcome to MyCodingNotes : Your Hub for Collaborative Learning!
+                    <h2 className="mt-6 sm:text-lg leading-8 text-gray-300">
+                        Welcome to MyCodingNotes: Empowering developers to collaborate, share knowledge, and manage notes with ease.
                     </h2>
                     <div className="mt-10 flex items-center justify-center gap-x-6">
-                        <NavLink to="/signup"
+                        <button
+                            onClick={() => {
+                                const scrollPosition = window.innerWidth <= 840 ? 2000 : 1400;
+                                window.scrollTo(0, scrollPosition);
+                            }}
                             className="isomorphic-link isomorphic-link--internal inline-flex items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-150 hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
                             Get Started
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd"
-                                    d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
-                                    clipRule="evenodd"></path>
-                            </svg>
-                        </NavLink>
+                            <FaCircleArrowDown className="text-2xl text-gray-200"/>
+                        </button>
                     </div>
                 </div>
             </div>

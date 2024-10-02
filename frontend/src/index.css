@@ -84,3 +84,7 @@ body{
   background-color: #24025e;
   border-radius: 10px;
 }
+
+html {
+  scroll-behavior: smooth;
+}

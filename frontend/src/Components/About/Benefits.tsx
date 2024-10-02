@@ -1,4 +1,5 @@
 import { SiNike } from "react-icons/si";
+import { Link } from "react-router-dom";
 
 const benefits = [
     {
@@ -70,7 +71,8 @@ const Benefits = () => {
 
                                 </ul>
                                 <div className="flex justify-end">
-                                    <button className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md"> Let's Get Started</button>
+                                    <Link to={"/notes"}
+                                    className="px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md"> Let's Get Started</Link>
                                 </div>
                             </div>
                         </section>

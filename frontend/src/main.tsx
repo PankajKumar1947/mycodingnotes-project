@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import './index.css'
-import { createBrowserRouter,RouterProvider } from 'react-router-dom'
+import { createBrowserRouter,RouterProvider, ScrollRestoration } from 'react-router-dom'
 import { Signup } from './Components/Auth/Signup.tsx'
 import { Login } from './Components/Auth/Login.tsx'
 import Layout from './Components/Layout.tsx'
@@ -24,7 +24,10 @@ import Contact from './Components/Contact/Contact.tsx'
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Layout/>,
+    element: <>
+        <ScrollRestoration/>
+        <Layout/>
+      </> ,
     children:[
       {
         path:"",

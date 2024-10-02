@@ -29,17 +29,21 @@ const Feed = () => {
         }
     }, [searchQuery])
 
+    useEffect(()=>{
+        window.scrollTo(0,0)
+    },[])
+
     
     return (
         <>
             <div className="mx-auto flex flex-col items-center py-8 sm:pt-24">
                 <div className="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col mb-5 sm:mb-10">
-                    <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl xl:text-6xl text-center font-black leading-10">
-                        Let's not stress for{' '}
-                        <span className="text-blue-800">dfafds</span> designs.
+                    <h1 className="text-3xl sm:text-6xl  text-center font-black leading-10">
+                        Discover and Share <span className="text-indigo-700">NOTES</span> on {' '}
+                        <span className="text-blue-800">MyCoding</span>Notes.
                     </h1>
-                    <p className="mt-5 sm:mt-10 lg:w-10/12 text-gray-200 font-normal text-center text-xl">
-                        A Community-built Notebook.
+                    <p className="mt-5 sm:mt-10 lg:w-10/12 text-gray-200 font-normal text-center sm:text-xl">
+                        Explore and share coding notes — community-driven knowledge at your fingertips.
                     </p>
                 </div>
                 <div className="flex w-11/12 md:w-8/12">
