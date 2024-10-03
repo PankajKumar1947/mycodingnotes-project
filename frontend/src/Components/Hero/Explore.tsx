@@ -43,7 +43,7 @@ const Explore = () => {
         <section className="sm:py-14">
             <div className="max-w-screen-xl mx-auto px-4 gap-12 md:px-8">
                 <div className="text-center">
-                    <h3 className="text-3xl font-bold text-blue-600 sm:text-4xl">Explore Our Notes Templates</h3>
+                    <h3 className="text-3xl font-bold text-blue-600 sm:text-4xl">Explore Our <span className="bg-gradient-to-r from-blue-600 via-red-500 to-yellow-500 inline-block text-transparent bg-clip-text">Notes Templates</span> </h3>
                     <p className="mt-3">
                         Discover the perfect note templates for teachers, students, and developers to make your work more organized and efficient.
                     </p>

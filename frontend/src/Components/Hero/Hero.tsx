@@ -19,10 +19,10 @@ const Hero = () => {
             </div>
             <div className="relative z-20 mx-auto px-6 lg:px-8">
                 <div className="mx-auto text-center">
-                    <h1 className="text-2xl font-bold tracking-tight sm:text-6xl">
+                    <h1 className="text-2xl font-bold tracking-tight sm:text-6xl bg-gradient-to-r from-blue-800 via-red-500 to-indigo-800 inline-block text-transparent bg-clip-text py-2">
                         Effortless Note-taking, Anytime.
                     </h1>
-                    <h1 className="text-2xl font-bold tracking-tight sm:text-6xl text-blue-600 mt-2 sm:mt-4">
+                    <h1 className="text-2xl font-bold tracking-tight sm:text-6xl text-blue-600 mt-2  bg-gradient-to-l from-blue-600 via-yellow-500 to-indigo-400 inline-block text-transparent bg-clip-text py-2">
                         Create, Organize, and Share Seamlessly.
                     </h1>
                     <h2 className="mt-6 sm:text-lg leading-8 text-gray-300">

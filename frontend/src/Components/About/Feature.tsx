@@ -43,7 +43,7 @@ const Feature = () => {
         <section className="py-14">
             <div className="max-w-screen-xl mx-auto px-4 text-center md:px-8">
                 <div className="max-w-2xl mx-auto">
-                    <h3 className=" text-3xl font-bold sm:text-4xl text-blue-600">Key Features</h3>
+                    <h3 className=" text-3xl font-bold sm:text-4xl text-blue-600">Key <span className="bg-gradient-to-r from-blue-600 via-green-500 to-red-500 inline-block text-transparent bg-clip-text py-1">Features</span> </h3>
                     <p className="mt-3 sm:text-lg">
                         Transform the way you code, create, and collaborate with MyCodingNotes.
                     </p>

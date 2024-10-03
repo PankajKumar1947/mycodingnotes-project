@@ -7,7 +7,7 @@ export const Footer = () => {
     return (
         <footer className="w-full py-4 mt-10 px-4 sm:px-10 bg-gradient-to-b from-transparent via-indigo-950 to-black">
             <NavLink to={"/"}  className="flex justify-center ">
-                <h1 className="text-3xl sm:text-4xl font-bold">My Coding Notes</h1>
+                <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text py-1">My Coding Notes</h1>
             </NavLink>
             <ul className="sm:text-lg flex items-center justify-center flex-wrap gap-4 md:gap-12 transition-all duration-500 py-8 mb-10 border-b border-gray-200">
                 <li><Link to={"/"} className=" ">Home</Link></li>
