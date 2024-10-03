@@ -38,3 +38,11 @@ export const COMMENT_ENDPOINTS={
     CREATE_COMMENT:(pageId:number)=>BASE_URL+`/page/comment/${pageId}`,
     GET_COMMENT:(pageId:number)=>BASE_URL+`/page/comment/${pageId}`
 }
+
+//doubt, newsletter and review endpoints
+export const COMMON_ENDPOINTS={
+    CREATE_REVIEW:BASE_URL+"/common/review",
+    GET_REVIEW:BASE_URL+"/common/review",//later
+    CREATE_NEWSLETTER:BASE_URL+"/common/newsletter",
+    CREATE_DOUBT:BASE_URL+"/common/contact"//use email
+}

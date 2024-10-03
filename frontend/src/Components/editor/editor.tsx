@@ -89,7 +89,7 @@ export default function Editor({ initialValue, onChange }: EditorProps) {
               handleImageDrop(view, event, moved, uploadFn),
             attributes: {
               class:
-                'prose dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full'
+                'prose dark:prose-invert prose-headings:font-title font-default focus:outline-none max-w-full min-h-[400px]'
             }
           }}
           onUpdate={({ editor }) => {
