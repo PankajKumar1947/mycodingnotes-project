@@ -20,6 +20,7 @@ import Feed from './Pages/Feed.tsx'
 import NotFound from './Components/Error/NotFound.tsx'
 import About from './Pages/About.tsx'
 import Contact from './Components/Contact/Contact.tsx'
+import Explore from './Components/Hero/Explore.tsx'
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
       {
         path:"contact",
         element:<Contact/>
+      },
+      {
+        path:"template",
+        element:<Explore/>
       },
       {
         path:"signup",

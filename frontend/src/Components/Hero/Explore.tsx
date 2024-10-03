@@ -11,13 +11,13 @@ const Explore = () => {
             icon: <FaChalkboardTeacher className="text-6xl text-indigo-600" />,
             title: "Teacher's Lesson Plan",
             desc: "Create organized lesson plans with easy-to-follow sections for topics, key takeaways, and resources.",
-            link: "viewnotes/10e24dd3-46b6-4f49-a594-15022f8459a0/1"
+            link: "/viewnotes/10e24dd3-46b6-4f49-a594-15022f8459a0/1"
         },
         {
             icon: <PiStudentBold className="text-6xl text-indigo-600" />,
             title: "Student Study Notes",
             desc: "Track your learning journey with structured notes that help you review topics and concepts with ease.",
-            link: "viewnotes/27c23810-bdd2-446b-8867-7916c699cfe5/1",
+            link: "/viewnotes/27c23810-bdd2-446b-8867-7916c699cfe5/1",
         },
         {
             icon: <SiCodersrank className="text-6xl text-indigo-600" />,
@@ -29,13 +29,13 @@ const Explore = () => {
             icon: <FaSheetPlastic className="text-3xl sm:text-6xl text-indigo-600" />,
             title: "Cheat Sheet Template",
             desc: "Compile important coding syntax, commands, or key concepts into concise cheat sheets for quick reference.",
-            link: "viewnotes/a6026454-1c2b-41fa-8782-15c1df391e2d/1",
+            link: "/viewnotes/a6026454-1c2b-41fa-8782-15c1df391e2d/1",
         },
         {
             icon: <FcTodoList className="text-3xl sm:text-6xl text-indigo-600" />,
             title: "Daily Routine Template",
             desc: "Create a daily routine template with detailed instructions and clear reminders to help you stay on track.",
-            link: "viewnotes/baebc770-0005-4960-a6d4-5bff09bd55d2/1",
+            link: "/viewnotes/baebc770-0005-4960-a6d4-5bff09bd55d2/1",
         },
     ];
 
@@ -43,7 +43,7 @@ const Explore = () => {
         <section className="sm:py-14">
             <div className="max-w-screen-xl mx-auto px-4 gap-12 md:px-8">
                 <div className="text-center">
-                    <h3 className="text-3xl font-bold text-blue-600 sm:text-4xl">Explore Our Notes Templates</h3>
+                    <h3 className="text-3xl font-bold text-blue-600 sm:text-4xl">Explore Our <span className="bg-gradient-to-r from-blue-600 via-red-500 to-yellow-500 inline-block text-transparent bg-clip-text">Notes Templates</span> </h3>
                     <p className="mt-3">
                         Discover the perfect note templates for teachers, students, and developers to make your work more organized and efficient.
                     </p>

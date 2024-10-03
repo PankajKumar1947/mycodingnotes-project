@@ -28,17 +28,12 @@ const Feed = () => {
             getPostKeywords();
         }
     }, [searchQuery])
-
-    useEffect(()=>{
-        window.scrollTo(0,0)
-    },[])
-
     
     return (
         <>
             <div className="mx-auto flex flex-col items-center py-8 sm:pt-24">
                 <div className="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col mb-5 sm:mb-10">
-                    <h1 className="text-3xl sm:text-6xl  text-center font-black leading-10">
+                    <h1 className="text-3xl sm:text-6xl  text-center font-black leading-10 bg-gradient-to-r from-blue-600 via-red-500 to-yellow-400 inline-block text-transparent bg-clip-text">
                         Discover and Share <span className="text-indigo-700">NOTES</span> on {' '}
                         <span className="text-blue-800">MyCoding</span>Notes.
                     </h1>

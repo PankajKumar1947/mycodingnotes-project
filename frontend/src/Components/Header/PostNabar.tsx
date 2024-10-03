@@ -32,7 +32,7 @@ const PostNabar = () => {
   return (
     <div className="bg-black py-2 sticky top-0 z-50">
       <div className="w-[90vw] mx-auto flex justify-between items-center">
-        <NavLink to="/notes" className="font-bold text-xl sm:text-2xl">
+        <NavLink to="/notes" className="font-bold text-xl sm:text-2xl bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">
           MyCodingNotes
         </NavLink>
         <div className="flex justify-center gap-1 sm:gap-2 items-center">
