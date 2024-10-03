@@ -1,7 +1,24 @@
+import { createNewsLetter } from "@/Services/operations/common";
+import { useState } from "react";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { RiSpam2Fill } from "react-icons/ri";
 
 const NewsLetter = () => {
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState("");
+    const [subscribed, setSubscribed] = useState(false);
+    const newsLetterHandler = async(e:React.FormEvent)=>{
+        e.preventDefault();
+        if(email=="")
+            return ;
+        setLoading(true);
+        const response = await createNewsLetter(email);
+        if(response?.status==200){
+            setSubscribed(true);
+            setEmail("");
+        }
+        setLoading(false);
+    }
     return (
         <div className="relative isolate overflow-hidden py-8 sm:py-24 lg:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -13,7 +30,9 @@ const NewsLetter = () => {
                         <p className="mt-4 text-lg leading-8 text-gray-400">
                             Join our community and receive the latest notes, updates, and coding tutorials delivered to your inbox. Stay informed and enhance your coding knowledge.
                         </p>
-                        <div className="mt-6 flex max-w-md gap-x-4">
+                        <form
+                        onSubmit={newsLetterHandler}
+                        className="mt-6 flex max-w-md gap-x-4">
                             <label htmlFor="email-address" className="sr-only">Email address</label>
                             <input
                                 id="email-address"
@@ -21,16 +40,19 @@ const NewsLetter = () => {
                                 type="email"
                                 autoComplete="email"
                                 required
+                                onChange={(e)=>setEmail(e.target.value)}
                                 className="min-w-0 flex-auto rounded-md border border-blue-300 bg-transparent px-3.5 py-2 shadow-sm  sm:text-sm sm:leading-6"
                                 placeholder="Enter your email"
                             />
                             <button
                                 type="submit"
-                                className="flex-none rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className={`flex-none rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${loading || subscribed ? "cursor-not-allowed opacity-50" : ""}`}
                             >
-                                Subscribe
+                                {
+                                    loading ? "Subscribing..." : subscribed ? "Subscribed" : "Subscribe" 
+                                }
                             </button>
-                        </div>
+                        </form>
                     </div>
                     <dl className="grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:pt-2">
                         <div className="flex flex-col items-start">
