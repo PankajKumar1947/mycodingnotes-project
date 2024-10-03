@@ -46,7 +46,7 @@ export const Login=()=>{
 
     return (
         <div className="flex justify-center items-center my-6">
-            <div className="sm:w-[80vw] w-[95%] bg-black overflow-hidden border-[1px] rounded-lg grid sm:grid-cols-2 items-center">
+            <div className="sm:w-[80vw] w-[95%] bg-gradient-to-tr from-blue-900 via-black to-indigo-900 overflow-hidden border-[1px] border-blue-800 rounded-lg grid sm:grid-cols-2 items-center">
                 <div className="hidden sm:flex flex-col justify-center items-center gap-4 p-6">
                     <h1 className="text-2xl font-bold">MyCodingNotes</h1>
                     <img src={login} alt="mycodingnotes signup image" />
@@ -54,14 +54,14 @@ export const Login=()=>{
 
                 <form 
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col items-center p-6 py-10  gap-4 bg-gray-900 h-full justify-center ">
+                className="flex flex-col items-center p-6 py-10  gap-4 h-full justify-center ">
                     <h1 className="text-2xl font-bold">Login here</h1>
                     <div className="sm:w-[80%] w-full">
                         <label htmlFor="username">Username</label>
                         <br />
                         <input type="text" placeholder="username"
                         {...register("username",{required:true})}
-                        name="username" className="bg-gray-700 border-[1px] px-4 p-2 w-[100%]  rounded-md" />
+                        name="username" className="bg-transparent border-[1px] border-blue-600 px-4 p-2 w-[100%]  rounded-md" />
                     </div>
                     
                     <div className="sm:w-[80%] w-full">
@@ -69,11 +69,11 @@ export const Login=()=>{
                         <br />
                         <input type="password" placeholder="password"
                         {...register("password",{required:true})}
-                        name="password" className="bg-gray-700 border-[1px] px-4 p-2 w-[100%]  rounded-md" />
+                        name="password" className="bg-transparent border-[1px] border-blue-600 px-4 p-2 w-[100%]  rounded-md" />
                     </div>
                     
 
-                    <input type="submit" value={"Login"} className="bg-black p-2 rounded-full sm:w-[80%] w-full font-bold cursor-pointer hover:bg-gray-800" />
+                    <input type="submit" value={"Login"} className="bg-indigo-600 p-2 rounded-full sm:w-[80%] w-full font-bold cursor-pointer hover:bg-indigo-700" />
                     <p>
                         New to MyCodingNotes ? <NavLink to={"/signup"} className={"italic hover:underline text-blue-500"}>Create account here</NavLink>
                     </p>

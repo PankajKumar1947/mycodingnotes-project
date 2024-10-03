@@ -37,7 +37,7 @@ export const Signup=()=>{
     
     return (
         <div className="flex justify-center items-center my-6">
-            <div className="sm:w-[80vw] w-[95%] bg-black overflow-hidden border-[1px] rounded-lg grid sm:grid-cols-2 items-center">
+            <div className="sm:w-[80vw] w-[95%] bg-gradient-to-tr from-blue-900 via-black to-indigo-900 overflow-hidden border-[1px] border-blue-900 rounded-lg grid sm:grid-cols-2 items-center">
                 <div className="hidden sm:flex flex-col justify-center items-center gap-4 p-6">
                     <h1 className="text-2xl font-bold">Welcome to MyCodingNotes</h1>
                     <img src={signup} alt="mycodingnotes signup image" />
@@ -45,21 +45,21 @@ export const Signup=()=>{
 
                 <form 
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col items-center p-6 py-10  gap-4 bg-gray-900 h-full justify-center ">
+                className="flex flex-col items-center p-6 py-10  gap-4  h-full justify-center ">
                     <h1 className="text-2xl font-bold">Create your account</h1>
                     <div className="sm:w-[80%] w-full">
                         <label htmlFor="username">Username</label>
                         <br />
                         <input type="text" 
                         {...register("username",{required:true,maxLength:15})}
-                        placeholder="username" name="username"  className="bg-gray-700 border-[1px] px-4 p-2 w-[100%]  rounded-md" />
+                        placeholder="username" name="username"  className="bg-transparent border-[1px] border-blue-600 px-4 p-2 w-[100%]  rounded-md" />
                     </div>
                     <div className="sm:w-[80%] w-full">
                         <label htmlFor="fullname">Fullname</label>
                         <br />
                         <input type="text" 
                         {...register("fullname",{required:true,maxLength:20})}
-                        placeholder="fullname" name="fullname" className="bg-gray-700 border-[1px] px-4 p-2 w-[100%]  rounded-md" />
+                        placeholder="fullname" name="fullname" className="bg-transparent border-[1px] border-blue-600 px-4 p-2 w-[100%]  rounded-md" />
                     </div>
                     <div className="sm:w-[80%] w-full">
                         <label htmlFor="email">Email</label>
@@ -68,17 +68,17 @@ export const Signup=()=>{
                         {...register("email",{required:true})}
                         placeholder="email" 
                         name="email"
-                        className="bg-gray-700 border-[1px] px-4 p-2 w-[100%]  rounded-md" />
+                        className="bg-transparent border-[1px] border-blue-600 px-4 p-2 w-[100%]  rounded-md" />
                     </div>
                     <div className="sm:w-[80%] w-full">
                         <label htmlFor="password">Password</label>
                         <br />
                         <input type="password" 
                         {...register("password", {required:true,minLength:5})}
-                        placeholder="password" name="password" className="bg-gray-700 border-[1px] px-4 p-2 w-[100%]  rounded-md" />
+                        placeholder="password" name="password" className="bg-transparent border-[1px] border-blue-600 px-4 p-2 w-[100%]  rounded-md" />
                     </div>
 
-                    <input type="submit" value={"Signup"} name="submit" className="bg-black p-2 rounded-full sm:w-[80%] w-full font-bold cursor-pointer hover:bg-gray-800" />
+                    <input type="submit" value={"Signup"} name="submit" className="bg-indigo-600 p-2 rounded-full sm:w-[80%] w-full font-bold cursor-pointer hover:bg-indigo-700" />
                     <p>
                         Already have an account ? <NavLink to={"/login"} className={"italic hover:underline text-blue-500"}> Login here</NavLink>
                     </p>
