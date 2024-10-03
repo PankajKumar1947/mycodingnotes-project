@@ -2,7 +2,7 @@ const Introduction = () => {
     return (
         <div className="gap-16 text-gray-300  items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
             <div className="sm:text-lg space-y-2">
-                <h2 className=" text-4xl text-blue-700 font-extrabold">Welcome to <span className="bg-gradient-to-r from-blue-600 via-green-500 to-indigo-500 inline-block text-transparent bg-clip-text py-1">MyCodingNotes</span> </h2>
+                <h2 className=" text-4xl text-blue-700 font-extrabold">Welcome to MyCodingNotes </h2>
                 <p className="">
                     MyCodingNotes is your go-to platform for creating, organizing, and
                     sharing notes in an efficient and user-friendly way. Whether you're
@@ -12,7 +12,7 @@ const Introduction = () => {
                     organized.
                 </p>
                 <div className="mt-40">
-                    <h2 className="text-4xl text-blue-700 font-extrabold mt-4 mb-1 bg-gradient-to-r from-red-600 via-yellow-500 to-indigo-500 inline-block text-transparent bg-clip-text py-1">Our Mission</h2>
+                    <h2 className="text-4xl text-blue-700 font-extrabold mt-4 mb-1 ">Our Mission</h2>
                     <p>
                         At MyCodingNotes, our mission is simple: to empower users by providing a seamless note-taking experience that combines the flexibility of Markdown with the power of modern web technologies. We believe that notes are more than just text—they are ideas, insights, and knowledge that deserve a platform that keeps them accessible, organized, and secure.
                     </p>

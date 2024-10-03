@@ -62,7 +62,7 @@ export const Navbar = () => {
             <nav className="bg-[#181835] sticky top-0 z-50 border-gray-200 py-2.5">
                 <div className="flex flex-wrap items-center justify-between max-w-screen-xl px-4 mx-auto">
                     <NavLink to={"/"} className="flex items-center">
-                        <span className="self-center text-2xl font-bold whitespace-nowrap text-white bg-gradient-to-r from-blue-600 via-green-500 to-indigo-400 inline-block text-transparent bg-clip-text">MyCodingNotes</span>
+                        <span className="self-center text-2xl font-bold whitespace-nowrap text-white ">MyCodingNotes</span>
                     </NavLink>
                     <div className="flex items-center lg:order-2">
                         {
