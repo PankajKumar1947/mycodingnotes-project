@@ -4,32 +4,40 @@ import { BsFillCollectionFill } from "react-icons/bs";
 import { MdPrivacyTip } from "react-icons/md";
 import { TiExport } from "react-icons/ti";
 import macbook from '../../assets/macbook.png'
+import { NavLink } from "react-router-dom";
+
+const isLoggedIn =  JSON.parse(localStorage.getItem("isLoggedIn") || "false");
 
 const steps = [
     {
         title: "1. Sign Up",
         description: "Start your journey by creating a free account. Signing up gives you your own dashboard where you can manage, organize, and create coding notes securely.",
         icon: <SiGnuprivacyguard className="text-3xl sm:text-6xl text-indigo-600" />,
+        link: isLoggedIn ? "profile" : "signup"
     },
     {
         title: "2. Create a Note",
         description: "Use our powerful markdown editor to craft and format your notes with ease. Add code snippets, tags, or even embed resources like images and links.",
         icon: <IoIosCreate className="text-3xl sm:text-6xl text-indigo-600" />,
+        link: isLoggedIn ? "profile" : "signup"
     },
     {
         title: "3. Organize Notes",
         description: "Group your notes by category, tag them for easy access, and use the search functionality to quickly find relevant notes.",
         icon: <BsFillCollectionFill className="text-3xl sm:text-6xl text-indigo-600" />,
+        link: ""
     },
     {
         title: "4. Set Privacy",
         description: "Decide whether you want to keep your notes private for personal use or share them publicly. Perfect for teachers sharing notes or developers collaborating.",
         icon: <MdPrivacyTip className="text-3xl sm:text-6xl text-indigo-600" />,
+        link: "",
     },
     {
         title: "5. Share or Export",
         description: "Sharing notes with peers or exporting them for offline access is quick and easy. Use shareable links or export notes as PDFs for presentations or personal archives.",
         icon: <TiExport className="text-3xl sm:text-6xl text-indigo-600" />,
+        link: "",
     },
 ];
 const Workflow = () => {
@@ -68,7 +76,7 @@ const Workflow = () => {
                                 {
                                     steps.map((step, ind) => {
                                         return (
-                                            <li
+                                            <NavLink to={step.link}
                                                 key={ind}
                                                 className="flex gap-x-3 hover:border-[0.5px] border-[1px] border-transparent cursor-pointer hover:border-indigo-500 rounded-lg p-4">
                                                 <span className="text-gray-400">
@@ -77,7 +85,7 @@ const Workflow = () => {
                                                         <strong className="font-semibold text-white text-xl"> {step.title} </strong>
                                                     </span>
                                                     {step.description}</span>
-                                            </li>
+                                            </NavLink>
                                         )
                                     })
                                 }

@@ -27,7 +27,7 @@ const TextEditor = ({ content, editOption, id ,setNotesRefresh,setEditOption}: a
         <div className=" text-black overflow-hidden rounded-xl">
             {
                 editOption.editOption && editOption.markdownId === id ? <div className='w-full'>
-                    <h2 className="text-center text-2xl font-bold bg-gray-700 text-blue-400 p-1 border-b-[1px] border-blue-400">Type / to get commands</h2>
+                    <h2 className="text-center text-xl font-bold bg-[#186d89] text-white p-1 border-b-[1px] border-blue-400">Type / to get commands <span className="text-orange-400">OR</span> select the text</h2>
                     <Editor initialValue={defaultValue} onChange={setContent} />
                     <div className="text-center py-2">
                         <Button

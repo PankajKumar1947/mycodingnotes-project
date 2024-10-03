@@ -23,6 +23,10 @@ const navmenu = [
         name: "Contact",
         path: "/contact"
     },
+    {
+        name: "Templates",
+        path: "/template"
+    }
 ];
 
 export const Navbar = () => {
@@ -75,13 +79,13 @@ export const Navbar = () => {
                         }
                         <button
                             onClick={toggleNav} // Toggle mobile menu on click
-                            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                            className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
                             aria-controls="mobile-menu-2">
                             <RxHamburgerMenu />
                         </button>
                     </div>
                     <div className={`${navOpen ? "block" : "hidden"} items-center justify-between w-full lg:flex lg:w-auto lg:order-1`} id="mobile-menu">
-                        <ul className="flex flex-col font-medium lg:flex-row lg:space-x-8 lg:mt-0 absolute sm:relative right-0 bg-[#181835] px-4">
+                        <ul className="flex flex-col font-medium lg:flex-row lg:space-x-4 lg:mt-0 absolute lg:relative right-0 bg-[#181835] px-4">
                             {
                                 navmenu.map((item, index) => (
                                     <li key={index}>
@@ -89,7 +93,7 @@ export const Navbar = () => {
                                             onClick={()=>setNavOpen(false)}
                                             to={item.path}
                                             className={({ isActive }) =>
-                                                `block py-2 px-8 sm:px-2 border-b-[1px] sm:border-none ${isActive ? 'text-blue-500 font-semibold' : 'hover:text-blue-500'}`
+                                                `block py-2 px-8 lg:px-2 border-b-[1px] sm:border-none ${isActive ? 'text-blue-500 font-semibold' : 'hover:text-blue-500'}`
                                             }>
                                             {item.name}
                                         </NavLink>

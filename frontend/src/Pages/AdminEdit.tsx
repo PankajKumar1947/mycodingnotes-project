@@ -103,10 +103,11 @@ const AdminEdit = () => {
                     </div>
 
                     {
-                        currPageDetails?.page_id != undefined && !notesBoxOpen && <div className="text-center">
+                        currPageDetails?.page_id != undefined && !notesBoxOpen && <div className="text-center my-2">
+                            <p className="text-blue-500 font-semibold">Click add button to add notes to this page</p>
                             <Button
                                 onClick={() => setNotesBoxOpen(true)}
-                                className="bg-green-400 hover:bg-green-500 text-black">Add new notes</Button>
+                                className="bg-green-400 hover:bg-green-500 text-black mt-1">Add Notes</Button>
                         </div>
                     }
 
@@ -120,7 +121,10 @@ const AdminEdit = () => {
 
                     {/* show the add new page in the last page */}
                     {
-                        (pageCnt == page.pages?.length || page.pages?.length === undefined) && <CreatePageBtn setNotesRefresh={setNotesRefresh} />
+                        (pageCnt == page.pages?.length || page.pages?.length === undefined) && <>
+                            <CreatePageBtn setNotesRefresh={setNotesRefresh} />
+                            <p className="text-blue-500 font-semibold text-end">This will add new page</p>
+                        </>
                     }
                 </div>
             }

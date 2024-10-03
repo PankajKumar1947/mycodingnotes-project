@@ -28,11 +28,6 @@ const Feed = () => {
             getPostKeywords();
         }
     }, [searchQuery])
-
-    useEffect(()=>{
-        window.scrollTo(0,0)
-    },[])
-
     
     return (
         <>
