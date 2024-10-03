@@ -89,3 +89,23 @@ model Bookmark{
   post        Post[]
 }
 
+model Review{
+  id          String  @id @default(uuid())
+  name        String
+  email       String
+  message     String
+}
+
+model NewsLetter{
+  id          String  @id @default(uuid())
+  email       String
+}
+
+model Contact{
+  id          String  @id @default(uuid())
+  firstname   String
+  lastname    String
+  contact     String
+  email       String
+  message     String
+}
