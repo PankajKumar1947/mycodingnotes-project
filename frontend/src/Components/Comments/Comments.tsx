@@ -43,7 +43,9 @@ const Comments = ({ pageId }: any) => {
         {
           commentData?.length > 0 && commentData.map((comment: any) => {
             return (
-              <div className='my-2 mt-4'>
+              <div
+              key={comment?.id}
+              className='my-2 mt-4'>
                 <div className='flex gap-2 items-center text-indigo-400'>
                   <div>
                     <FaUserCircle className='text-4xl' />

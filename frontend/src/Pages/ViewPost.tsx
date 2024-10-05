@@ -8,6 +8,7 @@ import ViewContent from "@/Components/Codeblock/ViewContent";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { useNavigate } from "react-router-dom";
 import Comments from "@/Components/Comments/Comments";
+import { Helmet } from "react-helmet-async";
 
 const ViewPost = () => {
   const [data, setData] = useState([]);
@@ -39,6 +40,12 @@ const ViewPost = () => {
     fetchPageDetails();
   }, [pageid])
   return (
+    <>
+    <Helmet>
+      <title>{pageTitle ? `${postTitle} - ${pageTitle}` : `MyCodingNotes - notes`}</title>
+      <link rel="canonical" href={`https://mycodingnotes.tech/viewnotes/${postId}/${pageid}`} />
+    </Helmet>
+    
     <div className='min-h-[90vh]  mx-auto'>
       <PostNabar />
       {
@@ -74,6 +81,7 @@ const ViewPost = () => {
         </div>
       }
     </div>
+    </>
   )
 }
 

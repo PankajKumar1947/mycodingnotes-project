@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { useForm, SubmitHandler } from "react-hook-form";
 
 type Input={
@@ -18,6 +19,11 @@ const Contact = () => {
     }    
 
     return (
+        <>
+        <Helmet>
+            <title>MyCodingNotes - Contact</title>
+            <link rel="canonical" href="https://mycodingnotes.tech/contact" />
+        </Helmet>
         <div className="isolate  px-6 py-24  lg:px-8 relative text-white">
             <div className="inset-x-0  z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]" aria-hidden="true">
                 <div className="relative left-1/2 -z-10 aspect-[1155/678] h-[100vh] sm:h-[80vh] w-full -translate-x-1/2 rotate-[30deg] bg-gradient-to-tr from-[#5837d1] to-[#1405dc] opacity-30 sm:left-[calc(50%-40rem)] sm:w-[72.1875rem]"
@@ -90,6 +96,7 @@ const Contact = () => {
                 </form>
             </div>
         </div>
+        </>
     );
 };
 

@@ -3,6 +3,7 @@ import ViewNotes from "@/Components/Feed/ViewNotes";
 import { Button } from "@/Components/ui/button";
 import { CiSearch } from "react-icons/ci";
 import { getAllNotes, getPostByKeywords } from "..//Services/operations/post";
+import { Helmet } from "react-helmet-async";
 
 const keywords=["All","Javascript","Typescript","React","Nodejs","Express","MongoDB","SQL"]
 const Feed = () => {
@@ -31,6 +32,10 @@ const Feed = () => {
     
     return (
         <>
+            <Helmet>
+                <title>MyCodingNotes - Notes</title>
+                <link rel="canonical" href="https://mycodingnotes.tech/notes" />
+            </Helmet>
             <div className="mx-auto flex flex-col items-center py-8 sm:pt-24">
                 <div className="w-11/12 sm:w-2/3 lg:flex justify-center items-center flex-col mb-5 sm:mb-10">
                     <h1 className="text-3xl sm:text-6xl  text-center font-black leading-10 bg-gradient-to-r from-blue-600 via-red-500 to-yellow-400 inline-block text-transparent bg-clip-text">

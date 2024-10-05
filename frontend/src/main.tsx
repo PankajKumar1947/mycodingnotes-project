@@ -20,7 +20,8 @@ import Feed from './Pages/Feed.tsx'
 import NotFound from './Components/Error/NotFound.tsx'
 import About from './Pages/About.tsx'
 import Contact from './Components/Contact/Contact.tsx'
-import Explore from './Components/Hero/Explore.tsx'
+import { HelmetProvider } from 'react-helmet-async'
+import Template from './Pages/Template.tsx'
 
 const router = createBrowserRouter([
   {
@@ -48,7 +49,7 @@ const router = createBrowserRouter([
       },
       {
         path:"template",
-        element:<Explore/>
+        element:<Template/>
       },
       {
         path:"signup",
@@ -98,9 +99,11 @@ const store=configureStore({
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <Provider store={store}>
-      <RouterProvider router={router} />
-      <Toaster />
-    </Provider>
+    <HelmetProvider>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+        <Toaster />
+      </Provider>
+    </HelmetProvider>
   </React.StrictMode>,
 )
