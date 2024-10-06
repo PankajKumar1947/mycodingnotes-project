@@ -1,3 +1,6 @@
+import mycodingnotes from '../../assets/mycodingnotes-about.jpg'
+import mycodingnotes2 from '../../assets/mycodingnotes-about2.jpg'
+
 const Introduction = () => {
     return (
         <div className="gap-16 text-gray-300  items-center py-8 px-4 mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
@@ -21,13 +24,13 @@ const Introduction = () => {
             <div className="grid grid-cols-2 gap-4 mt-8">
                 <img
                     className="w-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png"
-                    alt="office content 1"
+                    src={mycodingnotes}
+                    alt="mycoding notes about image"
                 />
                 <img
                     className="mt-4 w-full lg:mt-10 rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png"
-                    alt="office content 2"
+                    src={mycodingnotes2}
+                    alt="mycoding notes about image"
                 />
             </div>
         </div>

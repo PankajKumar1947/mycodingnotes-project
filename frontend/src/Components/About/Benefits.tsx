@@ -50,7 +50,7 @@ const Benefits = () => {
                             <div className="sm:w-[50%]">
                                 <img
                                     src={benefit.image}
-                                    alt="Platform UI"
+                                    alt="benefite of mycodingnotes"
                                     className="rounded-lg shadow-lg"
                                 />
                             </div>
