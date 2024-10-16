@@ -106,16 +106,11 @@ export const makePrivate=async(postId:string)=>{
 }
 
 export const createMarkdown=async(postId:string,pageId:number,content:string)=>{
-    const toastId = toast.loading("Creating Notes...");
     try{
         const token = localStorage.getItem('token');
         const headers = token ? { Authorization: JSON.parse(token) } : {};
         await apiConnector("POST",CREATE_MARKDOWN(postId,pageId),{content},headers as any,{});
-        toast.success("Your notes created");
-        toast.remove(toastId);
     }catch(error:any){
-        toast.success("Notes creation Failed !");
-        toast.remove(toastId);
         console.log("error occured in creating markdown");
         return error?.response;
     }

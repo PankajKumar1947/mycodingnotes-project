@@ -5,6 +5,7 @@ import { imageDb } from "@/Services/firebase/Config";
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import { v4 } from 'uuid';
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 interface NotesData {
   title: string;
@@ -27,6 +28,7 @@ export const CreatePost = () => {
   const onSubmit: SubmitHandler<NotesData> = async (data) => {
     const keywordArray = data.keyword.split(' ').filter(keyword => keyword);
     data.keywords = keywordArray;
+    const toastId = toast.loading("Creating Notes...");
     try {
       //uploading the image on firebase
       if (img) {
@@ -37,7 +39,11 @@ export const CreatePost = () => {
   
       }
       await createNotes(data, navigate);
+      toast.success("Your notes created");
+      toast.remove(toastId);
     } catch (error) {
+      toast.error("Notes creation Failed !");
+      toast.remove(toastId);
       console.log("notes creation failed", error);
     }
   };
